@@ -7,7 +7,7 @@ public class Service {
 
     private int Service_id;             //售后id
     private String Service_content;     //售后情况
-    private Timestamp Service_date;     //售后时间
+    private String Service_date;        //售后时间
     private int Service_userid;         //处理员工id，对应员工表
     private int Service_Situation;      //售后评价，（1最低，5最高）
     private int Service_productid;      //售后相关产品，对应产品表
@@ -29,11 +29,11 @@ public class Service {
         Service_content = service_content;
     }
 
-    public Timestamp getService_date() {
+    public String getService_date() {
         return Service_date;
     }
 
-    public void setService_date(Timestamp service_date) {
+    public void setService_date(String service_date) {
         Service_date = service_date;
     }
 

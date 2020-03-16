@@ -8,12 +8,12 @@ public class Customer {
     private int customer_id;            //客户表id，客户唯一标识
     private String customer_name;       //客户姓名，可以重复
     private int customer_gender;        //客户性别，（0为女，1为男）
-    private String customer_number;        //客户联系电话
+    private String customer_number;    //客户联系电话
     private int customer_userid;        //客户负责人，对应员工表
     private double customer_money;      //客户消费总金额，默认为0
     private int customer_jurisdiction;  //客户级别id，对应级别表
     private String customer_address;    //客户家庭住址
-    private Date customer_birthday;     //客户生日
+    private String customer_birthday;   //客户生日
     private String customer_text;       //客户备注
 
 
@@ -81,11 +81,11 @@ public class Customer {
         this.customer_address = customer_address;
     }
 
-    public Date getCustomer_birthday() {
+    public String getCustomer_birthday() {
         return customer_birthday;
     }
 
-    public void setCustomer_birthday(Date customer_birthday) {
+    public void setCustomer_birthday(String customer_birthday) {
         this.customer_birthday = customer_birthday;
     }
 

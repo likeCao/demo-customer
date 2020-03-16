@@ -1,7 +1,5 @@
 package com.class1804.democustomer.pojo;
 
-import java.sql.Timestamp;
-
 //客户购买信息表
 public class Customer_dynamic {
 
@@ -10,7 +8,7 @@ public class Customer_dynamic {
     private int cd_customerid;      //客户id,对应客户表
     private int cd_userid;          //负责人id,对应员工表
     private int cd_productid;       //产品id,对应产品表
-    private Timestamp cd_date;      //购买时间
+    private String cd_date;         //购买时间
 
 
     public int getCd_id() {
@@ -53,11 +51,11 @@ public class Customer_dynamic {
         this.cd_productid = cd_productid;
     }
 
-    public Timestamp getCd_date() {
+    public String getCd_date() {
         return cd_date;
     }
 
-    public void setCd_date(Timestamp cd_date) {
+    public void setCd_date(String cd_date) {
         this.cd_date = cd_date;
     }
 
