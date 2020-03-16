@@ -1,13 +1,11 @@
 package com.class1804.democustomer.pojo;
 
-import java.sql.Timestamp;
-
 //产品表
 public class Product {
 
     private int product_id;             //产品id，主键，唯一标识
     private String product_name;        //产品姓名
-    private Timestamp product_start;    //上架时间（当前时间）
+    private String product_start;       //上架时间（当前时间）
     private String product_introduce;   //产品介绍
     private int product_category;       //产品类别，对应产品类别表
     private Double product_money;       //售卖金额，单件
@@ -30,11 +28,11 @@ public class Product {
         this.product_name = product_name;
     }
 
-    public Timestamp getProduct_start() {
+    public String getProduct_start() {
         return product_start;
     }
 
-    public void setProduct_start(Timestamp product_start) {
+    public void setProduct_start(String product_start) {
         this.product_start = product_start;
     }
 

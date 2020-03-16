@@ -1,7 +1,5 @@
 package com.class1804.democustomer.pojo;
 
-import java.sql.Timestamp;
-
 //客户线索表
 public class Clue {
 
@@ -10,7 +8,7 @@ public class Clue {
     private String clue_state;      //线索状态
     private String clue_content;    //跟进情况详细介绍
     private int clue_userid;        //跟进员工id。对应员工表
-    private Timestamp clue_date;    //此次跟进时间
+    private String clue_date;       //此次跟进时间
     private int clue_custome;       //客户id，对应客户表
     private int clue_product;       //产品id，对应产品表
 
@@ -55,11 +53,11 @@ public class Clue {
         this.clue_userid = clue_userid;
     }
 
-    public Timestamp getClue_date() {
+    public String getClue_date() {
         return clue_date;
     }
 
-    public void setClue_date(Timestamp clue_date) {
+    public void setClue_date(String clue_date) {
         this.clue_date = clue_date;
     }
 

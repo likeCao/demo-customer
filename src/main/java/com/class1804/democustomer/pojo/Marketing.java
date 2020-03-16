@@ -1,13 +1,11 @@
 package com.class1804.democustomer.pojo;
 
-import java.sql.Timestamp;
-
 //营销表
 public class Marketing {
 
     private int marketing_id;               //营销表id，唯一标识，主键
-    private Timestamp marketing_start;      //营销开始时间
-    private Timestamp market_stop;          //营销结束时间
+    private String marketing_start;         //营销开始时间
+    private String market_stop;             //营销结束时间
     private String marketing_name;          //营销活动名称
     private int marketing_userid;           //营销活动负责人，对应员工表
     private String marketing_introduce;     //营销活动介绍
@@ -24,19 +22,19 @@ public class Marketing {
         this.marketing_id = marketing_id;
     }
 
-    public Timestamp getMarketing_start() {
+    public String getMarketing_start() {
         return marketing_start;
     }
 
-    public void setMarketing_start(Timestamp marketing_start) {
+    public void setMarketing_start(String marketing_start) {
         this.marketing_start = marketing_start;
     }
 
-    public Timestamp getMarket_stop() {
+    public String getMarket_stop() {
         return market_stop;
     }
 
-    public void setMarket_stop(Timestamp market_stop) {
+    public void setMarket_stop(String market_stop) {
         this.market_stop = market_stop;
     }
 

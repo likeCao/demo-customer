@@ -1,7 +1,5 @@
 package com.class1804.democustomer.pojo;
 
-import java.sql.Timestamp;
-
 //客户预约表
 public class Order {
 
@@ -10,7 +8,7 @@ public class Order {
     private  int order_customerid;  //客户id
     private int order_userid;       //处理员工id，对应员工表
     private int order_productid;    //产品id
-    private Timestamp order_date;   //预约时间
+    private String order_date;      //预约时间
     private String order_text;      //备注
 
 
@@ -54,11 +52,11 @@ public class Order {
         this.order_productid = order_productid;
     }
 
-    public Timestamp getOrder_date() {
+    public String getOrder_date() {
         return order_date;
     }
 
-    public void setOrder_date(Timestamp order_date) {
+    public void setOrder_date(String order_date) {
         this.order_date = order_date;
     }
 
