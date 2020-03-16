@@ -12,6 +12,7 @@
     <select id="getUsers" resultType="User">
         select * from user;
     </select>
+    
     <!--/*查询商品表所有信息*/-->
     <select id="getProducts" resultType="Product">
         select * from product;
