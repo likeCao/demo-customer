@@ -8,7 +8,7 @@ public class Customer {
     private int customer_id;            //客户表id，客户唯一标识
     private String customer_name;       //客户姓名，可以重复
     private int customer_gender;        //客户性别，（0为女，1为男）
-    private int customer_number;        //客户联系电话
+    private String customer_number;        //客户联系电话
     private int customer_userid;        //客户负责人，对应员工表
     private double customer_money;      //客户消费总金额，默认为0
     private int customer_jurisdiction;  //客户级别id，对应级别表
@@ -41,11 +41,11 @@ public class Customer {
         this.customer_gender = customer_gender;
     }
 
-    public int getCustomer_number() {
+    public String getCustomer_number() {
         return customer_number;
     }
 
-    public void setCustomer_number(int customer_number) {
+    public void setCustomer_number(String customer_number) {
         this.customer_number = customer_number;
     }
 

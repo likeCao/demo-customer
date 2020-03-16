@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.class1804.democustomer.dao.OrderDao">
+    <!--/*查询客户表所有信息*/-->
+    <select id="getCustomers" resultType="Customer">
+        select * from customer;
+    </select>
+   <!-- /*查询员工表所有信息*/-->
+    <select id="getUsers" resultType="User">
+        select * from user;
+    </select>
+    <!--/*查询商品表所有信息*/-->
+    <select id="getProducts" resultType="Product">
+        select * from product;
+    </select>
+    <!--/*新增预约客户*/-->
+    <insert id="addOrder" parameterType="Order">
+      insert  into `order`(order_number,order_customerid,order_userid,order_productid,order_date,order_text)
+      values (#{order_number},#{order_customerid},#{order_userid},#{order_productid},#{order_date},#{order_text});
+    </insert>
+
+    <!--查询客户预约列表（按照客户id，员工id，时间，预约号）-->
+    <select id="getOrderByciduid" resultType="Order">
+        SELECT * FROM `order` o
+        <trim prefix="where" prefixOverrides="and | or">
+            <if test="order_number != null">
+                and o.order_number = #{order_number}
+            </if>
+            <if test="order_customerid != null">
+                and o.order_customerid = #{order_customerid}
+            </if>
+            <if test="order_date != null">
+                and o.order_date = #{order_date}
+            </if>
+        </trim>
+    </select>
+
+    <!--修改（按照预约id进行修改备注和预约时间）-->
+    <update id="updateOrderByorderid" parameterType="Order" >
+        update `Order`
+
+        <trim suffix="where order_id=#{order_id}" suffixOverrides="," prefix="set">
+
+            <if test="order_number != null">order_number=#{order_number},</if>
+            <if test="order_customerid != null">order_customerid=#{order_customerid},</if>
+            <if test="order_userid != null">order_userid=#{order_userid},</if>
+            <if test="order_productid != null">order_productid=#{order_productid},</if>
+            <if test="order_date != null">order_date=#{order_date},</if>
+            <if test="order_text != null">order_text=#{order_text},</if>
+        </trim>
+    </update>
+
+    <!--/*删除（根据预约id删除）*/-->
+    <delete id="deleteOrderByorderid" parameterType="int">
+        delete  from `order`
+        where order_id=#{order_id};
+    </delete>
+
+</mapper>
