@@ -1,7 +1,5 @@
 package com.class1804.democustomer.pojo;
 
-import java.sql.Timestamp;
-
 //客户售后表
 public class Service {
 
@@ -11,7 +9,15 @@ public class Service {
     private int Service_userid;         //处理员工id，对应员工表
     private int Service_Situation;      //售后评价，（1最低，5最高）
     private int Service_productid;      //售后相关产品，对应产品表
+    private int Service_customerid; //客户id，对应客户表表
 
+    public int getService_customerid() {
+        return Service_customerid;
+    }
+
+    public void setService_customerid(int service_customerid) {
+        Service_customerid = service_customerid;
+    }
 
     public int getService_id() {
         return Service_id;
@@ -66,10 +72,11 @@ public class Service {
         return "Service{" +
                 "Service_id=" + Service_id +
                 ", Service_content='" + Service_content + '\'' +
-                ", Service_date=" + Service_date +
+                ", Service_date='" + Service_date + '\'' +
                 ", Service_userid=" + Service_userid +
                 ", Service_Situation=" + Service_Situation +
                 ", Service_productid=" + Service_productid +
+                ", Service_customerid=" + Service_customerid +
                 '}';
     }
 }
