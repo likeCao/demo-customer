@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.class1804.democustomer.dao.customerDao">
+<mapper namespace="com.class1804.democustomer.dao.Customer.customerDao">
 
     <insert id="setCustomer" parameterType="Customer">
         INSERT INTO customer VALUES (NULL,#{customer_name},#{customer_gender},#{customer_number},#{customer_userid}
@@ -21,4 +21,59 @@
         </if>
     </insert>
 
+    <select id="getCustomerList" resultType="Customer">
+        SELECT * FROM customer
+         <where>
+             <if test="customer_gender != null and customer_gender != ''">
+                 customer_gender = #{customer_gender}
+             </if>
+             <if test="customer_jurisdiction != null and customer_jurisdiction != ''">
+                 customer_jurisdiction = #{customer_jurisdiction}
+             </if>
+             <if test="customer_name != null and customer_name != ''">
+                 customer_name LIKE CONCAT('%',#{customer_name},'%')
+             </if>
+             <if test="customer_userid != null and customer_userid != ''">
+                 customer_userid = #{customer_userid}
+             </if>
+             <if test="customer_id">
+                 customer_id = #{customer_id}
+             </if>
+         </where>
+
+    </select>
+
+
+    <update id="updateCustomerJ">
+        UPDATE customer SET customer_jurisdiction = #{jurisdiction} WHERE customer_id = #{id}
+    </update>
+
+    <update id="updateCustomer" parameterType="Customer">
+        UPDATE customer
+        <set>
+            <if test="customer_number != null and customer_number != ''">
+                customer_number = #{customer_number}
+            </if>
+            <if test="customer_address != null and customer_address != ''">
+                customer_address = #{customer_address}
+            </if>
+            <if test="customer_text != null and customer_text != ''">
+                customer_text = #{customer_text}
+            </if>
+        </set>
+        WHERE customer_id = #{customer_id}
+    </update>
+
+
+    <select id="customerCount" resultType="int" parameterType="int">
+        select count(customer_id) from customer
+        <where>
+            <if test="gender = 0 and gender = 1">
+                customer_gender = #{gender}
+            </if>
+            <if test="id > 0">
+                customer_userid = #{id}
+            </if>
+        </where>
+    </select>
 </mapper>
