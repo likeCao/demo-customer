@@ -37,6 +37,9 @@
                 and o.order_date = #{order_date}
             </if>
         </trim>
+        <if test="from !=null and pageSize !=null" >
+        order by order_id ASC limit #{from},#{pageSize};
+        </if>
     </select>
 
     <!--修改（按照预约id进行修改备注和预约时间）-->

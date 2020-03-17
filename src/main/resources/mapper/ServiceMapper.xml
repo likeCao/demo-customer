@@ -13,6 +13,26 @@
 
     </insert>
 
-
-    
+    <!--查询客户售后（动态查询按照客户姓名、员工id、售后评价、产品id）-->
+    <select id="selectService" resultType="Service">
+        select * from service s
+        <trim prefix="where" prefixOverrides="and | or">
+            <if test="service_situation !=null">
+            and s.service_situation=#{service_situation}
+            </if>
+            <if test="product_id !=null">
+             and   s.service_productid IN (SELECT p.product_id FROM product p WHERE p.product_id=#{product_id})
+            </if>
+            <if test="user_id !=null">
+               and s.service_userid IN (SELECT u.user_id FROM `user` u WHERE u.user_id=#{user_id})
+            </if>
+            <if test="customer_name !=null">
+               and  s.service_customerid IN(SELECT c.customer_id FROM customer c
+                WHERE c.customer_name like CONCAT ('%',#{customer_name},'%'))
+            </if>
+        </trim>
+        <if test="from !=null and pageSize !=null" >
+        order by service_id ASC limit #{from},#{pageSize};
+        </if>
+    </select>
 </mapper>

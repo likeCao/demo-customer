@@ -33,7 +33,9 @@ public interface OrderServer {
      * 模糊查询
      * */
     List<Order> getOrderByciduid(@Param("order_customerid") Integer order_customerid,@Param("order_userid") Integer order_userid,
-                                 @Param("order_date") Date order_date,@Param("order_number") Integer order_number);
+                                 @Param("order_date") Date order_date,@Param("order_number") Integer order_number,
+                                 @Param(value="from")Integer currentPageNo,
+                                 @Param(value="pageSize")Integer pageSize);
 
     /*修改（按照预约id进行修改备注和预约时间）*/
     int updateOrderByorderid(Order order);
