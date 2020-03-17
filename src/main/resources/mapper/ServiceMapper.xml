@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.class1804.democustomer.dao.ServiceDao.ServiceDao">
+   <!-- /*新增客户售后数据（客户、员工、产品必须是数据库中存在的）
+    * 与客户预约添加类似，所需客户、员工、产品的信息方法预约表已实现
+    * */-->
+    <insert id="addService" parameterType="Service">
+    INSERT INTO `Service`(service_id,service_content,service_date,service_userid,service_situation,service_productid,service_customerid)
+    VALUES(null,#{service_content},#{service_date},#{service_userid},#{service_situation},#{service_productid},#{service_customerid})
+
+    </insert>
+
+
+    
+</mapper>

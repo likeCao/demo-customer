@@ -52,7 +52,7 @@ public class OrderController {
     /*添加预约信息*/
     @RequestMapping("/addOrder")
     @ResponseBody
-    public String addOrder(Integer order_id, Integer order_number, Integer order_customerid, Integer order_userid, Integer order_productid, Timestamp order_date, String order_text) {
+    public String addOrder( Integer order_number, Integer order_customerid, Integer order_userid, Integer order_productid, Timestamp order_date, String order_text) {
         Order order =new Order();
         order.setOrder_customerid(5);
         order.setOrder_number(202006054);
