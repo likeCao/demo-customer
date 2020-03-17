@@ -1,4 +1,4 @@
-package com.class1804.democustomer.dao;
+package com.class1804.democustomer.dao.OrderDao;
 
 import com.class1804.democustomer.pojo.Customer;
 import com.class1804.democustomer.pojo.Order;
@@ -6,10 +6,9 @@ import com.class1804.democustomer.pojo.Product;
 import com.class1804.democustomer.pojo.User;
 import org.apache.ibatis.annotations.Param;
 
-import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
-
+/*客户预约表*/
 public interface OrderDao {
     /*新增客户预约表（客户、员工、产品id是数据库必须存在的）*/
     /*先查询客户表，员工表，产品表所有数据

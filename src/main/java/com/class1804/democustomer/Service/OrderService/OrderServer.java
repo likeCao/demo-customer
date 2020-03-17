@@ -1,4 +1,4 @@
-package com.class1804.democustomer.Server;
+package com.class1804.democustomer.Service.OrderService;
 
 import com.class1804.democustomer.pojo.Customer;
 import com.class1804.democustomer.pojo.Order;
@@ -6,7 +6,6 @@ import com.class1804.democustomer.pojo.Product;
 import com.class1804.democustomer.pojo.User;
 import org.apache.ibatis.annotations.Param;
 
-import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 

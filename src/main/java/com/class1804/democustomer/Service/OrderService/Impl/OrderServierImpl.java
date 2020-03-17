@@ -1,6 +1,6 @@
-package com.class1804.democustomer.Server.Impl;
-import com.class1804.democustomer.Server.OrderServer;
-import com.class1804.democustomer.dao.OrderDao;
+package com.class1804.democustomer.Service.OrderService.Impl;
+import com.class1804.democustomer.Service.OrderService.OrderServer;
+import com.class1804.democustomer.dao.OrderDao.OrderDao;
 import com.class1804.democustomer.pojo.Customer;
 import com.class1804.democustomer.pojo.Order;
 import com.class1804.democustomer.pojo.Product;
