@@ -1,6 +1,6 @@
-package com.class1804.democustomer.Controller;
+package com.class1804.democustomer.Controller.Order;
 
-import com.class1804.democustomer.Server.OrderServer;
+import com.class1804.democustomer.Service.OrderService.OrderServer;
 import com.class1804.democustomer.pojo.Customer;
 import com.class1804.democustomer.pojo.Order;
 import com.class1804.democustomer.pojo.Product;
@@ -54,10 +54,10 @@ public class OrderController {
     @ResponseBody
     public String addOrder(Integer order_id, Integer order_number, Integer order_customerid, Integer order_userid, Integer order_productid, Timestamp order_date, String order_text) {
         Order order =new Order();
-        order.setOrder_customerid(1);
+        order.setOrder_customerid(5);
         order.setOrder_number(202006054);
-        order.setOrder_userid(100002);
-        order.setOrder_productid(1);
+        order.setOrder_userid(100004);
+        order.setOrder_productid(3);
         Date time=new Date();
         SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
         String sDate=sdf.format(time);
@@ -86,12 +86,12 @@ public class OrderController {
     @RequestMapping("/updaetOrder")
     @ResponseBody
     public String updateOrderByorder_id(Order order) {
-    order.setOrder_id(1);
-    order.setOrder_productid(1);
-    order.setOrder_userid(10002);
+    order.setOrder_id(9);
+    order.setOrder_productid(3);
+    order.setOrder_userid(100004);
     order.setOrder_date("2020-03-05 00:00:00");
     order.setOrder_number(202003051);
-    order.setOrder_customerid(1);
+    order.setOrder_customerid(5);
     order.setOrder_text("优秀1");
         System.out.println("===================================================================");
         System.out.println(order);
@@ -112,5 +112,6 @@ public class OrderController {
         }else
             return "失败";
     }
+
 
 }
