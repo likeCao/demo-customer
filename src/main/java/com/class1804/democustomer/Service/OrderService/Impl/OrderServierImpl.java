@@ -40,8 +40,8 @@ public class OrderServierImpl implements OrderServer {
      * 模糊查询
      * */
     @Override
-    public List<Order> getOrderByciduid(Integer order_customerid, Integer order_userid, Date order_date, Integer order_number) {
-        return orderDao.getOrderByciduid(order_customerid,order_userid,order_date,order_number);
+    public List<Order> getOrderByciduid(Integer order_customerid, Integer order_userid, Date order_date, Integer order_number,Integer currentPageNo,Integer pageSize) {
+        return orderDao.getOrderByciduid(order_customerid,order_userid,order_date,order_number,currentPageNo,pageSize);
     }
     /*修改（按照预约id进行修改备注和预约时间）*/
     @Override
