@@ -5,6 +5,7 @@ import com.class1804.democustomer.pojo.Customer;
 import com.class1804.democustomer.pojo.Order;
 import com.class1804.democustomer.pojo.Product;
 import com.class1804.democustomer.pojo.User;
+import com.class1804.democustomer.tools.PageSupport;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -79,8 +80,11 @@ public class OrderController {
 @RequestMapping("/getOrderByciduid")
 @ResponseBody
     public List<Order> getOrderByciduid(@Param("order_customerid") Integer order_customerid, @Param("order_userid") Integer order_userid,
-                                        @Param("order_date")Date order_date, @Param("order_number")Integer order_number) {
-        return orderServer.getOrderByciduid(order_customerid,order_userid,order_date,order_number);
+                                        @Param("order_date")Date order_date, @Param("order_number")Integer order_number,
+                                        @Param(value="from")Integer currentPageNo,
+                                        @Param(value="pageSize")Integer pageSize) {
+    currentPageNo=2;pageSize=2;
+        return orderServer.getOrderByciduid(order_customerid,order_userid,order_date,order_number,currentPageNo,pageSize);
     }
     /*修改（按照预约id进行修改备注和预约时间）*/
     @RequestMapping("/updaetOrder")

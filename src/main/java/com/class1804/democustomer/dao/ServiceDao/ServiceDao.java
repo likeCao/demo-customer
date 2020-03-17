@@ -1,6 +1,9 @@
 package com.class1804.democustomer.dao.ServiceDao;
 
+import com.class1804.democustomer.pojo.Service;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /*客户售后表*/
 public interface ServiceDao {
@@ -12,8 +15,11 @@ public interface ServiceDao {
                    @Param("service_productid") Integer service_productid,@Param("service_customerid") Integer service_customerid);
 
 /*查询客户售后（动态查询按照客户姓名、员工id、售后评价、产品id）
-* 用下来框展示客户姓名、员工id产品id，搜索框
+* 页面显示客户名，获取数据为客户id，类型搜索框
 * */
-
+List<Service> selectService(@Param("customer_name") String customer_name,@Param("user_id") Integer user_id,
+                            @Param("service_situation") Integer service_situation,@Param("product_id") Integer product_id,
+                            @Param(value="from")Integer currentPageNo,
+                            @Param(value="pageSize")Integer pageSize);
 
 }
