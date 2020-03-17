@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.class1804.democustomer.dao.UserDao.UserDao">
+
+	<!-- 根据id和password判断用户是否存在，返回该用户的全部数据(登录时获取) -->
+	<select id="login" resultType="User">
+		select * from user
+		where user_id=#{user_id} and user_password=#{user_password}
+	</select>
+
+	<!-- 添加新员工-->
+	<insert id="addUser" parameterType="User">
+		insert into user(user_name,user_gender,user_birthday,
+		user_jurisdiction,user_number,user_address,user_money,user_password,
+		user_entry)
+		values(#{user_name},#{user_gender},#{user_birthday},
+		#{user_jurisdiction},#{user_number},#{user_address},#{user_money},
+		#{user_password},#{user_entry})
+	</insert>
+
+
+	<!-- 修改员工信息-->
+	<update id="editUser" parameterType="User">
+		update user set
+		user_name=#{user_name},user_gender=#{user_gender},
+		user_birthday=#{user_birthday},user_jurisdiction=#{user_jurisdiction},
+		user_number=#{user_number},user_address=#{user_address},
+		user_money=#{user_money},user_password=#{user_password},
+		user_entry=now()
+		where user_id=#{user_id}
+	</update>
+
+
+
+</mapper>
