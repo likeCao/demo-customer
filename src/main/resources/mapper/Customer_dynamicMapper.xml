@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.class1804.democustomer.dao.Customer_dynamic.Customer_dynamicDao">
+
+    <insert id="setdynamic" parameterType="Customer_dynamic">
+          INSERT INTO customer_dynamic VALUES (NULL,#{cd_content},#{cd_customerid},#{cd_userid},#{cd_productid},now())
+    </insert>
+
+    <select id="getcd_userid" parameterType="int" resultType="int">
+       SELECT SUM(cd_id),COUNT(cd_id)FROM customer_dynamic
+       <where>
+           <if test="id>=100001">
+               cd_userid = #{id}
+           </if>
+       </where>
+    </select>
+
+    <select id="getList" resultType="Customer_dynamic">
+        SELECT * FROM customer_dynamic
+        <where>
+            <if test="cd_customerid >0">
+                cd_customerid = #{cd_customerid}
+            </if>
+            <if test="cd_userid >= 100001">
+                cd_userid = #{cd_userid}
+            </if>
+            <if test="cd_productid > 0">
+                cd_productid = #{cd_productid}
+            </if>
+        </where>
+        ORDER BY cd_date DESC
+    </select>
+</mapper>
