@@ -117,4 +117,14 @@ public class OrderController {
             return "失败";
     }
 
+    /*获取客户预约数据总数
+     * 用于分页判断总数和页数
+     * */
+    @RequestMapping("/selectorderall")
+    @ResponseBody
+    public int selectorderall() {
+        return orderServer.selectorderall();
+    }
+
+
 }

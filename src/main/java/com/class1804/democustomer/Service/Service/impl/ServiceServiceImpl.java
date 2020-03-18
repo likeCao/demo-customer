@@ -27,4 +27,14 @@ public class ServiceServiceImpl  implements ServiceService {
     public List<com.class1804.democustomer.pojo.Service> selectService(String customer_name, Integer user_id, Integer service_situation, Integer product_id,Integer currentPageNo,Integer pageSize) {
         return serviceDao.selectService(customer_name,user_id,service_situation,product_id,currentPageNo,pageSize);
     }
+
+
+    /*获取客户预约数据总数
+     * 用于分页判断总数和页数
+     * */
+    @Override
+    public int selectserviceall() {
+        return serviceDao.selectserviceall();
+    }
+
 }

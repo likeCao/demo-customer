@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.class1804.democustomer.dao.Notice.NoticeDao">
+    <!--新增公告栏(员工是必须在数据库中存在的）-->
+    <insert id="addnotice" parameterType="Notice">
+        INSERT INTO `notice`(notice_id,notice_name,notice_text,notice_userid,notice_type,notice_time)
+        VALUES (NULL,#{notice_name},#{notice_text},#{notice_userid},#{notice_type},#{notice_time})
+    </insert>
+
+    <!--获取公告栏数据，按照时间排序，实现分页查询（动态查询按照公告类别）-->
+    <select id="selectnotice" resultType="Notice">
+        SELECT * FROM `notice`
+        <trim prefix="where" prefixOverrides="and | or">
+        <if test="notice_type !=null">
+            notice_type=#{notice_type}
+        </if>
+        </trim>
+        <if test="from !=null and pageSize !=null" >
+            order by notice_time ASC limit #{from},#{pageSize};
+        </if>
+    </select>
+
+    <!--删除公告栏数据，按照公告栏id-->
+    <delete id="deletenotice" parameterType="Integer">
+    delete from notice
+    where notice_id=#{notice_id};
+    </delete>
+
+   <!-- /*获取公告栏数据总数
+    * 用于分页判断总数和页数
+    * */-->
+    <select id="selectnoticeall" resultType="Integer">
+    SELECT COUNT(1) FROM notice
+    </select>
+
+
+</mapper>

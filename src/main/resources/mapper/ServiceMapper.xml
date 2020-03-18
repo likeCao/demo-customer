@@ -35,4 +35,13 @@
         order by service_id ASC limit #{from},#{pageSize};
         </if>
     </select>
+
+
+    <!-- /*获取客户售后数据总数
+  * 用于分页判断总数和页数
+  * */-->
+    <select id="selectserviceall" resultType="Integer">
+    SELECT COUNT(1) FROM `service`;
+    </select>
+
 </mapper>

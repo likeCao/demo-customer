@@ -8,7 +8,15 @@ public class Notice {
     private String notice_text;     //公告栏内容
     private int notice_userid;      //发布人，对应员工表
     private int notice_type;        //公告类型（1-日，2-周，3-月，4-年）
+    private String notice_time;     //发布时间
 
+    public String getNotice_time() {
+        return notice_time;
+    }
+
+    public void setNotice_time(String notice_time) {
+        this.notice_time = notice_time;
+    }
 
     public int getNotice_id() {
         return notice_id;
@@ -58,6 +66,7 @@ public class Notice {
                 ", notice_text='" + notice_text + '\'' +
                 ", notice_userid=" + notice_userid +
                 ", notice_type=" + notice_type +
+                ", notice_time='" + notice_time + '\'' +
                 '}';
     }
 }

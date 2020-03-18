@@ -9,8 +9,7 @@ public class Service {
     private int Service_userid;         //处理员工id，对应员工表
     private int Service_Situation;      //售后评价，（1最低，5最高）
     private int Service_productid;      //售后相关产品，对应产品表
-    private int Service_customerid; //客户id，对应客户表表
-
+    private int Service_customerid; //客户id，对应客户表表=
     public int getService_customerid() {
         return Service_customerid;
     }
@@ -69,7 +68,7 @@ public class Service {
 
     @Override
     public String toString() {
-        return "Service{" +
+        return "ServiceDao{" +
                 "Service_id=" + Service_id +
                 ", Service_content='" + Service_content + '\'' +
                 ", Service_date='" + Service_date + '\'' +

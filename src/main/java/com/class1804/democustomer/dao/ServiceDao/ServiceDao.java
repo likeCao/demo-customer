@@ -22,4 +22,10 @@ List<Service> selectService(@Param("customer_name") String customer_name,@Param(
                             @Param(value="from")Integer currentPageNo,
                             @Param(value="pageSize")Integer pageSize);
 
+
+    /*获取客户预约数据总数
+     * 用于分页判断总数和页数
+     * */
+    int selectserviceall();
+
 }

@@ -54,5 +54,14 @@ public class OrderServierImpl implements OrderServer {
         return orderDao.deleteOrderByorderid(order_id);
     }
 
+    /*获取客户预约数据总数
+     * 用于分页判断总数和页数
+     * */
+    @Override
+    public int selectorderall() {
+        return orderDao.selectorderall();
+    }
+
+
 
 }

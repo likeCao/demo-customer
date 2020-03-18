@@ -61,5 +61,15 @@ public class ServiceController {
         return serviceService.selectService(customer_name,user_id,service_situation,product_id,currentPageNo,pageSize);
         }
 
+    /*获取客户预约数据总数
+     * 用于分页判断总数和页数
+     * */
+    @RequestMapping("/selectserviceall")
+    @ResponseBody
+    public int selectserviceall() {
+        return serviceService.selectserviceall();
     }
+
+    }
+
 

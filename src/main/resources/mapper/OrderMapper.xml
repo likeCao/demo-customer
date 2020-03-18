@@ -63,4 +63,12 @@
         where order_id=#{order_id};
     </delete>
 
+    <!-- /*获取客户预约数据总数
+   * 用于分页判断总数和页数
+   * */-->
+    <select id="selectorderall" resultType="Integer">
+    SELECT COUNT(1) FROM `order`;
+    </select>
+
+
 </mapper>

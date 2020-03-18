@@ -42,4 +42,10 @@ public interface OrderServer {
 
     /*删除（根据预约id删除）*/
     int deleteOrderByorderid(Integer order_id);
+
+    /*获取客户预约数据总数
+     * 用于分页判断总数和页数
+     * */
+    int selectorderall();
+
 }
