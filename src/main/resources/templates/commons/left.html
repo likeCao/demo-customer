@@ -1,61 +1,113 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>导航栏</title>
+<span th:fragment="left">
+ <div class="vernav2 iconmenu">
+    	<ul>
+            <li><a href="#formsub" class="editor">快捷新增</a>
+            	<span class="arrow"></span>
+            	<ul id="formsub">
+               		<li><a th:href="@{/tables}">线索</a></li>
+                    <li><a th:href="@{/tables}">客户</a></li>
+                    <li><a th:href="@{/tables}">合同</a></li>
+                </ul>
+            </li>
+             <li><a href="#addons" class="addons">工作台</a>
+            	<span class="arrow"></span>
+            	<ul id="addons">
+               		<li><a th:href="@{/tables}">销售简报</a></li>
+                    <li><a th:href="@{/tables}">业绩排行</a></li>
+                    <li><a th:href="@{/tables}">任务</a></li>
+                    <li><a th:href="@{/tables}">公告栏</a></li>
+                </ul>
+            </li>
+            <li><a href="#error" class="error">线索</a>
+            	<span class="arrow"></span>
+            	<ul id="error">
+               		<li><a th:href="@{/tables}">查询线索</a></li>
+                    <li><a th:href="@{/tables}">删除线索</a></li>
+                    <li><a th:href="@{/tables}">添加线索</a></li>
+                    <li><a th:href="@{/tables}">新增线索</a></li>
+                </ul>
+            </li>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="keywords" content="Gretong Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
-Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
-    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
-
-    <link th:href="@{/css/bootstrap.min.css}" rel='stylesheet' type='text/css' />
-
-    <link th:href="@{/css/style.css}" rel='stylesheet' type='text/css' />
-
-    <link th:href="@{/css/font-awesome.css}" rel="stylesheet"/>
-
-    <link th:href='@{https://fonts.googleapis.com/css?family=Roboto:700,500,300,100italic,100,400}' rel='stylesheet' type='text/css'/>
-    <link th:href='@{https://fonts.googleapis.com/css?family=Montserrat:400,700}' rel='stylesheet' type='text/css'/>
-
-    <link rel="stylesheet" th:href="@{css/icon-font.min.css}" type='text/css' />
-    <script th:src="@{/js/amcharts.js}"></script>
-    <script th:src="@{/js/serial.js}"></script>
-    <script th:src="@{/js/light.js}"></script>
-
-    <script th:src="@{/js/jquery-1.10.2.min.js}"></script>
-
-    <script th:src="@{/js/pie-chart.js}" type="text/javascript"></script>
-
-</head>
-<body>
-
-<div class="sidebar-menu">
-    <header class="logo1">
-        <a th:href="@{#}" class="sidebar-icon"> <span class="fa fa-bars"></span> </a>
-    </header>
-    <div style="border-top:1px ridge rgba(255, 255, 255, 0.15)"></div>
-    <div class="menu">
-        <ul id="menu" >
-            <li><a th:href="@{sweater.html}"><i class="lnr lnr-pencil"></i> <span>快捷新增</span></a></li>
-            <li><a th:href="@{index.html}"><i class="fa fa-tachometer"></i> <span>工作台</span></a></li>
-            <li id="menu-academico" ><a th:href="@{sunglasses.html}"><i class="fa fa-file-text-o"></i> <span>线索</span></a></li>
-            <li><a th:href="@{sweater.html}"><i class="lnr lnr-pencil"></i> <span>客户</span></a></li>
-            <li id="menu-academico" ><a th:href="@{catalog.html}"><i class="fa fa-file-text-o"></i> <span>合同</span></a></li>
-            <li id="menu-academico" ><a th:href="@{shoes.html}"><i class="lnr lnr-book"></i> <span>产品</span></a></li>
-            <li id="menu-academico" ><a th:href="@{sunglasses.html}"><i class="fa fa-file-text-o"></i> <span>报表中心</span></a></li>
-            <li><a th:href="@{bags.html}"><i class="lnr lnr-envelope"></i> <span>工作报告</span></a></li>
-            <li id="menu-academico" ><a th:href="@{sunglasses.html}"><i class="fa fa-file-text-o"></i> <span>跟进记录</span></a></li>
-            <li><a th:href="@{products.html}"><i class="lnr lnr-chart-bars"></i> <span>业绩提成</span></a></li>
-            <li><a th:href="@{products.html}"><i class="lnr lnr-chart-bars"></i> <span>费用报销</span></a></li>
-
+             <li><a href="#Customer" class="addons">客户</a>
+            	<span class="arrow"></span>
+            	<ul id="Customer">
+               		<li><a th:href="@{/tables}">新增客户</a></li>
+                    <li><a th:href="@{/tables}">查询客户</a></li>
+                    <li><a th:href="@{/tables}">修改客户</a></li>
+                    <li><a th:href="@{/tables}">客户升级</a></li>
+                </ul>
+            </li>
+            <li><a href="#contract" class="editor">合同</a>
+            	<span class="arrow"></span>
+            	<ul id="contract">
+               		<li><a th:href="@{/tables}">新增合同</a></li>
+                    <li><a th:href="@{/tables}">查看合同</a></li>
+                </ul>
+            </li>
+            <li><a href="#Reportform" class="editor">报表中心</a>
+            	<span class="arrow"></span>
+            	<ul id="Reportform">
+               		<li><a th:href="@{/tables}">跟进业务报表</a></li>
+                    <li><a th:href="@{/tables}">业务报表</a></li>
+                    <li><a th:href="@{/tables}">分析类</a></li>
+                </ul>
+            </li>
+            <li><a href="#work" class="editor">工作报告</a>
+            	<span class="arrow"></span>
+            	<ul id="work">
+               		<li><a th:href="@{/tables}">新增报告</a></li>
+                    <li><a th:href="@{/tables}">查看报告</a></li>
+                </ul>
+            </li>
+             <li><a href="#Followup" class="addons">跟进记录</a>
+            	<span class="arrow"></span>
+            	<ul id="Followup">
+               		<li><a th:href="@{/tables}">新增跟进记录</a></li>
+                    <li><a th:href="@{/tables}">查询</a></li>
+                </ul>
+            </li>
+            <li >以上是项目模板现在都是跳转tables.html</li>
+            <li >以下是参照素材模板后期会删掉</li>
+        	<li><a href="#formsub" class="editor">表单提交</a>
+            	<span class="arrow"></span>
+            	<ul id="formsub1">
+               		<li><a th:href="@{/forms}">基础表单</a></li>
+                    <li><a th:href="@{/wizard}">表单验证</a></li>
+                    <li><a th:href="@{/editor}">编辑器</a></li>
+                </ul>
+            </li>
+            <li><a th:href="@{/elements}" class="elements">网页元素</a></li>
+            <li><a th:href="@{/widgets}" class="widgets">网页插件</a></li>
+            <li><a th:href="@{calendar}" class="calendar">日历事件</a></li>
+            <li><a th:href="@{/support}" class="support">客户支持</a></li>
+            <li><a th:href="@{/typography}" class="typo">文字排版</a></li>
+            <li><a th:href="@{/tables}" class="tables">数据表格</a></li>
+			<li><a th:href="@{/buttons}" class="buttons">按钮 &amp; 图标</a></li>
+            <li><a href="#errorr" class="error">错误页面</a>
+            	<span class="arrow"></span>
+            	<ul id="errorr">
+               		<li><a th:href="@{/notfound}">404错误页面</a></li>
+                    <li><a th:href="@{/forbidden}">403错误页面</a></li>
+                    <li><a th:href="@{/internal}">500错误页面</a></li>
+                    <li><a th:href="@{/offline}">503错误页面</a></li>
+                </ul>
+            </li>
+            <li><a href="#addons" class="addons">其他页面</a>
+            	<span class="arrow"></span>
+            	<ul id="addons1">
+               		<li><a th:href="@{/newsfeed}">新闻订阅</a></li>
+                    <li><a th:href="@{/profile}">资料页面</a></li>
+                    <li><a th:href="@{/productlist}">产品列表</a></li>
+                    <li><a th:href="@{/photo}">图片视频分享</a></li>
+                    <li><a th:href="@{/gallery}">相册</a></li>
+                    <li><a th:href="@{/invoice}">购物车</a></li>
+                </ul>
+            </li>
         </ul>
-    </div>
-</div>
+        <a class="togglemenu"></a>
+        <br /><br />
+    </div><!--leftmenu-->
 
-
-
-
-</body>
-</html>
+</span>
 </html>
