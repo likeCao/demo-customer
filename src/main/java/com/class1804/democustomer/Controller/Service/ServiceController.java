@@ -3,6 +3,7 @@ package com.class1804.democustomer.Controller.Service;
 import com.class1804.democustomer.Service.Service.ServiceService;
 import com.class1804.democustomer.pojo.Service;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -18,7 +19,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/Service")
 public class ServiceController {
-    @Resource
+    @Autowired
     private ServiceService serviceService;
 
     /*新增客户售后数据（客户、员工、产品必须是数据库中存在的）

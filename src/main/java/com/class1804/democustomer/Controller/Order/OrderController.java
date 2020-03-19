@@ -7,6 +7,7 @@ import com.class1804.democustomer.pojo.Product;
 import com.class1804.democustomer.pojo.User;
 import com.class1804.democustomer.tools.PageSupport;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -29,7 +30,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/Order")
 public class OrderController {
-    @Resource
+    @Autowired
     private OrderServer orderServer;
 
     /*获取客户列表*/

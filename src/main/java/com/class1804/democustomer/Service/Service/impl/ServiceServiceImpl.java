@@ -2,6 +2,7 @@ package com.class1804.democustomer.Service.Service.impl;
 
 import com.class1804.democustomer.Service.Service.ServiceService;
 import com.class1804.democustomer.dao.ServiceDao.ServiceDao;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -9,7 +10,7 @@ import java.util.List;
 
 @Service
 public class ServiceServiceImpl  implements ServiceService {
-    @Resource
+    @Autowired
    private ServiceDao serviceDao;
 
     /*新增客户售后数据（客户、员工、产品必须是数据库中存在的）

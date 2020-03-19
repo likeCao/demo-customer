@@ -5,6 +5,7 @@ import com.class1804.democustomer.pojo.Customer;
 import com.class1804.democustomer.pojo.Order;
 import com.class1804.democustomer.pojo.Product;
 import com.class1804.democustomer.pojo.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.Date;
 @Service
 public class OrderServierImpl implements OrderServer {
 
-    @Resource
+    @Autowired
     private OrderDao orderDao;
 
     /*查询客户表所有信息*/
