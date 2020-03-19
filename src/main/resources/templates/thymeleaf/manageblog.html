@@ -1,0 +1,26 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<span th:replace="/commons/header::header"></span>
+<span th:replace="/commons/left::left"></span>
+    <div class="centercontent">
+    
+        <div class="pageheader">
+            <h1 class="pagetitle">Manage Blog</h1>
+            <span class="pagedesc">The content below are loaded using ajax</span>
+            
+            <ul class="hornav blogmenu">
+                <li class="current"><a href="allposts.html">All Post (5)</a></li>
+                <li><a href="published.html">Published (5)</a></li>
+                <li><a href="draft.html">Draft (3)</a></li>
+                <li><a href="trash.html">Trash (1)</a></li>
+            </ul>
+        </div><!--pageheader-->
+        
+        <div id="contentwrapper" class="contentwrapper">
+             
+        </div><!--contentwrapper-->
+    
+    </div><!--centercontent-->
+    
+
+<span th:replace="/commons/js::js"></span>
+</html>

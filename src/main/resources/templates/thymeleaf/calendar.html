@@ -1,0 +1,39 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<span th:replace="/commons/header::header"></span>
+<span th:replace="/commons/left::left"></span>
+    <div class="centercontent">
+    
+        <div class="pageheader notab">
+            <h1 class="pagetitle">Calendar</h1>
+            <span class="pagedesc">This is a sample description of a page</span>
+        </div><!--pageheader-->
+        
+        <div id="contentwrapper" class="contentwrapper withrightpanel">
+        
+        	<div id="calendar"></div>
+        
+        </div><!--contentwrapper-->
+        
+        <div class="rightpanel">
+        	<div class="rightpanelinner">
+                <div class="widgetbox">
+                	<div class="title"><h4>Events</h4></div>
+                    <div class="widgetcontent">
+                    	<div id="external-events">
+                            <div class="external-event">My friend's birthday event</div>
+                            <div class="external-event">My wedding</div>
+                            <div class="external-event">Company party</div>
+                            <div class="external-event">Island hopping event</div>
+                            <div class="external-event">Fun run event</div>
+                            <p>Drag the events to the calendar to set a schedule.</p>
+                        </div>  
+                        
+                    </div><!--widgetcontent-->
+                </div><!--widgetbox-->
+            </div><!--rightpanelinner-->
+        </div><!--rightpanel-->
+        
+	</div><!-- centercontent -->
+
+<span th:replace="/commons/js::js"></span>
+</html>
