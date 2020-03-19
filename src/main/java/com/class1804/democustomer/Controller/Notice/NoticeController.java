@@ -68,4 +68,5 @@ public class NoticeController {
     public int selectnoticeall() {
         return noticeService.selectnoticeall();
     }
+
 }

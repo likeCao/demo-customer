@@ -37,5 +37,4 @@ public class ServiceServiceImpl  implements ServiceService {
     public int selectserviceall() {
         return serviceDao.selectserviceall();
     }
-
 }

@@ -26,4 +26,5 @@ public interface NoticeDao {
     * */
     int selectnoticeall();
 
+
 }

@@ -24,4 +24,5 @@ public interface NoticeService {
      * 用于分页判断总数和页数
      * */
     int selectnoticeall();
+
 }

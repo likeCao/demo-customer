@@ -36,5 +36,4 @@
     SELECT COUNT(1) FROM notice
     </select>
 
-
 </mapper>

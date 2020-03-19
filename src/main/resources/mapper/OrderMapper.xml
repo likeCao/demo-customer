@@ -70,5 +70,4 @@
     SELECT COUNT(1) FROM `order`;
     </select>
 
-
 </mapper>

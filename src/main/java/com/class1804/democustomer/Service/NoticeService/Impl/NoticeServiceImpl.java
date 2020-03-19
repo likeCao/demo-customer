@@ -44,5 +44,4 @@ public class NoticeServiceImpl implements NoticeService {
         return noticeDao.selectnoticeall();
     }
 
-
 }
