@@ -5,13 +5,13 @@ public class Marketing {
 
     private int marketing_id;               //营销表id，唯一标识，主键
     private String marketing_start;         //营销开始时间
-    private String market_stop;             //营销结束时间
-    private String marketing_name;          //营销活动名称
+    private String marketing_stop;             //营销结束时间
+    private String maeketing_name;          //营销活动名称
     private int marketing_userid;           //营销活动负责人，对应员工表
     private String marketing_introduce;     //营销活动介绍
     private Double marketing_money;         //营销活动消费金额
     private int marketing_product;          //营销产品id，对应产品表
-    private Double promoney;                //营销之后的价格（折扣）
+    private Double marketing_promoney;                //营销之后的价格（折扣）
 
 
     public int getMarketing_id() {
@@ -30,20 +30,20 @@ public class Marketing {
         this.marketing_start = marketing_start;
     }
 
-    public String getMarket_stop() {
-        return market_stop;
+    public String getMarketing_stop() {
+        return marketing_stop;
     }
 
-    public void setMarket_stop(String market_stop) {
-        this.market_stop = market_stop;
+    public void setMarketing_stop(String market_stop) {
+        this.marketing_stop = market_stop;
     }
 
-    public String getMarketing_name() {
-        return marketing_name;
+    public String getMaeketing_name() {
+        return maeketing_name;
     }
 
-    public void setMarketing_name(String marketing_name) {
-        this.marketing_name = marketing_name;
+    public void setMaeketing_name(String maeketing_name) {
+        this.maeketing_name = maeketing_name;
     }
 
     public int getMarketing_userid() {
@@ -78,12 +78,12 @@ public class Marketing {
         this.marketing_product = marketing_product;
     }
 
-    public Double getPromoney() {
-        return promoney;
+    public Double getMarketing_promoney() {
+        return marketing_promoney;
     }
 
-    public void setPromoney(Double promoney) {
-        this.promoney = promoney;
+    public void setMarketing_promoney(Double marketing_promoney) {
+        this.marketing_promoney = marketing_promoney;
     }
 
     @Override
@@ -91,13 +91,13 @@ public class Marketing {
         return "Marketing{" +
                 "marketing_id=" + marketing_id +
                 ", marketing_start=" + marketing_start +
-                ", market_stop=" + market_stop +
-                ", marketing_name='" + marketing_name + '\'' +
+                ", market_stop=" + marketing_stop +
+                ", maeketing_name='" + maeketing_name + '\'' +
                 ", marketing_userid=" + marketing_userid +
                 ", marketing_introduce='" + marketing_introduce + '\'' +
                 ", marketing_money=" + marketing_money +
                 ", marketing_product=" + marketing_product +
-                ", promoney=" + promoney +
+                ", marketing_promoney=" + marketing_promoney +
                 '}';
     }
 }
