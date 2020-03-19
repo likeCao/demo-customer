@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.class1804.democustomer.dao.MarketingDao.MarketingDao">
+
+    <!--新增营销-->
+    <insert id="marketingAdd" parameterType="Marketing">
+        insert into marketing values(null,#{marketing_start},#{marketing_stop},#{maeketing_name},#{marketing_userid},
+        #{marketing_introduce},#{marketing_money},#{marketing_product},#{marketing_promoney})
+    </insert>
+
+    <!--查询营销列表，按照时间排序（负责人、产品）-->
+    <select id="getMarketings" resultType="Marketing">
+        select * from marketing
+        <trim prefix="where" prefixOverrides="and | or">
+            <if test="marketing_userid!=null and marketing_userid!=''">
+                and marketing_userid=#{marketing_userid}
+            </if>
+            <if test="marketing_product!=null and marketing_product!=''">
+                and marketing_product=#{marketing_product}
+            </if>
+        </trim>
+        order by marketing_start desc
+    </select>
+
+    <!--修改营销，按照营销id-->
+    <update id="updateMarketingByMarketing_id" parameterType="int">
+        update marketing
+        <trim prefix="set" suffixOverrides=",">
+            <if test="marketing_start != null and marketing_start !=''">
+               marketing_start = #{marketing_start},
+            </if>
+            <if test="marketing_stop != null and marketing_stop != ''">
+               marketing_stop =  #{marketing_stop},
+            </if>
+            <if test="maeketing_name != null and maeketing_name != ''">
+                maeketing_name = #{maeketing_name},
+            </if>
+            <if test="marketing_introduce != null and marketing_introduce != ''">
+                marketing_introduce = #{marketing_introduce},
+            </if>
+            <if test="marketing_money >0">
+                marketing_money = #{marketing_money},
+            </if>
+            <if test="marketing_promoney>0">
+                marketing_promoney = #{marketing_promoney},
+            </if>
+        </trim>
+        where marketing_id=#{marketing_id}
+    </update>
+
+</mapper>
