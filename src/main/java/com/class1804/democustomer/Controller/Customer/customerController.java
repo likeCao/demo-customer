@@ -31,7 +31,7 @@ public class customerController {
         customer.setCustomer_name("李四");
         customer.setCustomer_gender(1);
         customer.setCustomer_number("15732171602");
-        customer.setCustomer_userid(100001);
+        customer.setCustomer_userid(100004);
         customer.setCustomer_money(0);
         customer.setCustomer_jurisdiction(7);
         customer.setCustomer_address("石家庄");

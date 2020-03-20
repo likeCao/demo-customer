@@ -20,12 +20,23 @@ public class Customer_dynamicServiceImpl implements Customer_dynamicService {
     }
 
     @Override
-    public List<Integer> getcd_userid(int id) {
+    public int getcd_userid(int id) {
         return customer_dynamicDao.getcd_userid(id);
     }
 
     @Override
+    public double getcd_usermoney(int id) {
+        return customer_dynamicDao.getcd_usermoney(id);
+    }
+
+
+    @Override
     public List<Customer_dynamic> getList(Customer_dynamic customer_dynamic) {
         return customer_dynamicDao.getList(customer_dynamic);
+    }
+
+    @Override
+    public List<Customer_dynamic> getMoneyList(int productId, int categoryId) {
+        return customer_dynamicDao.getMoneyList(productId,categoryId);
     }
 }

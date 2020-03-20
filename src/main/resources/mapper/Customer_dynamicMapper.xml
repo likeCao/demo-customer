@@ -5,16 +5,25 @@
 <mapper namespace="com.class1804.democustomer.dao.Customer_dynamic.Customer_dynamicDao">
 
     <insert id="setdynamic" parameterType="Customer_dynamic">
-          INSERT INTO customer_dynamic VALUES (NULL,#{cd_content},#{cd_customerid},#{cd_userid},#{cd_productid},now())
+          INSERT INTO customer_dynamic VALUES (NULL,#{cd_content},#{cd_customerid},#{cd_userid},#{cd_productid},now(),#{cd_money})
     </insert>
 
     <select id="getcd_userid" parameterType="int" resultType="int">
-       SELECT SUM(cd_id),COUNT(cd_id)FROM customer_dynamic
+       SELECT COUNT(cd_id)FROM customer_dynamic
        <where>
            <if test="id>=100001">
                cd_userid = #{id}
            </if>
        </where>
+    </select>
+
+    <select id="getcd_usermoney" parameterType="int" resultType="int">
+        SELECT sum(cd_money) FROM customer_dynamic
+        <where>
+            <if test="id>=100001">
+                cd_userid = #{id}
+            </if>
+        </where>
     </select>
 
     <select id="getList" resultType="Customer_dynamic">
@@ -31,5 +40,22 @@
             </if>
         </where>
         ORDER BY cd_date DESC
+    </select>
+    <select id="getMoneyList" resultType="Customer_dynamic">
+        select SUM(cd_money) as cd_moneyAll,cd_userid from customer_dynamic
+        <where>
+            <if test="productId>0">
+                or cd_productid = #{productId}
+            </if>
+            <if test="categoryId>0">
+                or cd_productid in (
+                select product_id from product WHERE product_category = #{categoryId}
+                )
+            </if>
+        </where>
+
+
+        GROUP BY cd_userid
+        ORDER BY cd_date desc
     </select>
 </mapper>

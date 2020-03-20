@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.class1804.democustomer.dao.Clue.ClueDao">
+
+    <insert id="setClue" parameterType="Clue">
+        INSERT INTO clue VALUES (NULL,#{clue_name},#{clue_state},#{clue_content},#{clue_userid},NOW(),#{clue_custome},#{clue_product})
+    </insert>
+
+    <select id="getClueList" parameterType="Clue" resultType="Clue">
+        SELECT * FROM `clue`
+        <where>
+            <if test="clue_userid >= 100001">
+               and clue_userid = #{clue_userid}
+            </if>
+            <if test="clue_custome >= 1">
+                and clue_custome = #{clue_custome}
+            </if>
+            <if test="clue_product >= 1">
+               and clue_product = #{clue_product}
+            </if>
+        </where>
+        ORDER BY clue_date DESC
+    </select>
+
+    <delete id="databaseClue">
+        DELETE FROM clue WHERE clue_id = #{id}
+    </delete>
+
+
+    <select id="getCount" resultType="int" parameterType="int">
+        SELECT COUNT(*) FROM clue
+         <where>
+             <if test="userid >= 100001">
+                 and clue_userid = #{userid}
+             </if>
+             <if test="productid >= 1">
+                 and clue_product = #{productid}
+             </if>
+         </where>
+    </select>
+
+    <select id="getidAll" parameterType="int" resultType="Clue">
+        select * from clue where clue_userid = #{userid} and clue_product = #{productid} order by clue_date desc LIMIT 1,1
+    </select>
+</mapper>
