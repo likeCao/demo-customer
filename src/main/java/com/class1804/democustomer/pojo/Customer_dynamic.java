@@ -7,9 +7,28 @@ public class Customer_dynamic {
     private String cd_content;      //购买信息介绍
     private int cd_customerid;      //客户id,对应客户表
     private int cd_userid;          //负责人id,对应员工表
+
+
+    public double getCd_money() {
+        return cd_money;
+    }
+
+    public void setCd_money(double cd_money) {
+        this.cd_money = cd_money;
+    }
+
     private int cd_productid;       //产品id,对应产品表
     private String cd_date;         //购买时间
+    private double cd_money;        //购买金额
+    private double cd_moneyAll;     //总金额
 
+    public double getCd_moneyAll() {
+        return cd_moneyAll;
+    }
+
+    public void setCd_moneyAll(double cd_moneyAll) {
+        this.cd_moneyAll = cd_moneyAll;
+    }
 
     public int getCd_id() {
         return cd_id;
@@ -67,7 +86,8 @@ public class Customer_dynamic {
                 ", cd_customerid=" + cd_customerid +
                 ", cd_userid=" + cd_userid +
                 ", cd_productid=" + cd_productid +
-                ", cd_date=" + cd_date +
+                ", cd_date='" + cd_date + '\'' +
+                ", cd_money=" + cd_money +
                 '}';
     }
 }
