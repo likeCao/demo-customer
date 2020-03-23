@@ -116,8 +116,14 @@ public class Test {
     public String invoice(){
         return "/thymeleaf/invoice";
     }
-
-
+    @RequestMapping("/addCustomer")
+    public String addCustomer(){
+        return "/function/addCustomer";
+    }
+    @RequestMapping("/CustomerList")
+    public String CustomerList(){
+        return "/function/CustomerList";
+    }
 
 
 

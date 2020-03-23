@@ -3,12 +3,14 @@ package com.class1804.democustomer.Service.Customer.impl;
 
 import com.class1804.democustomer.Service.Customer.customerService;
 import com.class1804.democustomer.dao.Customer.customerDao;
+import com.class1804.democustomer.pojo.ClueCustomerUser;
 import com.class1804.democustomer.pojo.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class customerServiceImpl implements customerService {
@@ -39,5 +41,10 @@ public class customerServiceImpl implements customerService {
     @Override
     public int customerCount(int id,int gender) {
         return cd.customerCount(id,gender);
+    }
+
+    @Override
+    public List<ClueCustomerUser> selectClueCusUser(Integer user_id, Integer user_jurisdiction, String clue_date, String user_name, Integer currentPageNo, Integer pageSize) {
+        return cd.selectClueCusUser(user_id,user_jurisdiction,clue_date,user_name,currentPageNo,pageSize);
     }
 }

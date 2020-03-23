@@ -18,10 +18,8 @@ public interface OrderServer {
     /*查询客户表所有信息*/
     List<Customer> getCustomers ();
     /*查询员工表所有信息*/
-
     List<User> getUsers ();
     /*查询商品表所有信息*/
-
     List<Product> getProducts ();
     /*新增预约客户*/
     int addOrder( @Param("order_number") Integer order_number,
