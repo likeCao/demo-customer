@@ -17,7 +17,7 @@
        </where>
     </select>
 
-    <select id="getcd_usermoney" parameterType="int" resultType="int">
+    <select id="getcd_usermoney" parameterType="int" resultType="double">
         SELECT sum(cd_money) FROM customer_dynamic
         <where>
             <if test="id>=100001">

@@ -19,6 +19,5 @@ public interface ClueService {
     //查询线索数量
     int getCount(int userid,int productid);
 
-    //最新更新时间和客户id（按照员工id，客户id）
-    Clue getidAll(int userid,int productid) ;
+
 }

@@ -5,11 +5,11 @@
 <mapper namespace="com.class1804.democustomer.dao.Clue.ClueDao">
 
     <insert id="setClue" parameterType="Clue">
-        INSERT INTO clue VALUES (NULL,#{clue_name},#{clue_state},#{clue_content},#{clue_userid},NOW(),#{clue_custome},#{clue_product})
+        INSERT INTO clue VALUES (NULL,#{clue_content},#{clue_userid},#{clue_date},#{clue_custome},#{clue_product})
     </insert>
 
     <select id="getClueList" parameterType="Clue" resultType="Clue">
-        SELECT * FROM `clue`
+        select c.*,cu.clueupdate_date,cu.clueupdate_userid,cu.clueupdate_state from clue as c,clueupdate as cu  c.clue_id=cu.clueupdate_clueid
         <where>
             <if test="clue_userid >= 100001">
                and clue_userid = #{clue_userid}
@@ -21,7 +21,7 @@
                and clue_product = #{clue_product}
             </if>
         </where>
-        ORDER BY clue_date DESC
+        ORDER BY cu.clueupdate_date desc LIMIT 0,1
     </select>
 
     <delete id="databaseClue">
@@ -41,7 +41,5 @@
          </where>
     </select>
 
-    <select id="getidAll" parameterType="int" resultType="Clue">
-        select * from clue where clue_userid = #{userid} and clue_product = #{productid} order by clue_date desc LIMIT 1,1
-    </select>
+
 </mapper>

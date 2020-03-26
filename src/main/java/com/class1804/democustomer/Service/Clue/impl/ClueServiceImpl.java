@@ -34,8 +34,4 @@ public class ClueServiceImpl implements ClueService {
         return clueDao.getCount(userid,productid);
     }
 
-    @Override
-    public Clue getidAll(int userid, int productid) {
-        return clueDao.getidAll(userid,productid);
-    }
 }
