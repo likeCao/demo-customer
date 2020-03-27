@@ -28,9 +28,16 @@ public interface customerService {
     /*连表查询：列表显示姓名，电话，跟进时间，跟进状态，备注，负责人等信息
      * 条件有：用户id，负责人名字，跟进时间，用户等级
      * */
-    List<ClueCustomerUser> selectClueCusUser(@Param("user_id") Integer user_id, @Param("user_jurisdiction") Integer user_jurisdiction,
+    List<ClueCustomerUser> selectClueCusUser(@Param("customer_id") Integer customer_id,@Param("user_id") Integer user_id, @Param("user_jurisdiction") Integer user_jurisdiction,
                                             @Param("clue_date") String clue_date, @Param("user_name") String user_name,
                                             @Param(value="from")Integer currentPageNo,
                                             @Param(value="pageSize")Integer pageSize);
+
+
+
+    /*用于分页的查询总数*/
+    Integer selectClueCusUserCount(@Param("user_id") Integer user_id, @Param("user_jurisdiction") Integer user_jurisdiction,
+                                   @Param("clue_date") String clue_date, @Param("user_name") String user_name);
+
 
 }

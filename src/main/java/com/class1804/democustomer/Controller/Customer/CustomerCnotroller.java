@@ -5,13 +5,17 @@ import com.class1804.democustomer.Service.OrderService.OrderServer;
 import com.class1804.democustomer.pojo.ClueCustomerUser;
 import com.class1804.democustomer.pojo.Customer;
 import com.class1804.democustomer.pojo.User;
+import com.class1804.democustomer.tools.PageSupport;
+import org.apache.catalina.Session;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /*
@@ -33,17 +37,54 @@ public class CustomerCnotroller {
     * 列表显示姓名，电话，跟进时间，跟进状态，备注，负责人等信息
     * */
     @RequestMapping("/getCustomerList")
-    public String selectClueCusUser(HttpServletRequest request,Integer user_id, Integer user_jurisdiction, String clue_date, String user_name,
-                                    @Param(value="from")Integer currentPageNo,
-                                    @Param(value="pageSize")Integer pageSize) {
-      /*  if (currentPageNo==null){
-            currentPageNo=0;
-        }
-        if (pageSize==null){
-            pageSize=5;
-        }*/
+    public String selectClueCusUser(HttpServletRequest request,HttpSession session,Integer customer_id, Integer user_id, Integer user_jurisdiction, String clue_date, String user_name,
+                                    @Param(value="from")String currentno,
+                                    @Param(value="pageSize")String pagesize) {
 
-        List<ClueCustomerUser> customerList= customerService.selectClueCusUser(user_id,user_jurisdiction,clue_date,user_name,currentPageNo,pageSize);
+        //实例化分页工具类
+       PageSupport pages = new PageSupport();
+        //当前页码
+        Integer currentPageNo = 1;
+
+        if(currentno != null){
+            try{
+                currentPageNo = Integer.valueOf(currentno);
+            }catch (NumberFormatException e) {
+                // TODO: handle exception
+                e.printStackTrace();
+            }
+            pages.setCurrentPageNo(currentPageNo);
+        }
+        //页面容量
+        Integer pageSize=5;
+        if(pagesize!=null)
+        try{
+            pageSize = Integer.valueOf(pagesize);
+        }catch (NumberFormatException e) {
+            // TODO: handle exception
+            e.printStackTrace();
+        }
+            pages.setPageSize(pageSize);
+        //总数量
+        int totalCount=0;
+        try {
+            totalCount = customerService.selectClueCusUserCount(user_id, user_jurisdiction, clue_date, user_name);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        pages.setTotalCount(totalCount);
+        //总页数
+        int totalPageCount = pages.getTotalPageCount();
+        //控制首页和尾页
+        if(currentPageNo < 1){
+            currentPageNo = 1;
+        }else if(currentPageNo > totalPageCount){
+            currentPageNo = totalPageCount;
+        }
+
+        //控制传入当前页的值
+        Integer curr=(currentPageNo-1)*pageSize;
+        List<ClueCustomerUser> customerList= customerService.selectClueCusUser(customer_id,user_id,user_jurisdiction,clue_date,user_name,curr,pageSize);
 
         for(int i=0;i<customerList.size();i++) {
             if (customerList.get(i).getCustomer_text() == null||customerList.get(i).getCustomer_text()=="") {
@@ -61,12 +102,80 @@ public class CustomerCnotroller {
                 customerList.get(i).setClue_date(date);
             }
         }
-
-
-
-
         request.setAttribute("customers",customerList);
+        session.setAttribute("page",pages);
       return "forward:/Customer/toCustomerList";
+    }
+
+    @RequestMapping("/getCustomerListone")
+    public String selectlist(HttpServletRequest request, HttpSession session,Integer customer_id, Integer user_id, Integer user_jurisdiction, String clue_date, String user_name,
+                             @Param(value="from")String currentno,
+                             @Param(value="pageSize")String pagesize) {
+        //实例化分页工具类
+        PageSupport pages = new PageSupport();
+        //当前页码
+        Integer currentPageNo = 0;
+
+        if(currentno != null){
+            try{
+                currentPageNo = Integer.valueOf(currentno);
+            }catch (NumberFormatException e) {
+                // TODO: handle exception
+                e.printStackTrace();
+            }
+            pages.setCurrentPageNo(currentPageNo);
+        }
+        System.out.println("=================================================================");
+        System.out.println(pages.getCurrentPageNo());
+        //页面容量
+        Integer pageSize=5;
+        if(pagesize!=null)
+            try{
+                pageSize = Integer.valueOf(pagesize);
+            }catch (NumberFormatException e) {
+                // TODO: handle exception
+                e.printStackTrace();
+            }
+        pages.setPageSize(pageSize);
+        //总数量
+        int totalCount=0;
+        try {
+            totalCount = customerService.selectClueCusUserCount(user_id, user_jurisdiction, clue_date, user_name);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        pages.setTotalCount(totalCount);
+        //总页数
+        int totalPageCount = pages.getTotalPageCount();
+        //控制首页和尾页
+        if(currentPageNo < 1){
+            currentPageNo = 1;
+        }else if(currentPageNo > totalPageCount){
+            currentPageNo = totalPageCount;
+        }
+        //控制传入当前页的值
+        Integer curr=(currentPageNo-1)*pageSize;
+        List<ClueCustomerUser> customerList= customerService.selectClueCusUser(customer_id,user_id,user_jurisdiction,clue_date,user_name,curr,pageSize);
+
+        for(int i=0;i<customerList.size();i++) {
+            if (customerList.get(i).getCustomer_text() == null||customerList.get(i).getCustomer_text()=="") {
+                customerList.get(i).setCustomer_text("暂无备注");
+            }
+            if (customerList.get(i).getClue_date() == null||customerList.get(i).getClue_date()=="") {
+                customerList.get(i).setClue_date("0000-00-00 00:00:00");
+            }
+            if (customerList.get(i).getClue_state() == null||customerList.get(i).getClue_state()=="") {
+                customerList.get(i).setClue_state("尚未开始");
+            }
+            String d = customerList.get(i).getClue_date();
+            if (d != null) {
+                String date = d.substring(0, 19);
+                customerList.get(i).setClue_date(date);
+            }
+        }
+        request.setAttribute("customers",customerList);
+        session.setAttribute("page",pages);
+        return "/function/CustomerList ::tablelist";
     }
     /*跳转客户列表页CustomerList
     * */
@@ -124,6 +233,17 @@ public class CustomerCnotroller {
             return "redirect:/Customer/getCustomerList";
 
         }
+
+
+        /*根据修改客户的id，修改到的等级去进行客户的等级修改*/
+    @RequestMapping("/updateCustomerJ/{customer_id}/{customer_jurisdiction}")
+    public String updateCustomerJ(@PathVariable("customer_id") Integer customer_id, Integer customer_jurisdiction) {
+        int i= customerService.updateCustomerJ(customer_id,customer_jurisdiction);
+        if(i==1){
+            return "修改成功";
+        }else
+            return "修改失败";
+    }
 
 
 }

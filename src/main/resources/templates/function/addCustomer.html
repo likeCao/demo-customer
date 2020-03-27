@@ -30,7 +30,11 @@
                     <label>负责人</label>
                     <span class="field" >
                         <select name="user_id"  id="selection2" required="required" >
-                                <option  th:value="${user.current.user_id}" th:each="item,user:${#httpServletRequest.getAttribute('userList')}" th:text="${user.current.user_name}" ></option>
+                                <option  th:value="${user.current.user_id}"
+                                         th:each="item,user:${#httpServletRequest.getAttribute('userList')}"
+                                         th:text="${user.current.user_name}" >
+
+                                </option>
                          </select>
                     </span>
                 </p>

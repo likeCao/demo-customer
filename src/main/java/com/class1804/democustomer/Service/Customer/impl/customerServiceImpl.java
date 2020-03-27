@@ -44,7 +44,12 @@ public class customerServiceImpl implements customerService {
     }
 
     @Override
-    public List<ClueCustomerUser> selectClueCusUser(Integer user_id, Integer user_jurisdiction, String clue_date, String user_name, Integer currentPageNo, Integer pageSize) {
-        return cd.selectClueCusUser(user_id,user_jurisdiction,clue_date,user_name,currentPageNo,pageSize);
+    public List<ClueCustomerUser> selectClueCusUser(Integer customer_id, Integer user_id, Integer user_jurisdiction, String clue_date, String user_name, Integer currentPageNo, Integer pageSize) {
+        return cd.selectClueCusUser(customer_id,user_id,user_jurisdiction,clue_date,user_name,currentPageNo,pageSize);
+    }
+
+    @Override
+    public Integer selectClueCusUserCount(Integer user_id, Integer user_jurisdiction, String clue_date, String user_name) {
+        return cd.selectClueCusUserCount(user_id,user_jurisdiction,clue_date,user_name);
     }
 }
