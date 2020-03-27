@@ -13,6 +13,7 @@
 	<script type="text/javascript" th:src="@{/js/jquery.SuperSlide.js}"></script>
 	<script type="text/javascript" th:src="@{/js/Validform_v5.3.2_min.js}"></script>
 	<script type="text/javascript">
+		<![CDATA[
 		$(document).ready(function(){
 			var $tab_li = $('#tab ul li');
 			$tab_li.hover(function(){
@@ -21,6 +22,7 @@
 				$('div.tab_box > div').eq(index).show().siblings().hide();
 			});
 		});
+		]]>
 	</script>
 	<script type="text/javascript">
 
@@ -57,6 +59,32 @@
 		});
 		]]>
 	</script>
+	
+	<script type="text/javascript">
+		function onder_user_id() {
+			var user_id=document.getElementById("stu_username_hide").value;
+			if(user_id==""){
+				$("#error1").html("账号不能为空！");
+			}else{
+				$("#error1").html("");
+			}
+		}
+
+		function onder_user_pwd() {
+			var user_password=document.getElementById("stu_password_hide").value;
+			if(user_password==""){
+				$("#error2").html("密码不能为空！");
+			}else{
+				$("#error2").html("");
+			}
+		}
+
+
+	</script>
+
+
+
+
 </head>
 
 <body>
@@ -66,17 +94,25 @@
 		<!-- 登录开始 -->
 		<div>
 			<div class="stu_error_box"></div>
-			<form th:action="@{/dashboard}"  method="post" class="stu_login_error">
+			<form th:action="@{/doLogin}"  method="post" class="stu_login_error">
+				<div id="error1" style="color: red;font-size:13.5px;">
+					<span></span>
+				</div>
 				<div id="username">
 					<label>账&nbsp;&nbsp;&nbsp;号：</label>
-					<input type="text" id="stu_username_hide" name="username"  nullmsg="账号不能为空！" />
+					<input type="text" id="stu_username_hide" name="user_id" onblur="onder_user_id()"/>
 					<!--ajaxurl="demo/valid.jsp"-->
+				</div>
+				<div id="error2" style="color:red;font-size: 13.5px;">
+					<span></span>
 				</div>
 				<div id="password">
 					<label>密&nbsp;&nbsp;&nbsp;码：</label>
-					<input type="password" id="stu_password_hide" name="password" nullmsg="密码不能为空！" />
+					<input type="password" id="stu_password_hide" name="user_password" onblur="onder_user_pwd()"/>
 				</div>
-
+				<div id="error" style="color: red;font-size: 13.5px;">
+					<span th:text="${msg}"></span>
+				</div>
 				<div id="login">
 					<button type="submit">登录</button>
 				</div>
