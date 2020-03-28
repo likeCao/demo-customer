@@ -77,11 +77,17 @@
     * 条件有：用户id，负责人名字，跟进时间，用户等级
     * */-->
     <select id="selectClueCusUser" resultType="ClueCustomerUser">
-        select customer_id ,customer_name,customer_number,customer_text,customer_userid,user_name,clue_date,clue_state from customer c
-        left join `user` u
-        on customer_userid=user_id
-        left join clue cl
-        on customer_id=clue_custome
+        SELECT customer_id ,customer_name,customer_number,customer_text,customer_userid,user_name,clue_date
+        FROM customer c
+        LEFT JOIN `user` u
+        ON customer_userid=user_id
+        LEFT JOIN  (
+        SELECT clue_custome,clue_date FROM(
+        SELECT * FROM clue
+        ORDER BY clue_date DESC
+        ) cl
+        GROUP BY clue_custome) cll
+        ON customer_id=clue_custome
         <trim prefix="where" prefixOverrides="and | or">
             <if test="customer_id !=null">
                 and customer_id=#{customer_id}
@@ -110,12 +116,17 @@
     <!--用于分页的查询总数-->
     <select id="selectClueCusUserCount" resultType="Integer">
         select count(1) from(
-        select customer_id ,customer_name,customer_number,customer_text,customer_userid,user_name,clue_date,clue_state
-        from customer c
-        left join `user` u
-        on customer_userid=user_id
-        left join clue cl
-        on customer_id=clue_custome
+        SELECT customer_id ,customer_name,customer_number,customer_text,customer_userid,user_name,clue_date
+        FROM customer c
+        LEFT JOIN `user` u
+        ON customer_userid=user_id
+        LEFT JOIN  (
+        SELECT clue_custome,clue_date FROM(
+        SELECT * FROM clue
+        ORDER BY clue_date DESC
+        ) cl
+        GROUP BY clue_custome) cll
+        ON customer_id=clue_custome
         <trim prefix="where" prefixOverrides="and | or">
             <if test="user_id !=null">
                 and u.user_id=#{user_id}

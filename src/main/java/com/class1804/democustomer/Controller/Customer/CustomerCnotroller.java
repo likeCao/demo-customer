@@ -41,6 +41,12 @@ public class CustomerCnotroller {
                                     @Param(value="from")String currentno,
                                     @Param(value="pageSize")String pagesize) {
 
+        Integer userid=null;
+        if (user_id!=null){
+            userid=user_id;
+        }
+
+
         //实例化分页工具类
        PageSupport pages = new PageSupport();
         //当前页码
@@ -68,7 +74,7 @@ public class CustomerCnotroller {
         //总数量
         int totalCount=0;
         try {
-            totalCount = customerService.selectClueCusUserCount(user_id, user_jurisdiction, clue_date, user_name);
+            totalCount = customerService.selectClueCusUserCount(userid, user_jurisdiction, clue_date, user_name);
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -93,9 +99,6 @@ public class CustomerCnotroller {
             if (customerList.get(i).getClue_date() == null||customerList.get(i).getClue_date()=="") {
                 customerList.get(i).setClue_date("0000-00-00 00:00:00");
             }
-            if (customerList.get(i).getClue_state() == null||customerList.get(i).getClue_state()=="") {
-                customerList.get(i).setClue_state("尚未开始");
-            }
             String d = customerList.get(i).getClue_date();
             if (d != null) {
                 String date = d.substring(0, 19);
@@ -111,6 +114,11 @@ public class CustomerCnotroller {
     public String selectlist(HttpServletRequest request, HttpSession session,Integer customer_id, Integer user_id, Integer user_jurisdiction, String clue_date, String user_name,
                              @Param(value="from")String currentno,
                              @Param(value="pageSize")String pagesize) {
+
+        if (user_jurisdiction>100){
+            user_id=user_jurisdiction;
+            user_jurisdiction=null;
+        }
         //实例化分页工具类
         PageSupport pages = new PageSupport();
         //当前页码
@@ -125,8 +133,6 @@ public class CustomerCnotroller {
             }
             pages.setCurrentPageNo(currentPageNo);
         }
-        System.out.println("=================================================================");
-        System.out.println(pages.getCurrentPageNo());
         //页面容量
         Integer pageSize=5;
         if(pagesize!=null)
@@ -211,7 +217,6 @@ public class CustomerCnotroller {
         String customer_birthday = request.getParameter("customer_birthday");
         String customer_text = request.getParameter("customer_text");
         Customer customer = new Customer();
-        System.out.println(customer_birthday);
         customer.setCustomer_address(customer_address);
             customer.setCustomer_birthday(customer_birthday);
             customer.setCustomer_gender(customer_gender);
@@ -221,8 +226,6 @@ public class CustomerCnotroller {
             customer.setCustomer_number(customer_number);
             customer.setCustomer_text(customer_text);
             customer.setCustomer_userid(user_id);
-            System.out.println("========================================================================");
-            System.out.println(customer);
             int i = customerService.setCustomer(customer);
             if (i == 1) {
                 msg = "添加成功";
