@@ -11,11 +11,16 @@ public class Clue {
     private int clue_product;       //产品id，对应产品表
 
 
+
+    //调取名称
+    private String uName;   //员工名称
+    private String cName;   //客户名称
+    private String pName;   //产品名称
+
     //连表查询
     private String clueupdate_date;     //线索更新时间
     private int clueupdate_userid;      //线索更新人
     private String clueupdate_state;       //线索当前状态
-
 
     @Override
     public String toString() {
@@ -26,8 +31,38 @@ public class Clue {
                 ", clue_date='" + clue_date + '\'' +
                 ", clue_custome=" + clue_custome +
                 ", clue_product=" + clue_product +
+                ", uName='" + uName + '\'' +
+                ", cName='" + cName + '\'' +
+                ", pName='" + pName + '\'' +
                 '}';
     }
+
+
+    public String getuName() {
+        return uName;
+    }
+
+    public void setuName(String uName) {
+        this.uName = uName;
+    }
+
+    public String getcName() {
+        return cName;
+    }
+
+    public void setcName(String cName) {
+        this.cName = cName;
+    }
+
+    public String getpName() {
+        return pName;
+    }
+
+    public void setpName(String pName) {
+        this.pName = pName;
+    }
+
+
 
     public int getClue_id() {
         return clue_id;

@@ -1,0 +1,119 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <span th:replace="/commons/header::header"></span>
+    <span th:replace="/commons/left::left"></span>
+
+    <script type="text/javascript" ></script>
+    <script th:inline="javascript">
+       /* function on() {
+            var clue_content = document.getElementById("clue_content").value;
+            var clue_userid = document.getElementById("clue_userid").value;
+            var clue_date = document.getElementById("clue_date").value;
+            var clue_custome =document.getElementById("clue_custome").value;
+            var clue_product = document.getElementById("clue_product").value;
+
+            var basePath=
+
+                $.ajax({
+                    url:basePath + '/Clue/addClue',
+                    dataType:"text",
+                    data:{clue_content:clue_content,clue_userid:clue_userid,clue_date:clue_date,clue_custome:clue_custome,clue_product:clue_product},
+                    type:"post",
+                    success:function () {
+                        alert("添加成功！")
+                    },
+                    error:function () {
+                        alert("添加失败。。。")
+                    }
+                })
+        }*/
+
+    </script>
+
+   <!-- <script type="text/javascript">
+        $(document).ready(function(){
+            $(".addClue").click(function(){
+                alert("添加成功！");
+            })
+
+        })
+    </script>-->
+
+
+</head>
+
+<div class="centercontent">
+
+    <div class="contenttitle2">
+        <h3>添加线索</h3>
+    </div><!--contenttitle-->
+
+    <br />
+
+    <form class="stdform stdform2" th:action="@{/Clue/addClue}" method="post">
+
+        <p class="flatmode">
+            <label>线索介绍</label>
+            <span class="field">
+                <input type="text" name="clue_content" class="width100" id="clue_content" style="width: 600px;"/>
+            </span><!--field-->
+        </p>
+        <p>
+            <label>负责人</label>
+            <span class="field">
+                <select name="clue_userid"  id="clue_userid" class="width100">
+                    <option  selected="selected">负责人</option>
+                    <span th:each="user:${userList}">
+                        <option th:value="${user.getUser_id()}" th:text="${user.getUser_name()}"></option>
+                    </span>
+                 </select>
+            </span>
+        </p>
+
+        <p >
+            <label>创建时间</label>
+            <span class="field">
+                 <input type="date" name="clue_date" id="clue_date" class="width100" />
+            </span><!--field-->
+        </p>
+
+        <p>
+            <label style="margin-left:-240px;">客户</label>
+            <span class="field" >
+                <select name="clue_custome"  id="clue_custome" class="width100">
+                    <option  selected="selected">客户</option>
+                    <span th:each="customer:${customerList}">
+                        <option th:value="${customer.getCustomer_id()}" th:text="${customer.getCustomer_name()}"></option>
+                    </span>
+                 </select>
+            </span>
+        </p>
+        <p>
+            <label>产品</label>
+            <span class="field">
+                <select name="clue_product"  id="clue_product" class="width100">
+                    <option  selected="selected">产品</option>
+                    <span th:each="product:${productList}">
+                        <option th:value="${product.getProduct_id()}" th:text="${product.getProduct_name()}"></option>
+                    </span>
+                 </select>
+            </span>
+        </p>
+
+        <br />
+
+        <p class="stdformbutton">
+            <a onClick="member_stop(this,'10001')"  href="javascript:;"  class="addClue"><input type="submit" value="提交"/></a>
+
+            <input type="reset" class="reset radius2"/>
+        </p>
+
+    </form>
+    <!--subcontent-->
+
+</div><!-- centercontent -->
+
+<span th:replace="/commons/js::js"></span>
+</html>

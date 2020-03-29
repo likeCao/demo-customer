@@ -19,6 +19,11 @@ public class customerServiceImpl implements customerService {
     private customerDao cd;
 
     @Override
+    public List<Customer> getCustomer() {
+        return cd.getCustomer();
+    }
+
+    @Override
     public int setCustomer(Customer customer) {
         return cd.setCustomer(customer);
     }

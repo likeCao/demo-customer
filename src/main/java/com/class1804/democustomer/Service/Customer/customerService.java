@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 
 public interface customerService {
+    //获取客户列表
+    List<Customer> getCustomer();
 
     //添加
     int setCustomer(Customer customer);

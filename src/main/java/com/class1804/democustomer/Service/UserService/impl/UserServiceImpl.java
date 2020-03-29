@@ -9,11 +9,18 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 
 @Service
 public class UserServiceImpl implements UserService {
    @Autowired
    private UserDao userDao;
+
+    @Override
+    public List<User> getUserList() {
+        return userDao.getUserList();
+    }
 
     @Override
     public User login(Integer user_id, Integer user_password) {

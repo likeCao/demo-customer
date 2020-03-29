@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 
 public interface customerDao {
+    //获取客户列表
+    List<Customer> getCustomer();
 
     //新增客户（员工id必须是数据库中存在的）
     int setCustomer(Customer customer);

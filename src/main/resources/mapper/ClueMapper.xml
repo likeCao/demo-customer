@@ -3,6 +3,52 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.class1804.democustomer.dao.Clue.ClueDao">
+    <!--获取线索列表-->
+    <select id="getClue" resultType="Clue">
+        select * from clue;
+    </select>
+
+    <!-- 根据负责人，客户，产品查询，返回满足条件的列表 -->
+    <select id="getClueByParams" resultType="Clue">
+        SELECT clue.clue_id,clue.clue_content,
+        (SELECT user_name  FROM `user` WHERE USER.user_id=clue.clue_userid) as uName,clue.clue_date,
+        (SELECT customer_name FROM customer WHERE customer.customer_id=clue.clue_custome) as cName ,
+        (SELECT product_name  FROM product WHERE product.product_id=clue.clue_product) as pName
+        from clue
+        <where>
+            <if test="clue_userid >= 100001">
+                and clue_userid = #{clue_userid}
+            </if>
+            <if test="clue_custome >= 1">
+                and clue_custome = #{clue_custome}
+            </if>
+            <if test="clue_product >= 1">
+                and clue_product = #{clue_product}
+            </if>
+        </where>
+        limit #{start},#{pageSize}
+    </select>
+
+    <!-- 根据负责人，客户，产品查询返回总记录数 -->
+    <select id="getClueCountByParams" resultType="int">
+        select count(clue_id)
+        from clue
+        <where>
+            <if test="clue_userid >= 100001">
+                and clue_userid = #{clue_userid}
+            </if>
+            <if test="clue_custome >= 1">
+                and clue_custome = #{clue_custome}
+            </if>
+            <if test="clue_product >= 1">
+                and clue_product = #{clue_product}
+            </if>
+        </where>
+    </select>
+
+
+
+
 
     <insert id="setClue" parameterType="Clue">
         INSERT INTO clue VALUES (NULL,#{clue_content},#{clue_userid},#{clue_date},#{clue_custome},#{clue_product})

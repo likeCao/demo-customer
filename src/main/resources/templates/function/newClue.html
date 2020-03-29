@@ -1,0 +1,76 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<span th:replace="/commons/header::header"></span>
+<span th:replace="/commons/left::left"></span>
+
+<div class="centercontent">
+
+    <div class="contenttitle2">
+        <h3>新增线索</h3>
+    </div><!--contenttitle-->
+
+    <br />
+
+    <form class="stdform stdform2" th:action="@{/Clue/newClue}" method="post">
+
+        <p class="flatmode">
+            <label>线索更新介绍</label>
+            <span class="field">
+                <input type="text" name="clueupdate_name" class="width100" id="clueupdate_name" style="width: 600px;"/>
+            </span><!--field-->
+        </p>
+        <p >
+            <label>线索更新时间</label>
+            <span class="field">
+                <input type="date" name="date" id="date" class="width100" />
+            </span><!--field-->
+        </p>
+        <p>
+            <label style="margin-left:-240px;">线索更新负责人</label>
+            <span class="field">
+                <select name="clueupdate_userid"  id="clueupdate_userid" class="width100">
+                    <option  selected="selected">负责人</option>
+                  <span th:each="user:${userList}">
+                        <option th:value="${user.getUser_id()}" th:text="${user.getUser_name()}"></option>
+                    </span>
+                 </select>
+            </span>
+        </p>
+
+        <p>
+            <label >线索当前状态</label>
+            <span class="field" >
+                <select name="clueupdate_state"  id="clueupdate_state" class="width100">
+                    <option  selected="selected">线索当前状态</option>
+                    <option  >未开始</option>
+                    <option  >正在进行</option>
+                    <option  >已结束</option>
+                 </select>
+            </span>
+        </p>
+        <p>
+            <label>主线索名称</label>
+            <span class="field">
+                <select name="clueupdate_clueid"  id="clueupdate_clueid" class="width100">
+                    <option  selected="selected">线索名称</option>
+                    <span th:each="clue:${clueList}">
+                        <option th:value="${clue.getClue_id()}" th:text="${clue.getClue_id()}"></option>
+                    </span>
+                 </select>
+            </span>
+        </p>
+
+        <br />
+
+        <p class="stdformbutton">
+            <a onClick="member_stop(this,'10001')"  href="javascript:;"  class="btn btn-xs btn-success"><input type="submit" value="提交"/></a>
+
+            <input type="reset" class="reset radius2"/>
+        </p>
+
+    </form>
+    <!--subcontent-->
+
+</div><!-- centercontent -->
+
+<span th:replace="/commons/js::js"></span>
+</html>

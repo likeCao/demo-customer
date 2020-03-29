@@ -1,0 +1,284 @@
+<html   xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <script th:src="@{/js/jquery-1.9.1.min.js}"></script>
+    <script th:src="@{/js/H-ui.js}" type="text/javascript"></script>
+    <script th:src="@{/js/displayPart.js}" type="text/javascript"></script>
+
+    <span th:replace="/commons/header::header"></span>
+    <span th:replace="/commons/left::left"></span>
+    <script th:src="@{/js/jquery-3.4.1.js}"></script>
+    <script>
+        $(document).ready(function() {
+
+            //单击删除链接，删除对应的一行记录
+            var delTr;
+            $("#remove").click(function () {
+                var clueupdate_id = $(this).attr("clueupdate_id");
+
+                delTr = $(this).parent().parent();
+
+                $.ajax({
+                    "type": "post",
+                    "url": "/Clue/deleteClue",
+                    "data": "clueupdate_id=" + clueupdate_id,
+                    "dataType": "json",
+                    "success": delCallback,
+                    "error": function () {
+                        alert("系统错误");
+                    }
+                })
+            })
+
+            //删除的回调函数
+            function delCallback(result) {
+                if (result.code == 200) {
+                    alert(result.msg);
+
+                    //行删除
+                    delTr.remove();
+                } else {
+                    alert(result.msg);
+                }
+            }
+
+
+
+            //弹出显示详情div
+            $(".btn btn4 btn_search").click(function(){
+                $("#showClueDiv").show() ;
+
+                var id = $(this).attr("clue_id") ;
+                //发送异步请求渲染详情
+                showClueInfo(id)
+            })
+
+            function showClueInfo(clue_id) {
+                $.ajax({
+                    "type": "post",
+                    "url": "/Clue/showClueInfo",
+                    "data": "clue_id="+clue_id,
+                    "dataType": "json",
+                    "success": function(result){
+                        //渲染
+                        var infoStr = "<p>线索名称："+result.clue_id+"</p>" ;
+                        infoStr += "<p>线索介绍："+result.clue_content+"</p>" ;
+                        infoStr += "<p>负责人："+result.uName+"</p>" ;
+                        infoStr += "<p>客户名称："+result.cName+"</p>" ;
+                        infoStr += "<p>产品名称："+result.pName+"</p>" ;
+                        infoStr += "<p>线索创建日期："+result.clue_date+"</p>" ;
+                        infoStr += "<p>线索更新日期："+result.clueupdate_date+"</p>" ;
+                        infoStr += "<p>线索更新介绍："+result.clueupdate_name+"</p>" ;
+                        infoStr += "<p>线索当前状态："+result.clueupdate_state+"</p>" ;
+
+                        $("#clueDiv").html(infoStr) ;
+                    },
+                    "error": function() {
+                        alert("系统错误") ;
+                    }
+                })
+            }
+
+            //关闭用户详情框
+            $("#closeShowDiv").click(function(){
+                $("#showClueDiv").hide() ;
+            })
+
+
+
+
+
+
+        })
+
+
+
+    </script>
+
+
+    <style  type="text/css">
+        #showUserDiv {
+            width: 500px;
+            height: 400px;
+            top: 100px;
+            left: 150px;
+            border: 1px solid blue;
+            background-color: white;
+            position: absolute;
+            z-index: 100;
+            display: none;
+    </style>
+
+    <title>线索</title>
+</head>
+
+<!--搜索开始-->
+<body>
+<div class="centercontent" style="padding-left: 20px;">
+<div class="margin clearfix">
+    <div class="stystems_style">
+        <div class="tabbable" style="padding-top: 20px;">
+            <span style="float:left;list-style-type:none;color: #0f91f5;"><h4>线索</h4></span>
+
+            <div class="tab-content">
+
+                <!--查询开始-->
+
+                <div id="home" class="tab-pane active">
+                    <br/>
+                    <br/><div class="form-group">
+                    <label class="col-sm-1 control-label no-padding-right" >
+
+                            <select name="clue_userid" id="clue_userid">
+                                <option selected="selected">负责人</option>
+                                <span th:each="user:${userList}">
+                                <option th:value="${user.getUser_id()}" th:text="${user.getUser_name()}"></option>
+                                </span>
+                            </select>
+
+                            <select name="clue_custome" id="clue_custome">
+                                <option selected="selected">客户</option>
+                                <span th:each="customer:${customerList}">
+                                <option th:value="${customer.getCustomer_id()}" th:text="${customer.getCustomer_name()}"></option>
+                                </span>
+                            </select>
+
+
+                    <select name="clue_product" id="clue_product">
+                        <option selected="selected">产品</option>
+                        <span th:each="product:${productList}">
+                        <option th:value="${product.getProduct_id()}" th:text="${product.getProduct_name()}"></option>
+                        </span>
+                    </select>
+
+                    <select name="">
+                        <option selected="selected">线索</option>
+                        <option >全部线索</option>
+                        <option >我的线索</option>
+                        <option >我下属的线索</option>
+                    </select>
+
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button onclick="search()" class="btn btn-primary radius" type="submit" ><i class="fa fa-save "></i>&nbsp;查&nbsp;询&nbsp;</button>
+
+                </label>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!--查询结束-->
+
+
+
+
+    <!--列表开始-->
+
+    <div class="contenttitle2">
+        <h3>线索列表</h3>
+    </div>
+    <div class="tableoptions">
+        <button class="deletebutton radius3" title="批量删除">批量删除</button> &nbsp;
+        <button class="deletebutton radius3" title="添加线索"><a th:href="@{/Clue/toAddClue}">添加线索</a></button> &nbsp;
+        <button class="deletebutton radius3" title="新增线索"><a th:href="@{/Clue/toAddNewClue}">新增线索</a></button> &nbsp;
+
+       <select id="ps" class="radius3" name="pageSize">
+            <option th:value="5">5</option>
+            <option th:value="10">10</option>
+            <option th:value="20">20</option>
+        </select> &nbsp;
+           <!-- <input type="hidden" name="clue_userid" th:value="${clue_userid }"/>
+            <input type="hidden" name="clue_custome" th:value="${clue_custome }"/>
+            <input type="hidden" name="clue_product" th:value="${clue_product }"/>-->
+
+
+    </div>
+    <table cellpadding="0" cellspacing="0" border="0" id="table2" class="stdtable stdtablecb">
+        <colgroup>
+            <col class="con0" style="width: 4%" />
+            <col class="con1" />
+            <col class="con0" />
+            <col class="con1" />
+            <col class="con0" />
+            <col class="con1" />
+            <col class="con0" />
+        </colgroup>
+        <thead>
+        <tr>
+            <th class="head0"><input type="checkbox" class="checkall" /></th>
+            <th class="head1" style="width: 80px;font-size: 13px;text-align: center;">线索名称</th>
+            <th class="head0" style="width: 80px;font-size: 13px;text-align: center;">线索介绍</th>
+            <th class="head1" style="width: 80px;font-size: 13px;text-align: center;">负责人</th>
+            <th class="head0" style="width: 80px;font-size: 13px;text-align: center;">创建时间</th>
+            <th class="head1" style="width: 80px;font-size: 13px;text-align: center;">客户</th>
+            <th class="head0" style="width: 80px;font-size: 13px;text-align: center;">产品</th>
+            <th class="head1" style="width: 80px;font-size: 13px;text-align: center;">操作</th>
+
+        </tr>
+        </thead>
+        <tfoot>
+        <tr>
+            <th class="head0"><input type="checkbox" class="checkall" /></th>
+            <th class="head1" style="width: 80px;"></th>
+            <th class="head0" style="width: 240px;"></th>
+            <th class="head1" style="width: 80px;"></th>
+            <th class="head0" style="width: 80px;"></th>
+            <th class="head1" style="width: 80px;"></th>
+            <th class="head1" style="width: 80px;"></th>
+            <th class="head1" style="width: 80px;"></th>
+
+        </tr>
+        </tfoot>
+
+        <tbody id="table">
+        <tr th:each="clue:${pu.list}" id="tr_td">
+            <td align="center"><input type="checkbox" /></td>
+            <td id="clue_id" style="font-size: 13px;"  th:text="${clue.getClue_id()}"></td>
+            <td id="clue_content" style="font-size: 13px;" th:text="${clue.getClue_content()}"></td>
+            <td id="uName" class="center" style="font-size: 13px;" th:text="${clue.getuName()}"></td>
+            <td id="clue_date" class="center" style="font-size: 13px;" th:fragment="yyyy-MM-dd" th:text="${clue.getClue_date()}"></td>
+            <td id="cName" class="center" style="font-size: 13px;" th:text="${clue.getcName()}"></td>
+            <td id="pName" class="center" style="font-size: 13px;" th:text="${clue.getpName()}"></td>
+            <td class="center" style="font-size: 13px;">&nbsp;<a href="" class="btn btn4 btn_search"></a>&nbsp;&nbsp;<a href="" id="remove" class="btn btn4 btn_trash"></a></td>
+        </tr>
+        </tbody>
+    </table>
+<!--
+
+    <div style="width: 500px;height: 20px;padding-right: 30px;padding-top: 0px;">
+        <ul class="pagination" >
+            <if th:test="${pu.currentPage > 1 }">
+                <li class="first"><a th:href="@{/Clue/getClue&not;currentPageNo=1&clue_userid=${clue_userid;}&clue_custome=${clue_custome}&clue_product=${clue_product}&pageSize=${pu.pageSize}}" class="disable">&laquo;</a></li>
+                <li class="previous"><a th:href="@{/Clue/getClue&not;currentPageNo=${pu.currentPage-1}&clue_userid=${clue_userid;}&clue_custome=${clue_custome}&clue_product=${clue_product}&pageSize=${pu.pageSize}}" class="disable">&lsaquo;</a></li>
+            </if>
+            <th:forEach  var="page" begin="1" end="${pu.totalPageCount }">
+            <li><a th:href="@{/Clue/getClue&not;currentPageNo=${page}&clue_userid=${clue_userid;}&clue_custome=${clue_custome}&clue_product=${clue_product}&pageSize=${pu.pageSize}}" class="current"><input type="button" th:value="${page}"/></a></li>
+            </th:forEach>
+            <if th:test="${pu.currentPage < pu.totalPageCount }">
+            <li class="next"><a th:href="@{/Clue/getClue&not;currentPageNo=${pu.currentPage+1}&clue_userid=${clue_userid;}&clue_custome=${clue_custome}&clue_product=${clue_product}&pageSize=${pu.pageSize}}">&rsaquo;</a></li>
+            <li class="last"><a th:href="@{/Clue/getClue&not;currentPageNo=${pu.totalPageCount}&clue_userid=${clue_userid;}&clue_custome=${clue_custome}&clue_product=${clue_product}&pageSize=${pu.pageSize}}">&raquo;</a></li>
+            </if>
+        </ul>
+    </div>
+-->
+
+    <!-- 弹出查看用户框 -->
+    <div id="showClueDiv">
+        <div id="closeClueDiv">X</div>
+        <div id="clueDiv"></div>
+    </div>
+
+
+<!--列表结束-->
+</div>
+ </body>
+<span th:replace="/commons/js::js"></span>
+</html>
+
+
+

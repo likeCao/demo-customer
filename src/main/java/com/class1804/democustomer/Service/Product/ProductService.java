@@ -5,6 +5,8 @@ import com.class1804.democustomer.pojo.Product;
 import java.util.List;
 
 public interface ProductService {
+    //获取商品列表
+    List<Product> getProduct();
 
     //新增产品
     int productAdd(Product product);
