@@ -1,34 +1,140 @@
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:s="http://www.w3.org/1999/html">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <div id="contentwrapper" class="contentwrapper">
     <span th:replace="/commons/header::header"></span>
     <span th:replace="/commons/left::left"></span>
-    
+    <span th:replace="/commons/js::js"></span>
+<script>
+    window.onload=function () {
+        var dqy=$("#shangyiye").val();
+        var lastno=$("#weiye").val();
+        if(dqy==0){
+            $("#shouye").hide();
+            $("#shangyiye").hide();
+        }
+    }
+   function selectlist() {
+        var user_name = $("#user_name").val();
+        var clue_date= $("#clue_date").val();
+        var user_jurisdiction =$("#user_jurisdiction").val();
+        var  pagesize=$("#pagesize").val();
+        $("#tabess").load("/Customer/getCustomerListone",{
+            user_name:user_name,
+            clue_date:clue_date,
+            user_jurisdiction:user_jurisdiction,
+            pagesize:pagesize,
+        })
+   }
+
+
+    function toone() {
+        var user_name = $("#user_name").val();
+        var clue_date= $("#clue_date").val();
+        var user_jurisdiction =$("#user_jurisdiction").val();
+        var currentno=$("#shouye").val();
+        var  pagesize=$("#pagesize").val();
+        if (currentno==0){
+            $("#shouye").hide()
+        } else {
+        $("#tabess").load("/Customer/getCustomerListone",{
+            user_name:user_name,
+            clue_date:clue_date,
+            user_jurisdiction:user_jurisdiction,
+            currentno:currentno,
+            pagesize:pagesize,
+        })}
+    }
+
+    function toon() {
+
+        var user_name = $("#user_name").val();
+        var clue_date= $("#clue_date").val();
+        var user_jurisdiction =$("#user_jurisdiction").val();
+        var currentno=$("#shangyiye").val();
+        var  pagesize=$("#pagesize").val();
+        if (currentno==0){
+            alert("已经是第一页了");
+            $("#shouye").hide();
+            $("#shangyiye").hide();
+        } else {
+        $("#tabess").load("/Customer/getCustomerListone",{
+            user_name:user_name,
+            clue_date:clue_date,
+            user_jurisdiction:user_jurisdiction,
+            currentno:currentno,
+            pagesize:pagesize,
+        })}
+    }
+    function tonext() {
+
+        var user_name = $("#user_name").val();
+        var clue_date = $("#clue_date").val();
+        var user_jurisdiction = $("#user_jurisdiction").val();
+        var currentno=$("#xiayiye").val();
+        var lastno=$("#weiye").val();
+        var  pagesize=$("#pagesize").val();
+        var last=Number(lastno) +1;
+        if (currentno==last){
+            alert("已经是最后一页");
+            $("#xiayiye").hide();
+            $("#weiye").hide();
+        }else {
+        $("#tabess").load("/Customer/getCustomerListone",{
+            user_name:user_name,
+            clue_date:clue_date,
+            user_jurisdiction:user_jurisdiction,
+            currentno:currentno,
+            pagesize:pagesize,
+        })}
+    }
+    function tolast() {
+        var user_name = $("#user_name").val();
+        var clue_date= $("#clue_date").val();
+        var user_jurisdiction =$("#user_jurisdiction").val();
+        var currentno=$("#weiye").val();
+        var  pagesize=$("#pagesize").val();
+        $("#tabess").load("/Customer/getCustomerListone",{
+            user_name:user_name,
+            clue_date:clue_date,
+            user_jurisdiction:user_jurisdiction,
+            currentno:currentno,
+            pagesize:pagesize,
+        })
+    }
+</script>
+
+
     <div class="centercontent">
         <div class="contenttitle2">
             <h3>客户列表</h3>
         </div><!--contenttitle-->
         <div class="tableoptions">
-            <form th:action="@{/Customer/getCustomerList}" method="get">
-            <input type="text" name="user_name"  class=" radius3" style="width: 85px;height:30px;" title="负责人名字" placeholder="负责人名字"/>
-            <input type="date" name="clue_date" class=" radius3" style="height:30px;" title="线索跟进时间" />
-            <select name="user_jurisdiction" class="radius3">
-                <option value="3">全部客户</option>
-                <option value="2">我的客户</option>
-                <option value="1">我的下属客户</option>
+            <form >
+                <input type="text" name="user_name" id="user_name"  class=" radius3" style="width: 85px;height:30px;" title="负责人名字" placeholder="负责人名字"/>
+            <input type="date" name="clue_date" id="clue_date" class=" radius3" style="height:30px;" title="线索跟进时间" />
+            <select  name="user_jurisdiction"  id="user_jurisdiction" class="radius3">
+                <option th:value="${session.loginUser.user_jurisdiction}">全部客户</option>
+                <option  th:value="${session.loginUser.user_id}">我的客户</option>
+                <option th:value="${session.loginUser.user_jurisdiction}-1">我的下属客户</option>
 
             </select> &nbsp;
-            <button class="radius3" type="submit" style="background-color: #0f91f5; color: #eeeeee;" >查询</button></form>
+            <button class="radius3" type="button" onclick="selectlist()"  style="background-color: #0f91f5; color: #eeeeee;" >查询</button></form>
             <a style="margin-left:970px;margin-top:-35px;border-radius: 5px;background-color:green;color:#fff;width:90px;height: 35px ;display: inline-block;text-align: center; line-height:35px;" th:href=" @{/Customer/toaddCustomer}" class="shanchu">新增客户</a><br/>
-
         </div><!--tableoptions-->
-        <table cellpadding="0" cellspacing="0" border="0" id="table2" class="stdtable stdtablecb">
+        <select id="pagesize" style="width: 50px !important;height: 20px;margin-left:8px;">
+            <option value="5" >5</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+            <option value="20">20</option>
+        </select>
+        <div id="tabess" th:fragment="tablelist">
+
+        <table  cellpadding="0" cellspacing="0" border="0" id="table2" class="stdtable stdtablecb">
 
             <thead>
             <tr>
                 <th class="head1">姓名</th>
                 <th class="head0">电话</th>
                 <th class="head1">跟进时间</th>
-                <th class="head0">跟进状态</th>
                 <th class="head1">负责人</th>
                 <th class="head1">备注</th>
                 <th class="head0">操作</th>
@@ -39,62 +145,49 @@
                 <th class="head1">姓名</th>
                 <th class="head0">电话</th>
                 <th class="head1">跟进时间</th>
-                <th class="head0">跟进状态</th>
                 <th class="head1">负责人</th>
                 <th class="head1">备注</th>
                 <th class="head0">操作</th>
             </tr>
             </tfoot>
-            <tbody>
-            <tr th:each="item,clist:${#httpServletRequest.getAttribute('customers')}" >
+
+            <tbody >
+            <tr  th:each="item,clist:${#httpServletRequest.getAttribute('customers')}" >
+                <td id="customerid" style="display: none;" th:value="${clist.current.customer_id}"></td>
                 <td th:text="${clist.current.customer_name}"></td>
                 <td th:text="${clist.current.customer_number}"></td>
-                <td th:fragment="yyyy-MM-dd" th:text="${clist.current.clue_date}"></td>
-                <td th:text="${clist.current.clue_state}"></td>
+                <td th:text="${clist.current.clue_date}"></td>
                 <td th:text="${clist.current.user_name}"></td>
                 <td th:text="${clist.current.customer_text}"></td>
                 <td style="width: 70px;">
-                <button  style="border-radius: 5px;background-color:green;color:#fff;width:60px;height: 30px ;" class="shanchu">升级</button><br/>
-                <button style="border-radius: 5px;background-color:blue;color:#fff;width:60px; height: 30px;" class="xiugai">修改</button>
+                <button th:attr="del_uri=@{/comm/updateCustomerJ/}+${clist.current.customer_id}"  style="border-radius: 5px;background-color:green;color:#fff;width:60px;height: 30px ;" class="shengji">升级</button><br/>
+                <button onclick="xiugai"  style="border-radius: 5px;background-color:blue;color:#fff;width:60px; height: 30px;" class="xiugai">修改</button>
                 </td>
             </tr>
+         <tr id="tablestr">
+
+         </tr>
             </tbody>
         </table>
 
 
-        <span th:replace="/commons/js::js"></span>
-       <!-- <script>
-            function ons() {
-                //获取input的元素
-                var apparatus_name = document.getElementById("apparatus_name;").value;
-                var apparatus_price= document.getElementById("apparatus_price;").value;
-                var apparatus_quantity =document.getElementById("apparatus_quantity").value;
-                var apparatus_rem = document.getElementById("apparatus_rem").value;
+        <div id="pages_div">
 
-                $.ajax({
-                    url:'/Customer/getCustomerList',
-                    dataType:"text",
-                    data:{apparatus_name:apparatus_name,apparatus_price:apparatus_price,apparatus_quantity:apparatus_quantity,apparatus_rem:apparatus_rem},
-                    type:"post",
-                    success:function () {
-                        alert("提交成功")
-                    },
-                    error:function (XMLHttpRequest, textStatus, errorThrown) {
-                        console.log(XMLHttpRequest.status);
+            <span>共查询到</span><li th:text="${session.page.getTotalCount()}" style="display: inline-block;margin: 10px" ></li><span>条记录&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            第</span>
+            <span th:text="${session.page.currentPageNo}"></span>/<span th:text="${session.page.getTotalPageCount()}"></span>
+            <ul style="display: inline-block;font-size: 16px;margin-left: 700px;margin-top: -20px;">
+                <li  style="display: inline-block;margin: 10px" ></li>
+                <li  style="display: inline-block;margin: 10px" ></li>
 
-                        // 状态
-
-                        console.log(XMLHttpRequest.readyState);
-
-                        // 错误信息
-
-                        console.log(textStatus);
-                        alert("添加出错")
-                    }
-                })
-            }
-
-        </script>-->
+                <button   onclick="toone()" id="shouye" value="1" style="margin: 10px;" >首页</button>
+                <button   onclick="toon()" id="shangyiye" th:value="${session.page.currentPageNo -1}" style=" margin: 10px">上一页</button>
+                <button   onclick="tonext()" id="xiayiye" th:value="${session.page.currentPageNo +1}" style=" margin: 10px">下一页</button>
+                <button   onclick="tolast()" id="weiye" th:value="${session.page.getTotalPageCount()}" style="margin: 10px">尾页</button>
+            </ul>
+        </div>
+        </div>
+        <p id="uid" th:value="${session.loginUser.user_id}"></p>
 </div>
 </div>
 </html>
