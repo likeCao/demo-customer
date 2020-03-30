@@ -41,7 +41,7 @@
         </where>
         ORDER BY cd_date DESC
     </select>
-    <select id="getMoneyList" resultType="Customer_dynamic">
+    <select id="getMoneyList" resultType="Customer_dynamic" parameterType="Customer_dynamic">
         select SUM(cd_money) as cd_moneyAll,cd_userid from customer_dynamic
         <where>
             <if test="productId>0">
@@ -56,6 +56,6 @@
 
 
         GROUP BY cd_userid
-        ORDER BY cd_date desc
+        ORDER BY cd_moneyAll desc
     </select>
 </mapper>

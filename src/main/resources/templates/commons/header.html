@@ -31,7 +31,7 @@
         	</div>-->
             <div class="userinfo">
             	<img th:src="@{/images/thumbs/avatar.png}" alt="" />
-                <span>管理员</span>
+                <span th:text="${session.loginUser.getUser_name()}"></span>
             </div><!--userinfo-->
 
             <div class="userinfodrop">
@@ -63,7 +63,7 @@
 
     <div class="header">
     	<ul class="headermenu">
-        	<li class="current"><a th:href="@{/dashboard}"><span class="icon icon-flatscreen"></span>首页</a></li>
+        	<li class="current"><a th:href="@{/Workbench/home}"><span class="icon icon-flatscreen"></span>首页</a></li>
             <li><a th:href="@{/manageblog}"><span class="icon icon-pencil"></span>博客管理</a></li>
             <li><a th:href="@{/messages}"><span class="icon icon-message"></span>查看消息</a></li>
             <li><a th:href="@{/reports}"><span class="icon icon-chart"></span>统计报表</a></li>
@@ -71,12 +71,12 @@
        <div class="headerwidget">
         	<div class="earnings">
             	<div class="one_half">
-                	<h4>Today's Earnings</h4>
-                    <h2>$640.01</h2>
+                	<h4>销售金额（万）</h4>
+                    <h2 th:text="${session.usermoney}"></h2>
                 </div><!--one_half-->
                 <div class="one_half last alignright">
-                	<h4>Current Rate</h4>
-                    <h2>53%</h2>
+                	<h4>销售排行</h4>
+                    <h2 th:text="${session.Ranking}"></h2>
                 </div><!--one_half last-->
             </div><!--earnings-->
         </div><!--headerwidget-->

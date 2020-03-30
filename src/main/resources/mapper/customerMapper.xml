@@ -69,10 +69,10 @@
         select count(customer_id) from customer
         <where>
             <if test="gender = 0 and gender = 1">
-                customer_gender = #{gender}
+               and customer_gender = #{gender}
             </if>
             <if test="id > 0">
-                customer_userid = #{id}
+               and customer_userid = #{id}
             </if>
         </where>
     </select>
