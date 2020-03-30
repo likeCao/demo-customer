@@ -42,13 +42,14 @@
         ORDER BY cd_date DESC
     </select>
     <select id="getMoneyList" resultType="Customer_dynamic" parameterType="Customer_dynamic">
-        select SUM(cd_money) as cd_moneyAll,cd_userid from customer_dynamic
+        select SUM(customer_dynamic.cd_money) as cd_moneyAll,`user`.user_name as cd_userName
+        from customer_dynamic,`user` where `user`.user_id = customer_dynamic.cd_userid
         <where>
             <if test="productId>0">
-                or cd_productid = #{productId}
+                and cd_productid = #{productId}
             </if>
             <if test="categoryId>0">
-                or cd_productid in (
+                and cd_productid in (
                 select product_id from product WHERE product_category = #{categoryId}
                 )
             </if>
