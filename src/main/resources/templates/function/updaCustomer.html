@@ -8,13 +8,12 @@
     }
 </style>
 <script>
-
 </script>
 <div class="centercontent">
             <div class="contenttitle2">
                 <h3 style="display: inline-block;"> 修改客户<span style="margin-left: 30px;color: red;">标注*的不可修改</span></h3>
-                <a style="margin-left:30px;margin-top: 0px; border-radius: 5px;background-color:#0f91f5;font-size:16px;color:#fff;width:80px;height: 30px ;display: inline-block;text-align: center; line-height:30px;" th:href=" @{/Customer/getCustomerList}" class="shanchu">客户列表</a><br/>
-            <form th:action="@{/Customer/updateCustomer}" class="stdform stdform2" method="post" action="">
+                <a th:href=" @{/Customer/getCustomerList}" style="margin: 5px;font-size: 14px;" class="btn btn2 btn_blue btn_home"><span>客户列表</span></a>
+                <form th:action="@{/Customer/updateCustomer}" class="stdform stdform2" method="post" action="">
                 <input style="display: none;" name="customer_id" th:value="${customer.customer_id}" />
                 <p>
                     <label>姓名*</label>

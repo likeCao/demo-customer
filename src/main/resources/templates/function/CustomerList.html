@@ -153,8 +153,8 @@
                 <option value="15">15</option>
                 <option value="20">20</option>
             </select>
-            <button class="radius3" type="button" onclick="selectlist()"  style="background-color: #0f91f5; color: #eeeeee;width:60px;height:30px;font-size:14px;" >查询</button>
-            <a style=" display:inline-block;margin-left:970px;margin-top:-35px;border-radius: 5px;background-color:green;color:#fff;width:100px;height: 35px ;text-align: center; line-height:35px;" th:href=" @{/Customer/toaddCustomer}" class="shanchu">新增客户</a><br/>
+            <a style="margin-left:10px; "  onclick="selectlist()" class="btn btn2 btn_blue btn_search radius50"><span>查询</span></a>
+            <a th:href=" @{/Customer/toaddCustomer}" style="display:inline-block;margin-left: 420px;" class="btn btn2 btn_blue btn_flag"><span>新增客户</span></a>
         </div><!--tableoptions-->
 
         <div id="tabess" th:fragment="tablelist">
@@ -208,15 +208,13 @@
             第</span>
             <span th:text="${session.page.currentPageNo}"></span>/<span th:text="${session.page.getTotalPageCount()}"></span>
             <ul style="display: inline-block;font-size: 16px;margin-left: 700px;margin-top: -20px;">
-                <li  style="display: inline-block;margin: 10px" ></li>
-                <li  style="display: inline-block;margin: 10px" ></li>
-
                 <button   onclick="toone()" id="shouye" value="1" style="margin: 10px;" >首页</button>
                 <button   onclick="toon()" id="shangyiye" th:value="${session.page.currentPageNo -1}" style=" margin: 10px">上一页</button>
                 <button   onclick="tonext()" id="xiayiye" th:value="${session.page.currentPageNo +1}" style=" margin: 10px">下一页</button>
                 <button   onclick="tolast()" id="weiye" th:value="${session.page.getTotalPageCount()}" style="margin: 10px">尾页</button>
                 <a href="#show" id="modaltrigger"></a>
             </ul>
+
         </div>
         </div>
         <p id="uid" th:value="${session.loginUser.user_id}"></p>
