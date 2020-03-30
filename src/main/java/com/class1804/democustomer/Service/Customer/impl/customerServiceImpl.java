@@ -8,9 +8,7 @@ import com.class1804.democustomer.pojo.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Calendar;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class customerServiceImpl implements customerService {
@@ -49,12 +47,18 @@ public class customerServiceImpl implements customerService {
     }
 
     @Override
-    public List<ClueCustomerUser> selectClueCusUser(Integer customer_id, Integer user_id, Integer user_jurisdiction, String clue_date, String user_name, Integer currentPageNo, Integer pageSize) {
-        return cd.selectClueCusUser(customer_id,user_id,user_jurisdiction,clue_date,user_name,currentPageNo,pageSize);
+    public List<ClueCustomerUser> selectClueCusUser(Integer customer_id, Integer user_id, Integer user_jurisdiction, String user_name, Integer customer_gender, String customer_name, Integer currentPageNo, Integer pageSize) {
+        return cd.selectClueCusUser(customer_id,user_id,user_jurisdiction,user_name,customer_gender,customer_name,currentPageNo,pageSize);
     }
 
     @Override
-    public Integer selectClueCusUserCount(Integer user_id, Integer user_jurisdiction, String clue_date, String user_name) {
-        return cd.selectClueCusUserCount(user_id,user_jurisdiction,clue_date,user_name);
+    public Integer selectClueCusUserCount(Integer customer_id, Integer user_id, Integer user_jurisdiction, String user_name, Integer customer_gender, String customer_name) {
+        return cd.selectClueCusUserCount(customer_id,user_id,user_jurisdiction,user_name,customer_gender,customer_name);
+    }
+
+
+    @Override
+    public Customer selectCustomerByid(Integer customer_id) {
+        return cd.selectCustomerByid(customer_id);
     }
 }

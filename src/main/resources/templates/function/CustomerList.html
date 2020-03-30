@@ -3,6 +3,21 @@
     <span th:replace="/commons/header::header"></span>
     <span th:replace="/commons/left::left"></span>
     <span th:replace="/commons/js::js"></span>
+
+    <style>
+
+        #lean_overlay {
+            position: fixed;
+            z-index:100;
+            top: 0px;
+            left: 0px;
+            height:100%;
+            width:100%;
+            background: #000;
+            display: none;
+        }
+        #show {display:none;}
+    </style>
 <script>
     window.onload=function () {
         var dqy=$("#shangyiye").val();
@@ -14,12 +29,14 @@
     }
    function selectlist() {
         var user_name = $("#user_name").val();
-        var clue_date= $("#clue_date").val();
+        var customer_name= $("#customer_name").val();
+       var customer_gender= $("#customer_gender").val();
         var user_jurisdiction =$("#user_jurisdiction").val();
         var  pagesize=$("#pagesize").val();
         $("#tabess").load("/Customer/getCustomerListone",{
             user_name:user_name,
-            clue_date:clue_date,
+            customer_name:customer_name,
+            customer_gender:customer_gender,
             user_jurisdiction:user_jurisdiction,
             pagesize:pagesize,
         })
@@ -28,7 +45,8 @@
 
     function toone() {
         var user_name = $("#user_name").val();
-        var clue_date= $("#clue_date").val();
+        var customer_name= $("#customer_name").val();
+        var customer_gender= $("#customer_gender").val();
         var user_jurisdiction =$("#user_jurisdiction").val();
         var currentno=$("#shouye").val();
         var  pagesize=$("#pagesize").val();
@@ -37,7 +55,8 @@
         } else {
         $("#tabess").load("/Customer/getCustomerListone",{
             user_name:user_name,
-            clue_date:clue_date,
+            customer_name:customer_name,
+            customer_gender:customer_gender,
             user_jurisdiction:user_jurisdiction,
             currentno:currentno,
             pagesize:pagesize,
@@ -47,7 +66,8 @@
     function toon() {
 
         var user_name = $("#user_name").val();
-        var clue_date= $("#clue_date").val();
+        var customer_name= $("#customer_name").val();
+        var customer_gender= $("#customer_gender").val();
         var user_jurisdiction =$("#user_jurisdiction").val();
         var currentno=$("#shangyiye").val();
         var  pagesize=$("#pagesize").val();
@@ -58,7 +78,8 @@
         } else {
         $("#tabess").load("/Customer/getCustomerListone",{
             user_name:user_name,
-            clue_date:clue_date,
+            customer_name:customer_name,
+            customer_gender:customer_gender,
             user_jurisdiction:user_jurisdiction,
             currentno:currentno,
             pagesize:pagesize,
@@ -67,8 +88,9 @@
     function tonext() {
 
         var user_name = $("#user_name").val();
-        var clue_date = $("#clue_date").val();
-        var user_jurisdiction = $("#user_jurisdiction").val();
+        var customer_name= $("#customer_name").val();
+        var customer_gender= $("#customer_gender").val();
+        var user_jurisdiction =$("#user_jurisdiction").val();
         var currentno=$("#xiayiye").val();
         var lastno=$("#weiye").val();
         var  pagesize=$("#pagesize").val();
@@ -80,7 +102,8 @@
         }else {
         $("#tabess").load("/Customer/getCustomerListone",{
             user_name:user_name,
-            clue_date:clue_date,
+            customer_name:customer_name,
+            customer_gender:customer_gender,
             user_jurisdiction:user_jurisdiction,
             currentno:currentno,
             pagesize:pagesize,
@@ -88,18 +111,23 @@
     }
     function tolast() {
         var user_name = $("#user_name").val();
-        var clue_date= $("#clue_date").val();
+        var customer_name= $("#customer_name").val();
+        var customer_gender= $("#customer_gender").val();
         var user_jurisdiction =$("#user_jurisdiction").val();
         var currentno=$("#weiye").val();
         var  pagesize=$("#pagesize").val();
         $("#tabess").load("/Customer/getCustomerListone",{
             user_name:user_name,
-            clue_date:clue_date,
+            customer_name:customer_name,
+            customer_gender:customer_gender,
             user_jurisdiction:user_jurisdiction,
             currentno:currentno,
             pagesize:pagesize,
         })
     }
+
+
+
 </script>
 
 
@@ -108,24 +136,27 @@
             <h3>客户列表</h3>
         </div><!--contenttitle-->
         <div class="tableoptions">
-            <form >
-                <input type="text" name="user_name" id="user_name"  class=" radius3" style="width: 85px;height:30px;" title="负责人名字" placeholder="负责人名字"/>
-            <input type="date" name="clue_date" id="clue_date" class=" radius3" style="height:30px;" title="线索跟进时间" />
-            <select  name="user_jurisdiction"  id="user_jurisdiction" class="radius3">
-                <option th:value="${session.loginUser.user_jurisdiction}">全部客户</option>
-                <option  th:value="${session.loginUser.user_id}">我的客户</option>
-                <option th:value="${session.loginUser.user_jurisdiction}-1">我的下属客户</option>
+                <input type="text" name="user_name" id="user_name"  class=" radius3" style="width: 85px;height:14px;font-size:14px;padding:15px 0px;" title="负责人名字" placeholder="负责人名字"/>
+                <input style="width: 85px;height:14px;font-size:14px;padding:15px 0px;" type="text" name="customer_name" id="customer_name"  title="客户姓名"  placeholder="客户姓名"/>
 
-            </select> &nbsp;
-            <button class="radius3" type="button" onclick="selectlist()"  style="background-color: #0f91f5; color: #eeeeee;" >查询</button></form>
-            <a style="margin-left:970px;margin-top:-35px;border-radius: 5px;background-color:green;color:#fff;width:90px;height: 35px ;display: inline-block;text-align: center; line-height:35px;" th:href=" @{/Customer/toaddCustomer}" class="shanchu">新增客户</a><br/>
+                <select  name="user_jurisdiction"  id="user_jurisdiction" class="radius3">
+                    <option th:value="${session.loginUser.user_jurisdiction}">全部客户</option>
+                    <option  th:value="${session.loginUser.user_id}">我的客户</option>
+                    <option th:value="${session.loginUser.user_jurisdiction}-1">我的下属客户</option>
+                </select>
+            <select style="width: 85px;height: 30px;margin-top: 5px;border-radius: 4px;box-shadow: inset  1px 1px ;"  name="customer_gender"  id="customer_gender">
+                <option value=" ">客户性别</option> <option value="1">男</option><option value="0">女</option>
+            </select>
+            <select id="pagesize" style="width: 50px !important;height: 30px;margin-left:5px;margin-top: 5px;border-radius: 4px">
+                <option value="5" >5</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+            </select>
+            <button class="radius3" type="button" onclick="selectlist()"  style="background-color: #0f91f5; color: #eeeeee;width:60px;height:30px;font-size:14px;" >查询</button>
+            <a style=" display:inline-block;margin-left:970px;margin-top:-35px;border-radius: 5px;background-color:green;color:#fff;width:100px;height: 35px ;text-align: center; line-height:35px;" th:href=" @{/Customer/toaddCustomer}" class="shanchu">新增客户</a><br/>
         </div><!--tableoptions-->
-        <select id="pagesize" style="width: 50px !important;height: 20px;margin-left:8px;">
-            <option value="5" >5</option>
-            <option value="10">10</option>
-            <option value="15">15</option>
-            <option value="20">20</option>
-        </select>
+
         <div id="tabess" th:fragment="tablelist">
 
         <table  cellpadding="0" cellspacing="0" border="0" id="table2" class="stdtable stdtablecb">
@@ -133,8 +164,8 @@
             <thead>
             <tr>
                 <th class="head1">姓名</th>
+                <th class="head1">性别</th>
                 <th class="head0">电话</th>
-                <th class="head1">跟进时间</th>
                 <th class="head1">负责人</th>
                 <th class="head1">备注</th>
                 <th class="head0">操作</th>
@@ -143,8 +174,8 @@
             <tfoot>
             <tr>
                 <th class="head1">姓名</th>
+                <th class="head1">性别</th>
                 <th class="head0">电话</th>
-                <th class="head1">跟进时间</th>
                 <th class="head1">负责人</th>
                 <th class="head1">备注</th>
                 <th class="head0">操作</th>
@@ -153,15 +184,15 @@
 
             <tbody >
             <tr  th:each="item,clist:${#httpServletRequest.getAttribute('customers')}" >
-                <td id="customerid" style="display: none;" th:value="${clist.current.customer_id}"></td>
+                <td class="customerid" style="display: none;" value="1"></td>
                 <td th:text="${clist.current.customer_name}"></td>
+                <td th:text="${clist.current.customer_gender==1 ?'男':'女'}" ></td>
                 <td th:text="${clist.current.customer_number}"></td>
-                <td th:text="${clist.current.clue_date}"></td>
                 <td th:text="${clist.current.user_name}"></td>
                 <td th:text="${clist.current.customer_text}"></td>
                 <td style="width: 70px;">
-                <button th:attr="del_uri=@{/comm/updateCustomerJ/}+${clist.current.customer_id}"  style="border-radius: 5px;background-color:green;color:#fff;width:60px;height: 30px ;" class="shengji">升级</button><br/>
-                <button onclick="xiugai"  style="border-radius: 5px;background-color:blue;color:#fff;width:60px; height: 30px;" class="xiugai">修改</button>
+                <button th:attr="sj_uri=@{/Customer/updateCustomerJ/}+${clist.current.customer_id},cuj=${clist.current.customer_jurisdiction}"  style="border-radius: 5px;background-color:green;color:#fff;width:60px;height: 30px ;" class="shengji">升级</button><br/>
+                <button th:attr="del_uri=@{/Customer/toupdateCustomer/}+${clist.current.customer_id}" style="border-radius: 5px;background-color:blue;color:#fff;width:60px; height: 30px;" class="xiugai">修改</button>
                 </td>
             </tr>
          <tr id="tablestr">
@@ -184,10 +215,84 @@
                 <button   onclick="toon()" id="shangyiye" th:value="${session.page.currentPageNo -1}" style=" margin: 10px">上一页</button>
                 <button   onclick="tonext()" id="xiayiye" th:value="${session.page.currentPageNo +1}" style=" margin: 10px">下一页</button>
                 <button   onclick="tolast()" id="weiye" th:value="${session.page.getTotalPageCount()}" style="margin: 10px">尾页</button>
+                <a href="#show" id="modaltrigger"></a>
             </ul>
         </div>
         </div>
         <p id="uid" th:value="${session.loginUser.user_id}"></p>
 </div>
+    <div id="show"  style="text-align:center;border-radius:10px;width:500px;height:200px;font-size: 20px;color: #eeeeee; background-color: rgba(0,0,0,0.7)" >
+                    <span class="field" style="text-align:center;display:inline-block;margin-top: 70px;">
+                        <h3>请选择要升级到的等级</h3><br/><br/>
+                            <span id="pt"><input type="radio" name="customer_jurisdiction" value="4"  required="required"/> 普通客户</span> &nbsp; &nbsp;
+                            <span id="by"><input type="radio" name="customer_jurisdiction" value="5"  required="required"/>白银客户</span> &nbsp; &nbsp;
+                            <span id="hj"><input type="radio" name="customer_jurisdiction" value="6"  required="required"/>黄金客户 </span>&nbsp; &nbsp;
+                            	<input id="zs"   type="radio" name="customer_jurisdiction" value="7"  required="required"/>钻石客户 &nbsp; &nbsp;
+                        <input style="width: 50px; height:30px;background-color: #0f91f5 ;color: #eeeeee;" value="提交" type="button" onclick="sj()"/>
+
+                    </span>
+    </div>
 </div>
+<!--修改功能实现-->
+<form id="updatecomm" >
+
+</form>
+<script>
+    $(".xiugai").click(function () {
+        $("#updatecomm").attr("action",$(this).attr("del_uri")).submit();
+        return false;
+    })
+    /*全局变量存提交升级地址*/
+    var sjurl;
+
+    /*升级功能实现*/
+   $(".shengji").click(function fun(){
+      var cj =$(this).attr("cuj");
+       sjurl =$(this).attr("sj_uri");
+        if (cj>=4) {
+            $("#pt").remove();
+            $("#modaltrigger").click();
+        }
+       if (cj>=5) {
+           $("#pt").remove();
+           $("#by").remove();
+           $("#modaltrigger").click();
+       }
+       if (cj>=6) {
+           $("#pt").remove();
+           $("#by").remove();
+           $("#hj").remove();
+           $("#modaltrigger").click();
+       }
+       if (cj==7) {
+           $("#show").hide();
+          alert("已是目前最高等级");
+       }
+    })
+   function sj() {
+        var customer_jurisdiction=$('input[name="customer_jurisdiction"]:checked').val();
+       if (customer_jurisdiction==null){
+           alert("您还没有选择");
+           fun();
+       }
+        $.ajax({
+            type    :'get',
+            url     :sjurl,
+            data    :{customer_jurisdiction:customer_jurisdiction},
+            datatype:'text',
+            success :function (res) {
+                $("#show").hide();
+                alert("修改成功");
+                console.log(res);
+            },
+            error   :function (error) {
+                alert("修改失败");
+                console.log(error,'失败');
+            }
+        })
+    }
+
+
+    $("#modaltrigger").leanModal({ top : 100, overlay : 0.4, closeButton: ".modal_close" });
+</script>
 </html>

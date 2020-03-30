@@ -1,0 +1,72 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<span th:replace="/commons/header::header"></span>
+<span th:replace="/commons/left::left"></span>
+<span th:replace="/commons/js::js"></span>
+<style>
+   .centercontent{
+        font-size: 16px;
+    }
+</style>
+<script>
+
+</script>
+<div class="centercontent">
+            <div class="contenttitle2">
+                <h3 style="display: inline-block;"> 修改客户<span style="margin-left: 30px;color: red;">标注*的不可修改</span></h3>
+                <a style="margin-left:30px;margin-top: 0px; border-radius: 5px;background-color:#0f91f5;font-size:16px;color:#fff;width:80px;height: 30px ;display: inline-block;text-align: center; line-height:30px;" th:href=" @{/Customer/getCustomerList}" class="shanchu">客户列表</a><br/>
+            <form th:action="@{/Customer/updateCustomer}" class="stdform stdform2" method="post" action="">
+                <input style="display: none;" name="customer_id" th:value="${customer.customer_id}" />
+                <p>
+                    <label>姓名*</label>
+                    <span class="field" name="customer_name" th:text="${customer.customer_name}"></span>
+                </p>
+               &nbsp;
+                <p>
+                    <label >性别*</label>
+                    <span class="field" name="customer_gender" th:text="${customer.customer_gender==1 ?'男':'女'}" ></span>
+                </p> &nbsp;
+                <p>
+                    <label>联系电话</label>
+                    <span class="field" ><input th:placeholder="${customer.customer_number}" th:value="${customer.customer_number}"  name="customer_number" type="text"  id="phone" maxlength="11" onkeyup="this.value=this.value.replace(/\D/g,'')" /></span>
+                </p>
+                <p>
+                    <label>负责人*</label>
+                    <span class="field" name="customer_userid" th:text="${customer.customer_userid}"></span>
+                </p>
+                &nbsp;
+                <p>
+                    <label>消费金额*</label>
+                    <span class="field" name="customer_money" th:text="${customer.customer_money}"></span>
+
+                </p> &nbsp;
+                <p>
+                    <label>级别*</label>
+                    <span class="field" name="customer_jurisdiction" th:text="${cJurisdiction}">
+                    </span>
+                </p> &nbsp;
+                <p>
+                    <label>家庭住址</label>
+                    <span class="field"  ><input th:placeholder="${customer.customer_address}" th:value="${customer.customer_address}"  type="text" name="customer_address" id="firstname2" class="longinput" /></span>
+                </p>
+                &nbsp;
+                <p>
+                    <label>客户生日*</label>
+                    <span class="field" name="customer_birthday" th:text="${customer.customer_birthday}"></span>
+                </p>
+                &nbsp;
+                <p>
+                    <label>客户需求<small>备注</small></label>
+                    <span class="field"><textarea th:text="${customer.customer_text}" cols="80" rows="5" name="customer_text" id="location2" class="longinput"></textarea></span>
+                </p>
+
+                <br />
+                <p class="stdformbutton">
+                    <button type="submit" class="submit radius2">提交</button>
+                    <input type="reset" class="reset radius2"/>
+                </p>
+            </form>
+
+        </div><!--subcontent-->
+
+</div><!-- centercontent -->
+</html>

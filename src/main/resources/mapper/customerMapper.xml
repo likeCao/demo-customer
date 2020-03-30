@@ -55,10 +55,10 @@
                 customer_number = #{customer_number}
             </if>
             <if test="customer_address != null and customer_address != ''">
-                customer_address = #{customer_address}
+                ,customer_address = #{customer_address}
             </if>
             <if test="customer_text != null and customer_text != ''">
-                customer_text = #{customer_text}
+                ,customer_text = #{customer_text}
             </if>
         </set>
         WHERE customer_id = #{customer_id}
@@ -78,40 +78,34 @@
     </select>
 
     <!--/*功能新增*/
-    /*连表查询：列表显示姓名，电话，跟进时间，跟进状态，备注，负责人等信息
-    * 条件有：用户id，负责人名字，跟进时间，用户等级
+    /*连表查询：列表显示客户姓名，客户性别，客户等级，电话，备注，负责人等信息
+     * 条件有：用户id，负责人名字，客户名字，用户等级
     * */-->
     <select id="selectClueCusUser" resultType="ClueCustomerUser">
-        SELECT customer_id ,customer_name,customer_number,customer_text,customer_userid,user_name,clue_date
-        FROM customer c
-        LEFT JOIN `user` u
-        ON customer_userid=user_id
-        LEFT JOIN  (
-        SELECT clue_custome,clue_date FROM(
-        SELECT * FROM clue
-        ORDER BY clue_date DESC
-        ) cl
-        GROUP BY clue_custome) cll
-        ON customer_id=clue_custome
+        SELECT customer_id ,customer_name,customer_gender,customer_number,customer_text,customer_userid,user_name,customer_jurisdiction
+        FROM `customer` ,`user`
         <trim prefix="where" prefixOverrides="and | or">
+            customer_userid=user_id
             <if test="customer_id !=null">
                 and customer_id=#{customer_id}
             </if>
             <if test="user_id !=null">
-               and u.user_id=#{user_id}
+               and user_id=#{user_id}
             </if>
-            <if test="clue_date !=null and clue_date !=''">
-            AND cl.clue_date LIKE CONCAT ('%',#{clue_date},'%')
+            <if test="customer_gender !=null">
+                and customer_gender=#{customer_gender}
+            </if>
+
+            <if test="customer_name !=null and customer_name !=''">
+                AND customer_name LIKE CONCAT ('%',#{customer_name},'%')
             </if>
             <if test="user_jurisdiction !=null and user_jurisdiction !=''">
-            AND u.user_jurisdiction  &lt;= #{user_jurisdiction}
+            AND user_jurisdiction  &lt;= #{user_jurisdiction}
             </if>
             <if test="user_name !=null and user_name !=''">
-            AND u.user_name LIKE CONCAT ('%',#{user_name},'%')
+            AND user_name LIKE CONCAT ('%',#{user_name},'%')
             </if>
         </trim>
-        group by customer_name,clue_date
-        order by clue_date desc
         <if test="from !=null and pageSize !=null" >
             limit #{from},#{pageSize};
         </if>
@@ -121,33 +115,35 @@
     <!--用于分页的查询总数-->
     <select id="selectClueCusUserCount" resultType="Integer">
         select count(1) from(
-        SELECT customer_id ,customer_name,customer_number,customer_text,customer_userid,user_name,clue_date
-        FROM customer c
-        LEFT JOIN `user` u
-        ON customer_userid=user_id
-        LEFT JOIN  (
-        SELECT clue_custome,clue_date FROM(
-        SELECT * FROM clue
-        ORDER BY clue_date DESC
+        SELECT customer_id ,customer_name,customer_gender,customer_number,customer_text,customer_userid,user_name,user_jurisdiction
+        FROM `customer` ,`user`
+        where  customer_userid=user_id
         ) cl
-        GROUP BY clue_custome) cll
-        ON customer_id=clue_custome
         <trim prefix="where" prefixOverrides="and | or">
-            <if test="user_id !=null">
-                and u.user_id=#{user_id}
+            <if test="customer_id !=null">
+                and customer_id=#{customer_id}
             </if>
-            <if test="clue_date !=null and clue_date !=''">
-                AND cl.clue_date LIKE CONCAT ('%',#{clue_date},'%')
+            <if test="user_id !=null">
+                and user_id=#{user_id}
+            </if>
+            <if test="customer_gender !=null">
+                and customer_gender=#{customer_gender}
+            </if>
+
+            <if test="customer_name !=null and customer_name !=''">
+                AND customer_name LIKE CONCAT ('%',#{customer_name},'%')
             </if>
             <if test="user_jurisdiction !=null and user_jurisdiction !=''">
-                AND u.user_jurisdiction &lt;= #{user_jurisdiction}
+                AND user_jurisdiction  &lt;= #{user_jurisdiction}
             </if>
             <if test="user_name !=null and user_name !=''">
-                AND u.user_name LIKE CONCAT ('%',#{user_name},'%')
+                AND user_name LIKE CONCAT ('%',#{user_name},'%')
             </if>
         </trim>
-        group by customer_name,clue_date
-        order by clue_date desc
-        ) A
   </select>
+
+    <select id="selectCustomerByid" resultType="Customer">
+        select * from customer
+        where customer_id=#{customer_id};
+    </select>
 </mapper>

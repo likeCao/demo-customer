@@ -3,23 +3,33 @@ package com.class1804.democustomer.pojo;
 public class ClueCustomerUser {
     private  Integer customer_id;//客户id
     private String customer_name;//客户名字
+    private Integer customer_jurisdiction;//客户等级
+    private  Integer customer_gender;//客户性别
     private String customer_number;//手机号
-    private String customer_text;//备注
-    private String clue_date;//跟进时间
-    private String clue_state;//跟进状态
-    private String user_name;//负责人名字
+
     @Override
     public String toString() {
         return "ClueCustomerUser{" +
                 "customer_id=" + customer_id +
                 ", customer_name='" + customer_name + '\'' +
+                ", customer_jurisdiction=" + customer_jurisdiction +
+                ", customer_gender=" + customer_gender +
                 ", customer_number='" + customer_number + '\'' +
                 ", customer_text='" + customer_text + '\'' +
-                ", clue_date='" + clue_date + '\'' +
-                ", clue_state='" + clue_state + '\'' +
                 ", user_name='" + user_name + '\'' +
                 '}';
     }
+
+    public Integer getCustomer_jurisdiction() {
+        return customer_jurisdiction;
+    }
+
+    public void setCustomer_jurisdiction(Integer customer_jurisdiction) {
+        this.customer_jurisdiction = customer_jurisdiction;
+    }
+
+    private String customer_text;//备注
+    private String user_name;//负责人名字
 
     public Integer getCustomer_id() {
         return customer_id;
@@ -29,13 +39,20 @@ public class ClueCustomerUser {
         this.customer_id = customer_id;
     }
 
-
     public String getCustomer_name() {
         return customer_name;
     }
 
     public void setCustomer_name(String customer_name) {
         this.customer_name = customer_name;
+    }
+
+    public Integer getCustomer_gender() {
+        return customer_gender;
+    }
+
+    public void setCustomer_gender(Integer customer_gender) {
+        this.customer_gender = customer_gender;
     }
 
     public String getCustomer_number() {
@@ -52,22 +69,6 @@ public class ClueCustomerUser {
 
     public void setCustomer_text(String customer_text) {
         this.customer_text = customer_text;
-    }
-
-    public String getClue_date() {
-        return clue_date;
-    }
-
-    public void setClue_date(String clue_date) {
-        this.clue_date = clue_date;
-    }
-
-    public String getClue_state() {
-        return clue_state;
-    }
-
-    public void setClue_state(String clue_state) {
-        this.clue_state = clue_state;
     }
 
     public String getUser_name() {

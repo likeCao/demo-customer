@@ -14,6 +14,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -37,7 +39,8 @@ public class CustomerCnotroller {
     * 列表显示姓名，电话，跟进时间，跟进状态，备注，负责人等信息
     * */
     @RequestMapping("/getCustomerList")
-    public String selectClueCusUser(HttpServletRequest request,HttpSession session,Integer customer_id, Integer user_id, Integer user_jurisdiction, String clue_date, String user_name,
+    public  String selectClueCusUser(HttpServletRequest request,HttpSession session,Integer customer_id, Integer user_id, Integer user_jurisdiction, String clue_date, String user_name,
+                                    Integer customer_gender,String customer_name,
                                     @Param(value="from")String currentno,
                                     @Param(value="pageSize")String pagesize) {
 
@@ -45,7 +48,6 @@ public class CustomerCnotroller {
         if (user_id!=null){
             userid=user_id;
         }
-
 
         //实例化分页工具类
        PageSupport pages = new PageSupport();
@@ -74,7 +76,8 @@ public class CustomerCnotroller {
         //总数量
         int totalCount=0;
         try {
-            totalCount = customerService.selectClueCusUserCount(userid, user_jurisdiction, clue_date, user_name);
+            totalCount = customerService.selectClueCusUserCount(customer_id,user_id,user_jurisdiction,user_name,customer_gender,customer_name);
+
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -90,19 +93,11 @@ public class CustomerCnotroller {
 
         //控制传入当前页的值
         Integer curr=(currentPageNo-1)*pageSize;
-        List<ClueCustomerUser> customerList= customerService.selectClueCusUser(customer_id,user_id,user_jurisdiction,clue_date,user_name,curr,pageSize);
+        List<ClueCustomerUser> customerList= customerService.selectClueCusUser(customer_id,user_id,user_jurisdiction,user_name,customer_gender,customer_name,curr,pageSize);
 
         for(int i=0;i<customerList.size();i++) {
             if (customerList.get(i).getCustomer_text() == null||customerList.get(i).getCustomer_text()=="") {
                 customerList.get(i).setCustomer_text("暂无备注");
-            }
-            if (customerList.get(i).getClue_date() == null||customerList.get(i).getClue_date()=="") {
-                customerList.get(i).setClue_date("0000-00-00 00:00:00");
-            }
-            String d = customerList.get(i).getClue_date();
-            if (d != null) {
-                String date = d.substring(0, 19);
-                customerList.get(i).setClue_date(date);
             }
         }
         request.setAttribute("customers",customerList);
@@ -111,7 +106,8 @@ public class CustomerCnotroller {
     }
 
     @RequestMapping("/getCustomerListone")
-    public String selectlist(HttpServletRequest request, HttpSession session,Integer customer_id, Integer user_id, Integer user_jurisdiction, String clue_date, String user_name,
+    public String selectlist(HttpServletRequest request,HttpSession session,Integer customer_id, Integer user_id, Integer user_jurisdiction, String clue_date, String user_name,
+                             Integer customer_gender,String customer_name,
                              @Param(value="from")String currentno,
                              @Param(value="pageSize")String pagesize) {
 
@@ -146,7 +142,7 @@ public class CustomerCnotroller {
         //总数量
         int totalCount=0;
         try {
-            totalCount = customerService.selectClueCusUserCount(user_id, user_jurisdiction, clue_date, user_name);
+            totalCount = customerService.selectClueCusUserCount(customer_id,user_id,user_jurisdiction,user_name,customer_gender,customer_name);
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -161,22 +157,11 @@ public class CustomerCnotroller {
         }
         //控制传入当前页的值
         Integer curr=(currentPageNo-1)*pageSize;
-        List<ClueCustomerUser> customerList= customerService.selectClueCusUser(customer_id,user_id,user_jurisdiction,clue_date,user_name,curr,pageSize);
+        List<ClueCustomerUser> customerList= customerService.selectClueCusUser(customer_id,user_id,user_jurisdiction,user_name,customer_gender,customer_name,curr,pageSize);
 
         for(int i=0;i<customerList.size();i++) {
             if (customerList.get(i).getCustomer_text() == null||customerList.get(i).getCustomer_text()=="") {
                 customerList.get(i).setCustomer_text("暂无备注");
-            }
-            if (customerList.get(i).getClue_date() == null||customerList.get(i).getClue_date()=="") {
-                customerList.get(i).setClue_date("0000-00-00 00:00:00");
-            }
-            if (customerList.get(i).getClue_state() == null||customerList.get(i).getClue_state()=="") {
-                customerList.get(i).setClue_state("尚未开始");
-            }
-            String d = customerList.get(i).getClue_date();
-            if (d != null) {
-                String date = d.substring(0, 19);
-                customerList.get(i).setClue_date(date);
             }
         }
         request.setAttribute("customers",customerList);
@@ -239,13 +224,51 @@ public class CustomerCnotroller {
 
 
         /*根据修改客户的id，修改到的等级去进行客户的等级修改*/
-    @RequestMapping("/updateCustomerJ/{customer_id}/{customer_jurisdiction}")
+    @RequestMapping("/updateCustomerJ/{customer_id}")
+    @ResponseBody
     public String updateCustomerJ(@PathVariable("customer_id") Integer customer_id, Integer customer_jurisdiction) {
         int i= customerService.updateCustomerJ(customer_id,customer_jurisdiction);
         if(i==1){
             return "修改成功";
         }else
             return "修改失败";
+    }
+
+/*跳转修改客户页面*/
+    @RequestMapping("/toupdateCustomer/{customer_id}")
+    public String toupdateCustomer(@PathVariable("customer_id") Integer customer_id,Model model){
+        System.out.println(customer_id);
+        Customer customer =customerService.selectCustomerByid(customer_id);
+        String cJurisdiction=null;
+        if (customer!=null){
+            if (customer.getCustomer_jurisdiction()==4){
+                cJurisdiction="普通客户";
+            }else if (customer.getCustomer_jurisdiction()==5){
+                cJurisdiction="白银客户";
+            }else if (customer.getCustomer_jurisdiction()==6) {
+                cJurisdiction = "黄金客户";
+            } else if (customer.getCustomer_jurisdiction()==7) {
+                    cJurisdiction = "钻石客户";
+                }
+            model.addAttribute("customer",customer);
+            model.addAttribute("cJurisdiction",cJurisdiction);
+        }
+        return "/function/updaCustomer";
+    }
+
+
+    /*根据客户id修改客户的信息*/
+    @RequestMapping("/updateCustomer")
+    public String updateCustomer(Customer customer,HttpServletRequest request) {
+
+        int i= customerService.updateCustomer(customer);
+        if (i==1){
+            request.setAttribute("msg","修改成功");
+        }else {
+            request.setAttribute("msg", "修改失败");
+            return "/function/updaCustomer";
+        }
+        return "redirect:/Customer/getCustomerList";
     }
 
 

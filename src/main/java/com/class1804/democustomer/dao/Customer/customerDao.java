@@ -27,17 +27,20 @@ public interface customerDao {
     int customerCount(@Param("id") int id,@Param("gender") int gender);
 
     /*功能新增*/
-    /*连表查询：列表显示姓名，电话，跟进时间，跟进状态，备注，负责人等信息
-    * 条件有：用户id，负责人名字，跟进时间，用户等级
+    /*连表查询：列表显示客户姓名，客户性别，电话，备注，负责人等信息
+    * 条件有：用户id，负责人名字，客户性别，客户名字，用户等级
     * */
    List <ClueCustomerUser> selectClueCusUser(@Param("customer_id") Integer customer_id,@Param("user_id") Integer user_id, @Param("user_jurisdiction") Integer user_jurisdiction,
-                                             @Param("clue_date") String clue_date, @Param("user_name") String user_name,
+                                             @Param("user_name") String user_name,@Param("customer_gender") Integer customer_gender,@Param("customer_name") String customer_name,
                                              @Param(value="from")Integer currentPageNo,
                                              @Param(value="pageSize")Integer pageSize);
 
 
    /*用于分页的查询总数*/
-   Integer selectClueCusUserCount(@Param("user_id") Integer user_id, @Param("user_jurisdiction") Integer user_jurisdiction,
-                                  @Param("clue_date") String clue_date, @Param("user_name") String user_name);
+   Integer selectClueCusUserCount(@Param("customer_id") Integer customer_id,@Param("user_id") Integer user_id, @Param("user_jurisdiction") Integer user_jurisdiction,
+                                  @Param("user_name") String user_name,@Param("customer_gender") Integer customer_gender,@Param("customer_name") String customer_name);
+
+   /*根据客户id获取客户信息*/
+    Customer selectCustomerByid(@Param("customer_id") Integer customer_id);
 
 }
