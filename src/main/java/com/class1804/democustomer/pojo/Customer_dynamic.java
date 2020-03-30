@@ -11,6 +11,15 @@ public class Customer_dynamic {
     private String cd_date;         //购买时间
     private double cd_money;        //购买金额
     private double cd_moneyAll;     //总金额
+    private String cd_userName;     //负责人姓名
+
+    public String getCd_userName() {
+        return cd_userName;
+    }
+
+    public void setCd_userName(String cd_userName) {
+        this.cd_userName = cd_userName;
+    }
 
     public double getCd_money() {
         return cd_money;
