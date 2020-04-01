@@ -10,20 +10,29 @@
 
     <!-- 根据负责人，客户，产品查询，返回满足条件的列表 -->
     <select id="getClueByParams" resultType="Clue">
-        SELECT clue.clue_id,clue.clue_content,
-        (SELECT user_name  FROM `user` WHERE USER.user_id=clue.clue_userid) as uName,clue.clue_date,
-        (SELECT customer_name FROM customer WHERE customer.customer_id=clue.clue_custome) as cName ,
-        (SELECT product_name  FROM product WHERE product.product_id=clue.clue_product) as pName
-        from clue
+        select distinct *,
+        (select clueupdate_date from clueupdate where clueupdate_clueid=clue_id order by clueupdate_date desc limit 0,1) as clueupdate_date
+        ,(select user_name from `user` where clue_userid=user_id) as uname
+        ,(select customer_name from customer where clue_custome=customer_id) as cname
+        ,(select product_name from product where product_id=clue_product) as pname
+        from clue,`user` u
+
         <where>
+             u.user_id=clue_userid
+            <if test="clue_id >= 1">
+                and clue_id = #{clue_id}
+            </if>
             <if test="clue_userid >= 100001">
                 and clue_userid = #{clue_userid}
             </if>
-            <if test="clue_custome >= 1">
+            <if test="clue_custome !=null and clue_custome !=''">
                 and clue_custome = #{clue_custome}
             </if>
             <if test="clue_product >= 1">
                 and clue_product = #{clue_product}
+            </if>
+            <if test="user_jurisdiction !=null and user_jurisdiction !=''">
+                AND user_jurisdiction  &lt;= #{user_jurisdiction}
             </if>
         </where>
         limit #{start},#{pageSize}
@@ -32,16 +41,21 @@
     <!-- 根据负责人，客户，产品查询返回总记录数 -->
     <select id="getClueCountByParams" resultType="int">
         select count(clue_id)
-        from clue
+        from clue,`user`
         <where>
+            user_id=clue_userid
             <if test="clue_userid >= 100001">
                 and clue_userid = #{clue_userid}
             </if>
-            <if test="clue_custome >= 1">
-                and clue_custome = #{clue_custome}
-            </if>
+
             <if test="clue_product >= 1">
                 and clue_product = #{clue_product}
+            </if>
+            <if test="user_jurisdiction !=null and user_jurisdiction !=''">
+                AND user_jurisdiction  &lt;= #{user_jurisdiction}
+            </if>
+            <if test="clue_custome >= 1">
+                and clue_custome = #{clue_custome}
             </if>
         </where>
     </select>

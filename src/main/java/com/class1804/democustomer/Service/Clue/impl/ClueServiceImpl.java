@@ -20,24 +20,18 @@ public class ClueServiceImpl implements ClueService {
         return clueDao.getClue();
     }
 
+
     @Override
-    public List<Clue> getClueListByParams(Integer clue_userid, Integer clue_custome, Integer clue_product, PageUtil pu) {
-        //mysql分页起始位置(当前页码-1)*一页显示条数
-        int start = (pu.getCurrentPage()-1)*pu.getPageSize() ;
-        int pageSize = pu.getPageSize() ;
+    public int getClueCountByParams(Integer clue_id, Integer clue_userid, Integer user_jurisdiction, Integer clue_product, Integer clue_custome) {
+      return clueDao.getClueCountByParams(clue_id,clue_userid,user_jurisdiction,clue_product,clue_custome);
+    }
+
+    @Override
+    public List<Clue> getClueListByParams(Integer clue_id,Integer clue_userid, Integer clue_custome, Integer clue_product,Integer user_jurisdiction,Integer start,Integer pageSize) {
+
+        return clueDao.getClueByParams( clue_id,clue_userid,clue_custome,clue_product,user_jurisdiction,start,pageSize);
 
 
-        //需要知道总共分几页
-        //能根据条件查询出总记录数
-        int totalCount =clueDao.getClueCountByParams(clue_userid,clue_custome,clue_product) ;
-
-        //一共分几页
-        pu.setTotalCount(totalCount);
-
-
-        List<Clue> clueList =clueDao.getClueByParams(clue_userid,clue_custome,clue_product,start,pageSize);
-
-        return clueList ;
     }
 
     @Override

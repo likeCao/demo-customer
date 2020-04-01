@@ -7,6 +7,7 @@ import com.class1804.democustomer.Service.Product.ProductService;
 import com.class1804.democustomer.Service.UserService.UserService;
 import com.class1804.democustomer.dao.ClueUpdate.ClueUpdateDao;
 import com.class1804.democustomer.pojo.*;
+import com.class1804.democustomer.tools.PageSupport;
 import com.class1804.democustomer.tools.PageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSON;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -51,33 +54,68 @@ public class ClueController {
 
    //获取线索表内容
     @RequestMapping("/getClue")
-    public String clueList(Integer clue_id,Integer clue_userid,Integer clue_custome,Integer clue_product,
-                           Model model,
-                           Integer currentPageNo,
-                           Integer pageSize){
-
-        //给PageUtil赋值当前页码和一页显示多少条
-        PageUtil pu = new PageUtil() ;
-
+    public String clueList(Integer clue_id, Integer clue_userid, Integer clue_custome, Integer clue_product, Integer user_jurisdiction,
+                           Model model, HttpSession session,
+                           String currentno,
+                           String pagesize){
+        //实例化分页工具类
+        PageUtil pu =new PageUtil();
+        PageSupport pages = new PageSupport();
         //当前页码
-        if(currentPageNo == null) {
-            pu.setCurrentPage(1);
+        Integer currentPageNo = 1;
+
+        if(currentno != null){
+            try{
+                currentPageNo = Integer.valueOf(currentno);
+            }catch (NumberFormatException e) {
+                // TODO: handle exception
+                e.printStackTrace();
+            }
+            pages.setCurrentPageNo(currentPageNo);
         }
-        else {
-            pu.setCurrentPage(currentPageNo);
+        //页面容量
+        Integer pageSize=1;
+        if(pagesize!=null)
+            try{
+                pageSize = Integer.valueOf(pagesize);
+            }catch (NumberFormatException e) {
+                // TODO: handle exception
+                e.printStackTrace();
+            }
+        pages.setPageSize(pageSize);
+        //总数量
+        int totalCount=0;
+
+
+        //需要知道总共分几页
+        //能根据条件查询出总记录数
+        try{
+          totalCount =clueService.getClueCountByParams(clue_id,clue_userid,user_jurisdiction,clue_product,clue_custome);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        pages.setTotalCount(totalCount);
+        //总页数
+        int totalPageCount = pages.getTotalPageCount();
+        //控制首页和尾页
+        if(currentPageNo < 1){
+            currentPageNo = 1;
+        }else if(currentPageNo > totalPageCount){
+            currentPageNo = totalPageCount;
         }
 
-        //一页显示条数
-        if(pageSize == null) {
-            pu.setPageSize(10);
-        }
-        else {
-            pu.setPageSize(pageSize);
-        }
-
+        //控制传入当前页的值
+        Integer curr=(currentPageNo-1)*pageSize;
         //获取线索列表
-       List<Clue> clueList =clueService.getClueListByParams(clue_userid,clue_custome,clue_product,pu);
+       List<Clue> clueList =clueService.getClueListByParams(clue_id,clue_userid,clue_custome,clue_product,user_jurisdiction,curr,pageSize);
 
+        for(int i=0;i<clueList.size();i++){
+            //获取时间
+            String d=clueList.get(i).getClue_date();
+           // 进行截取去掉.0
+            String date=d.substring(0,19);
+            clueList.get(i).setClue_date(date);
+        }
         //将结果存入PageUtil里
         pu.setList(clueList);
 
@@ -95,25 +133,13 @@ public class ClueController {
         model.addAttribute("userList",userList);
         model.addAttribute("customerList",customerList);
         model.addAttribute("productList",productList);
-
+        session.setAttribute("cluepages",pages);
         model.addAttribute("clue_id",clue_id);
         model.addAttribute("clue_userid",clue_userid);
         model.addAttribute("clue_custome",clue_custome);
         model.addAttribute("clue_product",clue_product);
 
-
-        /**
-         *          request.setAttribute("pu",pu);
-         *          request.setAttribute("userList",userList);
-         *         request.setAttribute("customerList",customerList);
-         *         request.setAttribute("productList",productList);
-         *
-         *         request.setAttribute("clue_id",clue_id);
-         *         request.setAttribute("clue_userid",clue_userid);
-         *         request.setAttribute("clue_custome",clue_custome);
-         *         request.setAttribute("clue_product",clue_product);
-         */
-
+        System.out.println(pu.getTotalPageCount());
 
         return "/function/getClue";
 
@@ -123,6 +149,106 @@ public class ClueController {
     @RequestMapping("/toClueList")
     public String toClueList(){
         return "/function/getClue";
+    }
+
+
+    /*ajax获取线索列表*/
+    //获取线索表内容
+    @RequestMapping("/getCluelist")
+    public String clueListone(Integer clue_id, Integer clue_userid, Integer clue_custome, Integer clue_product, Integer user_jurisdiction,
+                                  Model model,HttpSession session,
+                                  Integer currentno,
+                                  Integer pagesize){
+        System.out.println("clue_custome======="+clue_custome);
+        if (user_jurisdiction>100){
+            clue_userid=user_jurisdiction;
+            user_jurisdiction=null;
+        }
+        //实例化分页工具类
+        PageUtil pu =new PageUtil();
+        PageSupport pages = new PageSupport();
+        //当前页码
+        Integer currentPageNo = 1;
+
+        if(currentno != null){
+            try{
+                currentPageNo =currentno;
+            }catch (NumberFormatException e) {
+                // TODO: handle exception
+                e.printStackTrace();
+            }
+            pages.setCurrentPageNo(currentPageNo);
+        }
+        //页面容量
+        Integer pageSize=1;
+        if(pagesize!=null)
+            try{
+                pageSize = pagesize;
+            }catch (NumberFormatException e) {
+                // TODO: handle exception
+                e.printStackTrace();
+            }
+        pages.setPageSize(pageSize);
+        //总数量
+        int totalCount=0;
+
+
+        //需要知道总共分几页
+        //能根据条件查询出总记录数
+        try{
+            totalCount =clueService.getClueCountByParams(clue_id,clue_userid,user_jurisdiction,clue_product,clue_custome);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        pages.setTotalCount(totalCount);
+        //总页数
+        int totalPageCount = pages.getTotalPageCount();
+        //控制首页和尾页
+        if(currentPageNo < 1){
+            currentPageNo = 1;
+        }else if(currentPageNo > totalPageCount){
+            currentPageNo = totalPageCount;
+        }
+
+        //控制传入当前页的值
+        Integer curr=(currentPageNo-1)*pageSize;
+        //获取线索列表
+        List<Clue> clueList =clueService.getClueListByParams(clue_id,clue_userid,clue_custome,clue_product,user_jurisdiction,curr,pageSize);
+
+        for(int i=0;i<clueList.size();i++){
+            //获取时间
+            String d=clueList.get(i).getClue_date();
+            // 进行截取去掉.0
+            String date=d.substring(0,19);
+            clueList.get(i).setClue_date(date);
+        }
+        //将结果存入PageUtil里
+        pu.setList(clueList);
+
+        //获取员工列表
+        List<User> userList = userService.getUserList();
+
+        //获取客户列表
+        List<Customer> customerList=customerService.getCustomer();
+
+        //获取商品列表
+        List<Product> productList=productService.getProduct();
+
+        model.addAttribute("pu",pu);
+        model.addAttribute("userList",userList);
+        model.addAttribute("customerList",customerList);
+        model.addAttribute("productList",productList);
+        session.setAttribute("cluepages",pages);
+        model.addAttribute("clue_id",clue_id);
+        model.addAttribute("clue_userid",clue_userid);
+        model.addAttribute("clue_custome",clue_custome);
+        model.addAttribute("clue_product",clue_product);
+        System.out.println(clueList);
+        System.out.println(pages.getCurrentPageNo());
+        System.out.println(pages.getTotalCount());
+        System.out.println(pages.getPageSize());
+        System.out.println(pages.getTotalPageCount());
+        return "/function/getClue::table";
     }
 
     //跳转到添加线索页面
@@ -215,7 +341,7 @@ public class ClueController {
         pu.setCurrentPage(1);
         pu.setPageSize(10);
 
-        List<Clue> clueList =clueService.getClueListByParams(0,0,0,pu) ;
+        List<Clue> clueList =clueService.getClueListByParams(0,0,0,0,0,1,5) ;
 
         String jsonStr = JSON.toJSONString(clueList) ;
 

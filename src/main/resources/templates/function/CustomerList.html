@@ -158,29 +158,37 @@
         </div><!--tableoptions-->
 
         <div id="tabess" th:fragment="tablelist">
+            <table cellpadding="0" cellspacing="0" border="0" id="table2" class="stdtable stdtablecb" style="text-align: center;">
+                <colgroup>
+                    <col class="con1" style="width: 15%;"/>
+                    <col class="con0"  style="width: 15%;" />
+                    <col class="con1" style="width: 20%;"  />
+                    <col class="con0" style="width: 20%;"/>
+                    <col class="con1" style="width: 20%;"/>
+                    <col class="con0" style="width: 28%;"/>
+                </colgroup>
+                <thead>
+                <tr>
+                    <th class="head0" style="font-size: 13px;text-align: center;">姓名</th>
+                    <th class="head1" style="font-size: 13px;text-align: center;">性别</th>
+                    <th class="head0" style="font-size: 13px;text-align: center;">电话</th>
+                    <th class="head1" style="font-size: 13px;text-align: center;">负责人</th>
+                    <th class="head1" style="font-size: 13px;text-align: center;">备注</th>
+                    <th class="head1" style="font-size: 13px;text-align: center;">操作</th>
 
-        <table  cellpadding="0" cellspacing="0" border="0" id="table2" class="stdtable stdtablecb">
+                </tr>
+                </thead>
+                <tfoot>
+                <tr>
+                    <th class="head1" ></th>
+                    <th class="head0"></th>
+                    <th class="head1" ></th>
+                    <th class="head0"></th>
+                    <th class="head1" ></th>
+                    <th class="head1"></th>
 
-            <thead>
-            <tr>
-                <th class="head1">姓名</th>
-                <th class="head1">性别</th>
-                <th class="head0">电话</th>
-                <th class="head1">负责人</th>
-                <th class="head1">备注</th>
-                <th class="head0">操作</th>
-            </tr>
-            </thead>
-            <tfoot>
-            <tr>
-                <th class="head1">姓名</th>
-                <th class="head1">性别</th>
-                <th class="head0">电话</th>
-                <th class="head1">负责人</th>
-                <th class="head1">备注</th>
-                <th class="head0">操作</th>
-            </tr>
-            </tfoot>
+                </tr>
+                </tfoot>
 
             <tbody >
             <tr  th:each="item,clist:${#httpServletRequest.getAttribute('customers')}" >

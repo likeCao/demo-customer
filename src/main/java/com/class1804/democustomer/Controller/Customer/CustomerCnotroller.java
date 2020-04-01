@@ -118,7 +118,7 @@ public class CustomerCnotroller {
         //实例化分页工具类
         PageSupport pages = new PageSupport();
         //当前页码
-        Integer currentPageNo = 0;
+        Integer currentPageNo = 1;
 
         if(currentno != null){
             try{

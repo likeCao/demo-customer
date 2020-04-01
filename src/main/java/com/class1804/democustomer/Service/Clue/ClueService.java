@@ -11,7 +11,11 @@ public interface ClueService {
     List<Clue> getClue();
 
     //根据当前页码和条件获取线索列表
-    List<Clue> getClueListByParams(Integer clue_userid,Integer clue_custome,Integer clue_product, PageUtil pu) ;
+    List<Clue> getClueListByParams(Integer clue_id,Integer clue_userid,Integer clue_custome,Integer clue_product,Integer user_jurisdiction, Integer start,Integer pageSize) ;
+
+
+    //根据负责人，客户，产品查询返回总记录数
+    int getClueCountByParams(@Param("clue_id") Integer clue_id,@Param("clue_userid")Integer clue_userid, @Param("user_jurisdiction") Integer user_jurisdiction,@Param("clue_product")Integer clue_product,@Param("clue_custome")Integer clue_custome) ;
 
 
     //新增线索（客户、员工、产品id必须是数据库存在的）
