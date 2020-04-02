@@ -115,6 +115,10 @@ public class ClueController {
            // 进行截取去掉.0
             String date=d.substring(0,19);
             clueList.get(i).setClue_date(date);
+            String cldate=clueList.get(i).getClueupdate_date();
+            if (cldate!=null) {
+                clueList.get(i).setClueupdate_date(cldate.substring(0, 19));
+            }
         }
         //将结果存入PageUtil里
         pu.setList(clueList);
@@ -221,6 +225,10 @@ public class ClueController {
             // 进行截取去掉.0
             String date=d.substring(0,19);
             clueList.get(i).setClue_date(date);
+            String cldate=clueList.get(i).getClueupdate_date();
+            if (cldate!=null) {
+                clueList.get(i).setClueupdate_date(cldate.substring(0, 19));
+            }
         }
         //将结果存入PageUtil里
         pu.setList(clueList);
