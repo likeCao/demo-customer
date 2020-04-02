@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSON;
@@ -74,7 +75,7 @@ public class ClueController {
             pages.setCurrentPageNo(currentPageNo);
         }
         //页面容量
-        Integer pageSize=1;
+        Integer pageSize=5;
         if(pagesize!=null)
             try{
                 pageSize = Integer.valueOf(pagesize);
@@ -184,7 +185,7 @@ public class ClueController {
             pages.setCurrentPageNo(currentPageNo);
         }
         //页面容量
-        Integer pageSize=1;
+        Integer pageSize=5;
         if(pagesize!=null)
             try{
                 pageSize = pagesize;
@@ -323,18 +324,29 @@ public class ClueController {
     }
 
     //删除线索
-    @RequestMapping(value="/deleteClue", produces={"application/json;charset=UTF-8"})
+    @RequestMapping(value="/deleteClue/{clue_id}", produces={"application/json;charset=UTF-8"})
     @ResponseBody
-    public String deleteClue(int clue_id,int clueupdate_clueid){
-        Map<String, Object> result = new HashMap<>() ;
-        int num=clueUpdateService.databaseClueUPdate(clueService.databaseClue(clue_id));
-        if (num >= 1){
-            result.put("msg","删除线索成功！");
-        }else{
-            result.put("msg","删除线索失败！");
+    public String deleteClue(@PathVariable("clue_id") Integer clue_id) {
+        Map<String, Object> result = new HashMap<>();
+        Integer clueupdate_clueid = clue_id;
+        int nu = clueUpdateService.databaseClueUPdate(clueupdate_clueid);
+        if (nu >= 1) {
+            int num = clueService.databaseClue(clue_id);
+            if (num >= 1) {
+                result.put("msg", "删除线索成功！");
+            } else {
+                result.put("msg", "删除线索失败！");
+            }
+        }else {
+            int nums=clueService.databaseClue(clue_id);
+            if (nums==1){
+                result.put("msg", "删除线索成功！");
+            }else {
+                result.put("msg", "删除线索失败！");
+            }
         }
         String jsonResult = JSON.toJSONString(result) ;
-        return "jsonResult";
+        return jsonResult;
 
     }
 
@@ -357,11 +369,10 @@ public class ClueController {
     }
 
     //根据id直接响应信息(查看显示信息)
-    @RequestMapping(value="/showClueInfo")
+    @RequestMapping(value="/showClueInfo/{clue_id}")
     @ResponseBody
-    public ClueUpdate showClueInfo(int clue_id) {
-        ClueUpdate clueUpdate=clueUpdateService.getClueInfoById(clue_id);
-
+    public ClueClueupdateinfo showClueInfo(@PathVariable("clue_id") Integer clue_id) {
+        ClueClueupdateinfo clueUpdate=clueUpdateService.getClueInfoById(clue_id);
         return clueUpdate ;
     }
 

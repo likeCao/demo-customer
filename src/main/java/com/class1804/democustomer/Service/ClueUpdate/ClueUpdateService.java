@@ -1,11 +1,12 @@
 package com.class1804.democustomer.Service.ClueUpdate;
 
-import com.class1804.democustomer.dao.ClueUpdate.ClueUpdateDao;
+
+import com.class1804.democustomer.pojo.ClueClueupdateinfo;
 import com.class1804.democustomer.pojo.ClueUpdate;
 
 public interface ClueUpdateService {
     //根据id获取线索信息
-    ClueUpdate getClueInfoById(int id);
+    ClueClueupdateinfo getClueInfoById(int id);
 
 
     //新增线索更新

@@ -186,6 +186,7 @@
                     <th class="head0"></th>
                     <th class="head1" ></th>
                     <th class="head1"></th>
+                    <th class="head1" ></th>
 
                 </tr>
                 </tfoot>
@@ -220,14 +221,17 @@
                 <button   onclick="toon()" id="shangyiye" th:value="${session.page.currentPageNo -1}" style=" margin: 10px">上一页</button>
                 <button   onclick="tonext()" id="xiayiye" th:value="${session.page.currentPageNo +1}" style=" margin: 10px">下一页</button>
                 <button   onclick="tolast()" id="weiye" th:value="${session.page.getTotalPageCount()}" style="margin: 10px">尾页</button>
-                <a href="#show" id="modaltrigger"></a>
+
             </ul>
 
         </div>
-        </div>
         <p id="uid" th:value="${session.loginUser.user_id}"></p>
+
+        </div>
 </div>
-    <div id="show"  style="text-align:center;border-radius:10px;width:500px;height:200px;font-size: 20px;color: #eeeeee; background-color: rgba(0,0,0,0.7)" >
+
+</div>
+<div id="show"  style="text-align:center;border-radius:10px;width:500px;height:200px;font-size: 20px;color: #eeeeee; background-color: rgba(0,0,0,0.7)" >
                     <span class="field" style="text-align:center;display:inline-block;margin-top: 70px;">
                         <h3>请选择要升级到的等级</h3><br/><br/>
                             <span id="pt"><input type="radio" name="customer_jurisdiction" value="4"  required="required"/> 普通客户</span> &nbsp; &nbsp;
@@ -237,14 +241,14 @@
                         <input style="width: 50px; height:30px;background-color: #0f91f5 ;color: #eeeeee;" value="提交" type="button" onclick="sj()"/>
 
                     </span>
-    </div>
 </div>
+<a href="#show" id="modaltrigger"></a>
 <!--修改功能实现-->
 <form id="updatecomm" >
 
 </form>
 <script>
-    $(".xiugai").click(function () {
+    $(".xiugai").live('click',function (){
         $("#updatecomm").attr("action",$(this).attr("del_uri")).submit();
         return false;
     })
@@ -252,7 +256,7 @@
     var sjurl;
 
     /*升级功能实现*/
-   $(".shengji").click(function fun(){
+   $(".shengji").live('click',function fun(){
       var cj =$(this).attr("cuj");
        sjurl =$(this).attr("sj_uri");
         if (cj>=4) {

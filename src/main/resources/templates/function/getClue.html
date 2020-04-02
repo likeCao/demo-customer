@@ -1,6 +1,40 @@
 <html   xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
 
+    <style  type="text/css">
+        #lean_overlay {
+            position: fixed;
+            z-index:100;
+            top: 0px;
+            left: 0px;
+            height:100%;
+            width:100%;
+            background: #000;
+            display: none;
+        }
+        #showClueDiv {
+            color: #eeeeee;
+            width: 500px;
+            height: 500px;
+            border-radius: 10px;
+            top: 100px;
+            left: 150px;
+            border: 1px solid blue;
+            background-color: rgba(0,0,0,0.7);
+            position: absolute;
+            z-index: 100;
+            display: none;
+        }
+        #showul p{
+            color: #eeeeee;
+            text-align: center;
+            width:450px;
+            height: 40px;
+            font-size:20px;
+        }
+
+    </style>
+
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
     <script th:src="@{/js/jquery-1.9.1.min.js}"></script>
     <script th:src="@{/js/H-ui.js}" type="text/javascript"></script>
@@ -9,30 +43,61 @@
     <span th:replace="/commons/left::left"></span>
     <script th:src="@{/js/jquery-3.4.1.js}"></script>
 
+    <span th:replace="/commons/js::js"></span>
 <script>
+
+    //单击删除链接，删除对应的一行记录
+    $(".deleteclue").live('click',function () {
+        if(confirm('确定要删除这行数据吗？')){
+                var url = $(this).attr("del_uri");
+                $.ajax({
+                    "type": "post",
+                    "url": url,
+                    "dataType": "json",
+                    "success": search,
+                    "error": function () {
+                        alert("系统错误");
+                    }
+                })
+            }else {
+        }
+    })
+
+    //删除的回调函数
+    function delCallback(result) {
+        if (result.code == 200) {
+            alert(result.msg);
+
+        } else {
+            alert(result.msg);
+        }
+    }
+
     var currentno="";
     var curr=1;
-        /*根据条件刷新列表页*/
-    
-        function search() {
-            /*获取条件*/
-            var clue_userid =$("#clue_userid").val();
-            var clue_custome=$("#clue_custome").val();
-            var clue_product=$("#clue_product").val();
-            var clue_id="";
-            var user_jurisdiction=$("#user_jurisdiction").val();
-            var pagesize =$("#ps").val();
-            currentno=curr;
-            $("#table1").load("/Clue/getCluelist",{
-                    clue_id:clue_id,
-                    clue_userid:clue_userid,
-                    clue_custome:clue_custome,
-                    clue_product:clue_product,
-                    user_jurisdiction:user_jurisdiction,
-                    currentno:currentno,
-                    pagesize:pagesize,
-            })
-        }
+    /*根据条件刷新列表页*/
+
+    function search() {
+        /*获取条件*/
+        var clue_userid =$("#clue_userid").val();
+        var clue_custome=$("#clue_custome").val();
+        var clue_product=$("#clue_product").val();
+        var clue_id="";
+        var user_jurisdiction=$("#user_jurisdiction").val();
+        var pagesize =$("#ps").val();
+        currentno=curr;
+        $("#table1").load("/Clue/getCluelist",{
+            clue_id:clue_id,
+            clue_userid:clue_userid,
+            clue_custome:clue_custome,
+            clue_product:clue_product,
+            user_jurisdiction:user_jurisdiction,
+            currentno:currentno,
+            pagesize:pagesize,
+        })
+    }
+
+
         /*分页*/
         function shouye() {
            curr=$("#shouye").val();
@@ -57,93 +122,41 @@
                 search();
         }
 
-            //单击删除链接，删除对应的一行记录
-            var delTr;
-            $("#remove").click(function () {
-                var clueupdate_id = $(this).attr("clueupdate_id");
-
-                delTr = $(this).parent().parent();
-
+            //弹出显示详情div
+            $(".selectinfo").live('click',function () {
+                var url = $(this).attr('sele_uri');
                 $.ajax({
                     "type": "post",
-                    "url": "/Clue/deleteClue",
-                    "data": "clueupdate_id=" + clueupdate_id,
+                    "url": url,
                     "dataType": "json",
-                    "success": delCallback,
+                    "success": function (result) {
+                        //渲染
+                        var infoStr = "<p>线索名称：" + result.clue_id + "</p>";
+                        infoStr += "<p>线索介绍：" + result.clue_content + "</p>";
+                        infoStr += "<p>负责人：" + result.cuName + "</p>";
+                        infoStr += "<p>此次跟进人：" + result.cluName + "</p>";
+                        infoStr += "<p>客户名称：" + result.ccName + "</p>";
+                        infoStr += "<p>产品名称：" + result.pname + "</p>";
+                        infoStr += "<p>线索创建日期：" + result.clue_date + "</p>";
+                        infoStr += "<p>线索更新日期：" + result.clueupdate_date + "</p>";
+                        infoStr += "<p>线索更新介绍：" + result.clueupdate_name + "</p>";
+                        infoStr += "<p>线索当前状态：" + result.clueupdate_state + "</p>";
+
+                        $("#modaltrigger").click();
+                        $(".clueDiv").html(infoStr);
+
+                    },
                     "error": function () {
                         alert("系统错误");
                     }
                 })
             })
 
-            //删除的回调函数
-            function delCallback(result) {
-                if (result.code == 200) {
-                    alert(result.msg);
-
-                    //行删除
-                    delTr.remove();
-                } else {
-                    alert(result.msg);
-                }
-            }
-
-
-
-            //弹出显示详情div
-            $(".btn btn4 btn_search").click(function(){
-                $("#showClueDiv").show() ;
-
-                var id = $(this).attr("clue_id") ;
-                //发送异步请求渲染详情
-                showClueInfo(id)
-            })
-
-            function showClueInfo(clue_id) {
-                $.ajax({
-                    "type": "post",
-                    "url": "/Clue/showClueInfo",
-                    "data": "clue_id="+clue_id,
-                    "dataType": "json",
-                    "success": function(result){
-                        //渲染
-                        var infoStr = "<p>线索名称："+result.clue_id+"</p>" ;
-                        infoStr += "<p>线索介绍："+result.clue_content+"</p>" ;
-                        infoStr += "<p>负责人："+result.uName+"</p>" ;
-                        infoStr += "<p>客户名称："+result.cName+"</p>" ;
-                        infoStr += "<p>产品名称："+result.pName+"</p>" ;
-                        infoStr += "<p>线索创建日期："+result.clue_date+"</p>" ;
-                        infoStr += "<p>线索更新日期："+result.clueupdate_date+"</p>" ;
-                        infoStr += "<p>线索更新介绍："+result.clueupdate_name+"</p>" ;
-                        infoStr += "<p>线索当前状态："+result.clueupdate_state+"</p>" ;
-
-                        $("#clueDiv").html(infoStr) ;
-                    },
-                    "error": function() {
-                        alert("系统错误") ;
-                    }
-                })
-            }
-
             //关闭用户详情框
             $("#closeShowDiv").click(function(){
                 $("#showClueDiv").hide() ;
             })
 </script>
-
-    <style  type="text/css">
-        #showClueDiv {
-            width: 500px;
-            height: 400px;
-            top: 100px;
-            left: 150px;
-            border: 1px solid blue;
-            background-color: white;
-            position: absolute;
-            z-index: 100;
-            display: none;
-        }
-    </style>
 
     <title>线索</title>
 </head>
@@ -208,7 +221,7 @@
         <button class="deletebutton radius3" title="新增线索"><a th:href="@{/Clue/toAddNewClue}">新增线索</a></button> &nbsp;
 
        <select id="ps" class="radius3" name="pageSize">
-            <option th:value="1">1</option>
+            <option th:value="5">5</option>
             <option th:value="10">10</option>
             <option th:value="20">20</option>
         </select> &nbsp;
@@ -252,7 +265,7 @@
         </tfoot>
 <tbody id="tables">
         <tbody id="table">
-        <tr th:each="clue:${pu.list}" id="tr_td">
+        <tr class="trr" th:each="clue:${pu.list}" id="tr_td">
             <td align="center"><input type="checkbox" /></td>
             <td id="clue_id" style="font-size: 13px;display: none;"  th:text="${clue.getClue_id()}"></td>
             <td id="clue_content" style="font-size: 13px;" th:text="${clue.getClue_content()}"></td>
@@ -261,29 +274,39 @@
             <td id="clueupdate" class="center" style="font-size: 13px;" th:text="${clue.getClueupdate_date()}"></td>
             <td id="cName" class="center" style="font-size: 13px;" th:text="${clue.getcName()}"></td>
             <td id="pName" class="center" style="font-size: 13px;" th:text="${clue.getpName()}"></td>
-            <td class="center" style="font-size: 13px;">&nbsp;<a href="" class="btn btn4 btn_search"></a>&nbsp;&nbsp;<a href="" id="remove" class="btn btn4 btn_trash"></a></td>
+            <td >
+                <a th:attr="sele_uri=@{/Clue/showClueInfo/}+${clue.clue_id}"  class="btn btn4 btn_search selectinfo"></a>
+
+                <a th:attr="del_uri=@{/Clue/deleteClue/}+${clue.clue_id}" class="btn btn4 btn_trash deleteclue" ></a>
+            </td>
+
         </tr>
     </tbody>
 
         </tbody>
     </table>
   <span>共查询到<span th:text="${session.cluepages.getTotalCount()}"></span>条记录&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span th:text="${session.cluepages.currentPageNo}"></span>/<span th:text="${session.cluepages.getTotalPageCount()}"></span></span>
-                    <button onclick="shouye()" th:value="1" id="shouye">首页</button>
+                    <button style="margin-left:700px;" onclick="shouye()" th:value="1" id="shouye">首页</button>
                     <button onclick="shangyiye()" th:value="${session.cluepages.getCurrentPageNo() -1}" id="shangyiye">上一页</button>
                     <button onclick="xiayiye()" th:value="${session.cluepages.getCurrentPageNo()}" id="xiayiye">下一页</button>
                     <button onclick="weiye()" th:value="${session.cluepages.getTotalPageCount()}" id="weiye">尾页</button>
     <!-- 弹出查看用户框 -->
     </div>
     <div id="showClueDiv">
-        <div id="closeClueDiv">X</div>
-        <div id="clueDiv"></div>
+        <h2 style="margin: 30px 180px;">线索详情</h2>
+     <div id="showul" class="clueDiv">
+
+     </div>
     </div>
 
-
+    <a href="#showClueDiv" id="modaltrigger">dsfdsfsdf</a>
 <!--列表结束-->
 </div>
+
  </body>
-<span th:replace="/commons/js::js"></span>
+<script>
+    $("#modaltrigger").leanModal({ top : 100, overlay : 0.4, closeButton: ".modal_close" });
+</script>
 </html>
 
 
