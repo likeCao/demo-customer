@@ -1,6 +1,5 @@
 <html   xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-
     <style  type="text/css">
         #lean_overlay {
             position: fixed;
@@ -63,16 +62,6 @@
         }
     })
 
-    //删除的回调函数
-    function delCallback(result) {
-        if (result.code == 200) {
-            alert(result.msg);
-
-        } else {
-            alert(result.msg);
-        }
-    }
-
     var currentno="";
     var curr=1;
     /*根据条件刷新列表页*/
@@ -122,40 +111,7 @@
                 search();
         }
 
-            //弹出显示详情div
-            $(".selectinfo").live('click',function () {
-                var url = $(this).attr('sele_uri');
-                $.ajax({
-                    "type": "post",
-                    "url": url,
-                    "dataType": "json",
-                    "success": function (result) {
-                        //渲染
-                        var infoStr = "<p>线索名称：" + result.clue_id + "</p>";
-                        infoStr += "<p>线索介绍：" + result.clue_content + "</p>";
-                        infoStr += "<p>负责人：" + result.cuName + "</p>";
-                        infoStr += "<p>此次跟进人：" + result.cluName + "</p>";
-                        infoStr += "<p>客户名称：" + result.ccName + "</p>";
-                        infoStr += "<p>产品名称：" + result.pname + "</p>";
-                        infoStr += "<p>线索创建日期：" + result.clue_date + "</p>";
-                        infoStr += "<p>线索更新日期：" + result.clueupdate_date + "</p>";
-                        infoStr += "<p>线索更新介绍：" + result.clueupdate_name + "</p>";
-                        infoStr += "<p>线索当前状态：" + result.clueupdate_state + "</p>";
 
-                        $("#modaltrigger").click();
-                        $(".clueDiv").html(infoStr);
-
-                    },
-                    "error": function () {
-                        alert("系统错误");
-                    }
-                })
-            })
-
-            //关闭用户详情框
-            $("#closeShowDiv").click(function(){
-                $("#showClueDiv").hide() ;
-            })
 </script>
 
     <title>线索</title>
@@ -276,8 +232,7 @@
             <td id="pName" class="center" style="font-size: 13px;" th:text="${clue.getpName()}"></td>
             <td >
                 <a th:attr="sele_uri=@{/Clue/showClueInfo/}+${clue.clue_id}"  class="btn btn4 btn_search selectinfo"></a>
-
-                <a th:attr="del_uri=@{/Clue/deleteClue/}+${clue.clue_id}" class="btn btn4 btn_trash deleteclue" ></a>
+                <a th:attr="del_uri=@{/Clue/deleteClue/}+${clue.clue_id},userid=${clue.clue_userid}" class="btn btn4 btn_trash deleteclue" ></a>
             </td>
 
         </tr>
@@ -292,19 +247,49 @@
                     <button onclick="weiye()" th:value="${session.cluepages.getTotalPageCount()}" id="weiye">尾页</button>
     <!-- 弹出查看用户框 -->
     </div>
-    <div id="showClueDiv">
-        <h2 style="margin: 30px 180px;">线索详情</h2>
-     <div id="showul" class="clueDiv">
-
-     </div>
-    </div>
 
     <a href="#showClueDiv" id="modaltrigger">dsfdsfsdf</a>
 <!--列表结束-->
 </div>
-
  </body>
+
+<div id="showClueDiv">
+    <h2 style="margin: 30px 180px;">线索详情</h2>
+    <div id="showul" class="clueDiv">
+
+    </div>
+</div>
 <script>
+    //弹出显示详情div
+    $(".selectinfo").live('click',function () {
+        var url = $(this).attr('sele_uri');
+        $.ajax({
+            "type": "post",
+            "url": url,
+            "dataType": "json",
+            "success": function (result) {
+                if (result==null||infoStr==''||infoStr==""){
+                    alert("此线索没有详细跟进记录");
+                }
+                //渲染
+                var infoStr = "<p>线索名称：" + result.clue_id + "</p>";
+                infoStr += "<p>线索介绍：" + result.clue_content + "</p>";
+                infoStr += "<p>负责人：" + result.cuName + "</p>";
+                infoStr += "<p>此次跟进人：" + result.cluName + "</p>";
+                infoStr += "<p>客户名称：" + result.ccName + "</p>";
+                infoStr += "<p>产品名称：" + result.pname + "</p>";
+                infoStr += "<p>线索创建日期：" + result.clue_date + "</p>";
+                infoStr += "<p>线索更新日期：" + result.clueupdate_date + "</p>";
+                infoStr += "<p>线索更新介绍：" + result.clueupdate_name + "</p>";
+                infoStr += "<p>线索当前状态：" + result.clueupdate_state + "</p>";
+                $("#modaltrigger").click();
+                $(".clueDiv").html(infoStr);
+            },
+            "error": function () {
+                alert("系统错误");
+            }
+        })
+    })
     $("#modaltrigger").leanModal({ top : 100, overlay : 0.4, closeButton: ".modal_close" });
 </script>
 </html>
