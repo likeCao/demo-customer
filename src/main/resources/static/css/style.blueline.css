@@ -74,7 +74,7 @@ form input[type="submit"] { background-color: #319cff; border-color: #2286e2; }
 .fc-header-title { border-bottom-color: #319cff; }
 .fc-button-prev:hover, .fc-button-next:hover { color: #319cff; }
 .fc-header-left span.fc-state-active { color: #319cff; }
-.fc-event { background-color: #319cff !important; }
+.fc-event { background-color: #319cff ; }
 .widgetbox .title { border-bottom-color: #319cff; }
 .contactlist li span.msgcount { background-color: #319cff; }
 .chatcontent .messagebox button { background-color: #319cff; border-color: #2286e2; }

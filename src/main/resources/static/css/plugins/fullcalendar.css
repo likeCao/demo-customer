@@ -205,7 +205,7 @@ html .fc,
 .fc-event {
 	font-size: .85em;
 	cursor: default;
-	background: #FB9337 !important; /* default BACKGROUND color */
+	background: #FB9337 ; /* default BACKGROUND color */
 	color: #333;
 	}
 	
@@ -268,18 +268,18 @@ a.fc-event {
 /* resizable */
 	
 .fc-event-hori .ui-resizable-e {
-	top: 0           !important; /* importants override pre jquery ui 1.7 styles */
-	right: -3px      !important;
-	width: 7px       !important;
-	height: 100%     !important;
+	top: 0           ; /* importants override pre jquery ui 1.7 styles */
+	right: -3px      ;
+	width: 7px       ;
+	height: 100%     ;
 	cursor: e-resize;
 	}
 	
 .fc-event-hori .ui-resizable-w {
-	top: 0           !important;
-	left: -3px       !important;
-	width: 7px       !important;
-	height: 100%     !important;
+	top: 0          ;
+	left: -3px      ;
+	width: 7px      ;
+	height: 100%    ;
 	cursor: w-resize;
 	}
 	
@@ -380,8 +380,8 @@ table.fc-border-separate {
 	}
 	
 .fc-widget-header {
-	font-weight: bold !important; font-size: 11px;
-	background: #f7f7f7 url(../../images/titlebg.png) repeat-x top left !important;
+	font-weight: bold ; font-size: 11px;
+	background: #f7f7f7 url(../../images/titlebg.png) repeat-x top left ;
 }	
 
 /* Month View, Basic Week View, Basic Day View
@@ -556,12 +556,12 @@ table.fc-border-separate {
 /* resizable */
 	
 .fc-event-vert .ui-resizable-s {
-	bottom: 0        !important; /* importants override pre jquery ui 1.7 styles */
-	width: 100%      !important;
-	height: 8px      !important;
-	overflow: hidden !important;
-	line-height: 8px !important;
-	font-size: 11px  !important;
+	bottom: 0        ; /* importants override pre jquery ui 1.7 styles */
+	width: 100%      ;
+	height: 8px     ;
+	overflow: hidden ;
+	line-height: 8px ;
+	font-size: 11px  ;
 	font-family: monospace;
 	text-align: center;
 	cursor: s-resize;
@@ -582,11 +582,11 @@ table.fc-border-separate {
 	width: 30px; background: url(../../images/titlebg.png) repeat-x top left; -moz-border-radius: 0 2px 2px 0; 
 	-webkit-border-radius: 0 2px 2px 0; border-radius: 0 2px 2px 0; font-size: 24px;
 }
-.fc-button-prev .fc-button-content, .fc-button-next .fc-button-content { line-height: 26px !important; padding: 0 10px; }
+.fc-button-prev .fc-button-content, .fc-button-next .fc-button-content { line-height: 26px ; padding: 0 10px; }
 
 .fc-button-month .fc-button-content, .fc-button-agendaWeek .fc-button-content, 
 .fc-button-agendaDay .fc-button-content, .fc-button-today .fc-button-content  { display: block; padding: 3px 10px; } 
-.fc-button-today { margin-right: 10px !important; -moz-border-radius: 2px; -webkit-border-radius: 2px; border-radius: 2px; }
+.fc-button-today { margin-right: 10px ; -moz-border-radius: 2px; -webkit-border-radius: 2px; border-radius: 2px; }
 
 .fc-button-month:hover, .fc-button-agendaWeek:hover, .fc-button-agendaDay:hover, 
 .fc-button-today:hover { background: #eee; }

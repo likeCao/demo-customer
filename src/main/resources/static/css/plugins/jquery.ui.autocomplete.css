@@ -13,7 +13,7 @@
 	-moz-border-radius: 0 0 2px 2px;
 	-webkit-border-radius: 0 0 2px 2px;
 	border-radius: 0 0 2px 2px;
-	z-index: 100 !important;
+	z-index: 100 ;
 }
 .ui-menu .ui-menu {
 	margin-top: -3px;

@@ -2,6 +2,7 @@ package com.class1804.democustomer.Controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 /*
 * 这个controller是实现模块跳转的后期可删
 * 前期勿删
@@ -124,7 +125,10 @@ public class Test {
     public String CustomerList(){
         return "/function/CustomerList";
     }
-
+    @RequestMapping("/updaCustomer")
+    public String toupdaCustomer(){
+        return  "/function/updaCustomer";
+    }
 
 
 

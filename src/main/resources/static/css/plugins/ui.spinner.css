@@ -5,4 +5,4 @@
 	border-radius: 0 2px 2px 0; cursor: pointer;
 }
 .ui-spinner-up { background: url(../../images/spinner.png) no-repeat -2px 0; border-bottom: 0; }
-.ui-spinner-down { background: url(../../images/spinner.png) no-repeat -2px -12px; height: 15px !important; }
+.ui-spinner-down { background: url(../../images/spinner.png) no-repeat -2px -12px; height: 15px ; }

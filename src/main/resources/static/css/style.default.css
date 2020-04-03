@@ -80,7 +80,7 @@ body.withmenucoll2 { background-position: 35px 0; } /* with menu style 2 in coll
 .one_half,.one_third,.two_third,.three_fourth,.one_fourth,.one_fifth,
 .two_fifth,.three_fifth,.four_fifth,.one_sixth,.five_sixth{ position:relative; margin-right:3%; float:left; }
 
-.last{ margin-right:0 !important; clear:right; }
+.last{ margin-right:0; clear:right; }
 
 
 
@@ -591,7 +591,7 @@ body.withmenucoll2 { background-position: 35px 0; } /* with menu style 2 in coll
 .overviewselect { float: right; margin-top: 1px; }
 .overviewhead input { border: 1px solid #ccc; padding: 8px 5px; -moz-border-radius: 2px; -webkit-border-radius: 2px; border-radius: 2px; }
 
-.overviewtable tr td, .overviewtable tr th { text-align: right !important; }
+.overviewtable tr td, .overviewtable tr th { text-align: right ; }
 .overviewtable tbody tr td { font-size: 24px; color: #111; font-family: 'RobotoBoldCondensed', Arial, Helvetica, sans-serif; }
 
 
@@ -784,7 +784,7 @@ body.withmenucoll2 { background-position: 35px 0; } /* with menu style 2 in coll
 /***** 17. CONTENT SLIDER STYLES *****/
 /*************************************/
 
-.bx-wrapper { border: 1px solid #ddd; width: auto !important; line-height: 21px; overflow: hidden; }
+.bx-wrapper { border: 1px solid #ddd; width: auto ; line-height: 21px; overflow: hidden; }
 .slide_wrap{ padding: 20px 50px ; min-height: 60px; }
 .bx-prev { 
 	position: absolute; top: 0; left: 0; width: 30px; height: 100%; opacity: 0.6; vertical-align: middle; 
@@ -825,8 +825,8 @@ body.withmenucoll2 { background-position: 35px 0; } /* with menu style 2 in coll
 .fc-button-today:hover { color: #FB9337; background: #eee; border-color: #ccc; }
 
 input.hasDatepicker { 
-	background-image: url(../images/icons/calendar.png) !important; background-repeat: no-repeat !important; 
-	background-position: 5px 7px !important; padding-left: 27px !important; width: 80px !important;  
+	background-image: url(../images/icons/calendar.png) ; background-repeat: no-repeat ;
+	background-position: 5px 7px ; padding-left: 27px ; width: 80px ;
 }
 
 
@@ -853,7 +853,7 @@ input.hasDatepicker {
 	background-image: url(../images/sort_asc.png); background-repeat: no-repeat; background-position: right 9px; }
 .stdtable thead th.sorting_desc, .stdtable thead td.sorting_desc  { 
 	background-image: url(../images/sort_desc.png); background-repeat: no-repeat; background-position: right 9px; }
-.stdtable thead th.nosort { background-image: none !important; }
+.stdtable thead th.nosort { background-image: none; }
 .stdtable thead td { font-weight: bold; }
 .stdtable thead td.center { text-align: center; }
 .stdtable tbody tr td { padding: 8px 10px; border-right: 1px solid #eee; border-bottom: 1px solid #eee; color: #666; }
@@ -1051,7 +1051,7 @@ form label.error { float: none; color: #f00; font-size: 11px; display: block; te
 .wizard .tabbedmenu li a.done span.h2, .wizard .tabbedmenu li a.done span { color: #FB9337; }
 
 .stepContainer { 
-	width: auto !important; height: auto !important; border: 1px solid #ddd; border-bottom: 0;  overflow: hidden;
+	width: auto ; height: auto ; border: 1px solid #ddd; border-bottom: 0;  overflow: hidden;
 	-moz-border-radius: 2px 2px 0 0; -webkit-border-radius: 2px 2px 0 0; border-radius: 2px 2px 0 0; padding: 0;
 }
 .stepContainer .content h4 { 
@@ -1131,8 +1131,8 @@ form label.error { float: none; color: #f00; font-size: 11px; display: block; te
 .quickform2 { margin: 10px; }
 .quickform2 p { margin: 10px 0; }
 .quickform2 label { display: block; margin-bottom: 5px; color: #333; width: 100px; }
-.quickform2 input { width: 300px !important; }
-.quickform2 input.smallinput { width: 60px !important; }
+.quickform2 input { width: 300px ; }
+.quickform2 input.smallinput { width: 60px ; }
 .quickform2 .action { margin-left: 120px; }
 
 
@@ -1173,7 +1173,7 @@ form label.error { float: none; color: #f00; font-size: 11px; display: block; te
 .pagination li a:hover { cursor: pointer; text-decoration: none; background: #eee; }
 .pagination li a.current { background: #FB9337; color: #fff; border: 1px solid #F0882C; }
 .pagination li.first a:active, .pagination li.previous a:active, .pagination li.next a:active, .pagination li.last a:active {
-	background: #333; color: #fff; border 1px solid #272727;
+	background: #333; color: #fff; border: 1px solid #272727;
 }
 .pagination li a.disable { color: #ccc; }
 .pagination li a.disable:hover { background: #f7f7f7; cursor: default; }
@@ -1876,7 +1876,7 @@ blockquote.bq2 {
 
 
 .alignright { text-align: right; }
-.aligncenter { text-align: center !important; }
+.aligncenter { text-align: center ; }
 .radius2 { -moz-border-radius: 2px; -webkit-border-radius: 2px; border-radius: 2px; }
 .nopadding { padding: 0; }
 .padding10 { padding: 10px; }
@@ -2140,7 +2140,7 @@ blockquote.bq2 {
 	
 	/* PHOTO SHARING */
 	.photosharing_wrapper { width: auto; float: none; }
-	.ps_sidebar { width: auto; float: none; padding: 20px 0; margin: 20px !important; border-top: 1px solid #ddd; }
+	.ps_sidebar { width: auto; float: none; padding: 20px 0; margin: 20px ; border-top: 1px solid #ddd; }
 	
 	
 	/* GALLERY */
@@ -2247,7 +2247,7 @@ blockquote.bq2 {
 	.shortcuts li { width: 100px; }
 	.progress150 { width: auto; }
 	.overviewselect div.selector { width: 75px; }
-	.overviewhead input.hasDatepicker { width: 60px !important; font-size: 11px; }
+	.overviewhead input.hasDatepicker { width: 60px ; font-size: 11px; }
 	.hornav li a { font-size: 12px; padding: 10px; }
 	
 	#charts .one_half { float: none; width: auto; margin: 0; }
@@ -2389,7 +2389,7 @@ blockquote.bq2 {
 	
 	/* ELEMENTS */
 	.flatmode { display: none; }
-	.colorpicker { left: 40px !important; }
+	.colorpicker { left: 40px ; }
 	
 	/* WIDGETS */
 	.slide_img { float: none; }
@@ -2440,11 +2440,11 @@ blockquote.bq2 {
 	.mailinbox td:nth-child(2), .mailinbox th:nth-child(2) { border-left: 1px solid #ddd; }
 	
 	/* FILE MANAGER */
-	.newfoldbtn { margin: 10px 5px 0 0 !important; }
+	.newfoldbtn { margin: 10px 5px 0 0 ; }
 	.filemgr_menu form input.filekeyword { width: 150px; }
 	
 	/* ELEMENTS */
-	.colorpicker { left: 30px !important; }
+	.colorpicker { left: 30px; }
 	
 	
 	/* WIDGETS */
@@ -2463,16 +2463,16 @@ blockquote.bq2 {
 	.headermenu li a { min-width: 65px; }
 	
 	/* DASHBOARD */
-	.overviewhead input.hasDatepicker { width: 38px !important; }
+	.overviewhead input.hasDatepicker { width: 38px ; }
 	.overviewselect { padding-right: 8px; }
 	.overviewselect div.selector { width: 100%; }
-	.blogmenu li a { font-size: 11px !important; padding: 10px 5px; }
+	.blogmenu li a { font-size: 11px ; padding: 10px 5px; }
 	
 	/* FORMS */
 	.tagsinput { width: auto; }
 	
 	/* FILE MANAGER */
-	.viewfilebtn { margin: 10px 5px 0 0 !important; }
+	.viewfilebtn { margin: 10px 5px 0 0 ; }
 	.filemgr_menu li a.newfilebutton { font-size: 11px; padding: 4px 5px; }
 	.filemgr_menu form input.filekeyword { width: 130px; }
 	.filemgr_category ul li a { padding: 2px 3px; font-size: 10px; }

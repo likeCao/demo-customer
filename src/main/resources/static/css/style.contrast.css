@@ -84,7 +84,7 @@ form input[type="submit"] { background-color: #ff4800; border-color: #de4204; }
 .fc-header-title { border-bottom-color: #ff4800; }
 .fc-button-prev:hover, .fc-button-next:hover { color: #ff4800; }
 .fc-header-left span.fc-state-active { color: #ff4800; }
-.fc-event { background-color: #ff4800 !important; }
+.fc-event { background-color: #ff4800 ; }
 .widgetbox .title { border-bottom-color: #ff4800; }
 .contactlist li span.msgcount { background-color: #ff4800; }
 .chatcontent .messagebox button { background-color: #ff4800; border-color: #de4204; }
